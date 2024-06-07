@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCheckDullMutation } from './usersApiSlice';
+import { useCheckDullMutation } from './NoteApiSlice';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';

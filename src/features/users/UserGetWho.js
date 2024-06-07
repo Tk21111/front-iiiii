@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useGetWhoMutation } from './usersApiSlice';
+import { useGetWhoMutation } from './NoteApiSlice';
 import WhoReU from './UserNoToName';
 import { Link } from 'react-router-dom';
 

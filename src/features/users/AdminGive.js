@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAdminGiveMutation } from './usersApiSlice';
+import { useAdminGiveMutation } from './NoteApiSlice';
 import { Link } from 'react-router-dom';
 
 const Usercheck = () => {

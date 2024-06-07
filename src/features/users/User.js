@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetOMutation } from './usersApiSlice';
+import { useGetOMutation } from './NoteApiSlice';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';

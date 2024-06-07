@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetOMutation , useGetOuQuery ,useGetUsersQuery} from './usersApiSlice';
+import { useGetOMutation , useGetOuQuery ,useGetUsersQuery} from './NoteApiSlice';
 import WhoReU from './UserNoToName';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
