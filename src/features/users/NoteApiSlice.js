@@ -1,6 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { useSelector } from 'react-redux';
-import { selectCurrentToken } from "../auth/authSlice";
+
 
 
 export const noteApislice = apiSlice.injectEndpoints({
@@ -10,8 +9,8 @@ export const noteApislice = apiSlice.injectEndpoints({
         }),
         getAllNoteUser: builder.mutation({ //username didn't get use the func intent is not working
             query: (data) => ({
-                url: '/note',
-                method: 'GET',
+                url: '/note/',
+                method: 'PATCH',
                 credential: 'include',
                 body : {...data}
                 
