@@ -17,14 +17,6 @@ export const noteApislice = apiSlice.injectEndpoints({
                 
             }),
         }),
-        updateNote : builder.mutation({
-            query: (data) => ({ //same
-                url: '/note/update',
-                method: 'POST',
-                credential : 'include',
-                body : { ...data}
-            }),
-        }),
         createNote : builder.mutation({
             query: (data) => ({ //same
                 url: '/note/create',
@@ -47,4 +39,4 @@ export const noteApislice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery ,useUpdateNoteMutation } = noteApislice;
+export const { useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery  } = noteApislice;
