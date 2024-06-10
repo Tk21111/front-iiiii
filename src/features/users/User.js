@@ -33,7 +33,7 @@ const GetAllNoteUser = () => {
                 <h1>Your giver is</h1>
                 <ul>
                     {users.map((user, i) => (
-                        <li key={i}>{`Food : ${user.text}  have : ${user.count}  is expired :  ${user.done} timeout : ${user.timeOut? user.timeOut : "undefined"}tag : ${user.tag ? user.tag : 'undefined'}`}</li>
+                        <li key={i}>{`Food : ${user.text}  have : ${user.count}  is expired :  ${user.done}  timeout : ${user.timeOut? user.timeOut : "undefined"}  tag : ${user.tag ? user.tag : 'undefined'}`}</li>
                     ))}
                 </ul>
                 <Link to="/welcome">Back to Welcome</Link>

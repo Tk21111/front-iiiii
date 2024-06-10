@@ -1,8 +1,13 @@
 import { apiSlice } from "../../app/api/apiSlice";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 
+const noteAdapter = createEntityAdapter({
+    sortComparer: (a, b) => b.timeOut.localeCompare(a.timeOut)
+})
 
+const initialState = noteAdapter.getInitialState()
 
-export const noteApislice = apiSlice.injectEndpoints({
+export const noteApislice = apiSlice.injectEndpoints({ 
     endpoints: builder => ({
         getAllnote: builder.query({
             query: () => '/note/all',
@@ -23,6 +28,7 @@ export const noteApislice = apiSlice.injectEndpoints({
                 credential : 'include',
                 body : { ...data}
             }),
+            invalidatesTags : ['Todos']
         }),
         deleteNote : builder.mutation({
             query: (data) => ({ //same
@@ -33,6 +39,7 @@ export const noteApislice = apiSlice.injectEndpoints({
                     ...data
                 }
             }),
+            invalidatesTags : ['Todos']
          }),
         
     })

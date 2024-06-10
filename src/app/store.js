@@ -9,9 +9,10 @@ export const store = configureStore({
         //from authSlice
         auth : authReducer
     },
+    //manage cahe life time and require in rtk
     middleware : getdefaultMiddleware =>
         getdefaultMiddleware().concat(apiSlice.middleware),
-    devTools : false
+    devTools : true
 })
 
 setupListeners(store.dispatch)
