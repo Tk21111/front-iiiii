@@ -28,7 +28,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
-                    return [
+                    return [ //declear in 1 use LIST then spead the result id in 'Note' and 
                         { type: 'Note', id: 'LIST' },
                         ...result.ids.map(id => ({ type: 'Note', id }))
                     ]

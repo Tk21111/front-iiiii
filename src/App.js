@@ -14,6 +14,7 @@ import AdminGive from './features/users/AdminGive'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
+import GetAllLoca from './features/loca/Giveto'
 function App() {
   return (
     <Routes>
@@ -33,7 +34,7 @@ function App() {
               <Route path="usergetnum" element={<UsergetNum />} />
               <Route path="usergetwho" element={<UsergetWho/>} />
               <Route path="recommend" element={<Recommend/>} />
-              <Route path="admincmd" element={<AdminGive/>} />
+              <Route path="location" element={<GetAllLoca/>} />
               <Route path="logout" element={<LogOut/>} />
             </Route>
           </Route>

@@ -6,11 +6,11 @@ import { selectCurrentToken } from "../auth/authSlice";
 export const locaApislice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getAllloca: builder.query({
-            query: () => '/loca/all',
+            query: () => '/location/all',
         }),
         createloca : builder.mutation({
             query: (data) => ({ //same
-                url: '/loca/create',
+                url: '/location/create',
                 method: 'POST',
                 credential : 'include',
                 body : { ...data}
@@ -18,7 +18,7 @@ export const locaApislice = apiSlice.injectEndpoints({
         }),
         deleteloca : builder.mutation({
             query: (data) => ({ //same
-                url: '/loca/delete',
+                url: '/location/delete',
                 method: 'DELETE',
                 credential : 'include',
                 body : {

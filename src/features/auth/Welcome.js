@@ -18,10 +18,10 @@ const Welcome = () => {
             <h2> After เฉลย </h2>
             <p><Link to="/userslist">Go to the Users List</Link></p>
             <p><Link to="/usergetwho"> Who is your buddy???? </Link></p>
-            <h2> For Admin </h2>
+            <h2> IIGHHUSADUHFUIHFUIHF app</h2>
             <p>  To lazy for check role in frontend</p>
-            <p><Link to="/recommend"> check for a duplicate </Link></p>
-            <p><Link to="/admincmd"> admin give premison</Link></p>
+            <p><Link to="/recommend"> for recommendation </Link></p>
+            <p><Link to="/location"> for location</Link></p>
             <h2> Log out idk why u need this lol</h2>
             <p><Link to="/logout"> log out</Link></p>
         </section>
