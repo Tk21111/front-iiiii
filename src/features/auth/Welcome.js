@@ -20,7 +20,7 @@ const Welcome = () => {
             <p><Link to="/usergetwho"> Who is your buddy???? </Link></p>
             <h2> For Admin </h2>
             <p>  To lazy for check role in frontend</p>
-            <p><Link to="/usercheck"> check for a duplicate </Link></p>
+            <p><Link to="/recommend"> check for a duplicate </Link></p>
             <p><Link to="/admincmd"> admin give premison</Link></p>
             <h2> Log out idk why u need this lol</h2>
             <p><Link to="/logout"> log out</Link></p>

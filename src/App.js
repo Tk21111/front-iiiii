@@ -9,7 +9,7 @@ import User from './features/users/User'
 import UsergetNum from './features/users/UserGetNum'
 import Signin from './features/auth/Hsignin'
 import UsergetWho from './features/users/UserGetWho'
-import Usercheck from './features/users/UserCheck'
+import Recommend from './features/users/Recommendtion'
 import AdminGive from './features/users/AdminGive'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
@@ -32,7 +32,7 @@ function App() {
               <Route path="user" element={<User />} />
               <Route path="usergetnum" element={<UsergetNum />} />
               <Route path="usergetwho" element={<UsergetWho/>} />
-              <Route path="usercheck" element={<Usercheck/>} />
+              <Route path="recommend" element={<Recommend/>} />
               <Route path="admincmd" element={<AdminGive/>} />
               <Route path="logout" element={<LogOut/>} />
             </Route>
