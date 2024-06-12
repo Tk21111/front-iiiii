@@ -34,13 +34,7 @@ const GetAllNoteUser = () => {
         //this is what u have to modifine
         console.log(users);
         const jsonString = JSON.stringify(users)
-        content = (
-            <section className="users">
-                <h1>Your giver is</h1>
-                <h2> {jsonString} </h2>
-                <Link to="/welcome">Back to Welcome</Link>
-            </section>
-        );
+        content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
     } else if (isError) {
         let msg;
         if (error.status === 403) {

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useCreatelocaMutation } from './LocaApiSlice';
 import { Link } from 'react-router-dom';
-import { create } from '../../../../backend/model/Loca';
 
-const Usercheck = () => {
+const LocaCreate = () => {
     const [createloca, { data: users, isLoading , isError, error }] = useCreatelocaMutation();
     const [msg, setMsg] = useState('');
     const [town, setTown] = useState('');
@@ -17,6 +16,7 @@ const Usercheck = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (town || subdistrict || county ){
         //temporaiy
             try {
                 await createloca({ town , subdistrict , county , more }).unwrap();
@@ -33,12 +33,12 @@ const Usercheck = () => {
                     setMsg('Failed');
                 }
             }
-        
+        }
     };
 
     const handleTownInput = (e) => setTown(e.target.value);
     const handleSubdistrictInput = (e) => setSubdistrict(e.target.value);
-    const handleCountryInput = (e) => setCounty(e.target.value);
+    const handleCountyInput = (e) => setCounty(e.target.value);
     const handleMoreInput = (e) => setMore(e.target.value);
 
     let content;
@@ -48,7 +48,7 @@ const Usercheck = () => {
                 <p className={msg ? "done" : "offscreen"} aria-live="assertive">{msg}</p>
                 <h1>Given permission to see</h1>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="pwd">Password:</label>
+                    <label htmlFor="pwd">town:</label>
                     <input
                         type="text"
                         id="town"
@@ -57,7 +57,7 @@ const Usercheck = () => {
                         autoComplete="off"
                         required
                     />
-                    <label htmlFor="pwd">Password:</label>
+                    <label htmlFor="pwd">subdistrict:</label>
                     <input
                         type="text"
                         id="subdistrict"
@@ -66,16 +66,16 @@ const Usercheck = () => {
                         autoComplete="off"
                         required
                     />
-                    <label htmlFor="pwd">Password:</label>
+                    <label htmlFor="pwd">county:</label>
                     <input
                         type="text"
-                        id="country"
-                        value={country}
-                        onChange={handleCountryInput}
+                        id="county"
+                        value={county}
+                        onChange={handleCountyInput}
                         autoComplete="off"
                         required
                     />
-                    <label htmlFor="pwd">Password:</label>
+                    <label htmlFor="pwd">more:</label>
                     <input
                         type="text"
                         id="more"
@@ -95,4 +95,4 @@ const Usercheck = () => {
     return content;
 }
 
-export default Usercheck;
+export default LocaCreate;

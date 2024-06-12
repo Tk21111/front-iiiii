@@ -35,6 +35,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/refresh',
                 method: 'GET',
+                credential : true,
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled  }) {  //dispatch , queryFulfiled is useState() property
                 try {

@@ -11,6 +11,7 @@ import Signin from './features/auth/Hsignin'
 import UsergetWho from './features/users/UserGetWho'
 import Recommend from './features/users/Recommendtion'
 import AdminGive from './features/users/AdminGive'
+import LocaCreate from './features/loca/UserEdit'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
@@ -34,6 +35,7 @@ function App() {
               <Route path="usergetnum" element={<UsergetNum />} />
               <Route path="usergetwho" element={<UsergetWho/>} />
               <Route path="recommend" element={<Recommend/>} />
+              <Route path="location/create" element={<LocaCreate/>} />
               <Route path="location" element={<GetAllLoca/>} />
               <Route path="logout" element={<LogOut/>} />
             </Route>

@@ -2,15 +2,16 @@ import { Outlet, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useRefreshMutation } from "./authApiSlice";
 import usePersist from "../../hooks/usePersist";
-import { useSelector } from 'react-redux';
-import { selectCurrentToken } from "./authSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentToken, setCredentials } from "./authSlice";
 import PulseLoader from 'react-spinners/PulseLoader';
+import { jwtDecode } from 'jwt-decode';
 
 const PersistLogin = () => {
     const [persist] = usePersist();
     const token = useSelector(selectCurrentToken);
+    const dispatch = useDispatch(); // Moved useDispatch here
     const effectRan = useRef(false);
-
     const [trueSuccess, setTrueSuccess] = useState(false);
 
     const [refresh, {
@@ -22,22 +23,33 @@ const PersistLogin = () => {
     }] = useRefreshMutation();
 
     useEffect(() => {
+        const verifyRefreshToken = async () => {
+            try {
+                await refresh();
+                setTrueSuccess(true);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
         // Skip the first effect run in development mode due to React 18 Strict Mode
         if (effectRan.current === true || process.env.NODE_ENV !== 'development') {
-            const verifyRefreshToken = async () => {
-                try {
-                    await refresh();
-                    setTrueSuccess(true);
-
-                } catch (err) {
-                    console.error(err);
+            if (!token && persist) {
+                verifyRefreshToken()
+                /*
+                if (token) {
+                    console.log(token);
+                    const decoded = jwtDecode(token);
+                    dispatch(setCredentials({ "username": decoded.username }));
                 }
+                    */
             };
-            if (!token && persist) verifyRefreshToken();
         }
 
-        return () => effectRan.current = true;
-    }, [token, persist, refresh]);
+        return () => {
+            effectRan.current = true;
+        };
+    }, [token, persist, refresh, dispatch]); // Added dispatch to dependency array
 
     let content;
 

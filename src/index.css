@@ -74,3 +74,44 @@ a:hover, a:focus {
 .users ul {
   list-style-type: none;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  height: 200px;
+}
+
+.postCredit {
+  font-size: 1rem;
+}
+
+.postCredit a, 
+.postCredit a:visited {
+  margin-right: 0.5rem;
+  color: black;
+}
+
+.postCredit a:hover, 
+.postCredit a:focus {
+  color: hsla(0, 0%, 0%, 0.75);
+}
+
+.excerpt {
+  font-style: italic;
+}
+
+.reactionButton {
+  margin: 0 0.25em 0 0;
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 1rem;
+}
+
+.deleteButton {
+  background-color: palevioletred;
+  color: white;
+}

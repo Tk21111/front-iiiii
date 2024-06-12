@@ -17,9 +17,10 @@ const GetAllLoca = () => {
         const jsonString = JSON.stringify(users)
         content = (
             <section className="users">
-                <h1>Your giver is</h1>
+                <h1>Location page</h1>
                 <h2> {jsonString} </h2>
                 <Link to="/welcome">Back to Welcome</Link>
+                <Link to="/location/create"> create sharing location</Link>
             </section>
         );
     } else if (isError) {
@@ -33,6 +34,7 @@ const GetAllLoca = () => {
             <section>
                 <h1>{msg}</h1>
                 <Link to="/welcome">Back to Welcome</Link>
+                <Link to="/location/create"> create sharing location</Link>
             </section>
         );
     }

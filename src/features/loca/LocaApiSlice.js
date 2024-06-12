@@ -12,7 +12,6 @@ export const locaApislice = apiSlice.injectEndpoints({
             query: (data) => ({ //same
                 url: '/location/create',
                 method: 'POST',
-                credential : 'include',
                 body : { ...data}
             }),
         }),
