@@ -33,6 +33,7 @@ const GetAllNoteUser = () => {
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
+        //wrong data type wtf i'm doing 23.30 12/6/2024
         console.log(users);
         const usersEn = users.entities
         console.log(usersEn)
