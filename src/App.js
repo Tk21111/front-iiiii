@@ -11,6 +11,8 @@ import Signin from './features/auth/Hsignin'
 import UsergetWho from './features/users/UserGetWho'
 import Recommend from './features/users/Recommendtion'
 import AdminGive from './features/users/AdminGive'
+import SinglePostPage from './features/users/SigleNotePage'
+import EditPostForm from './features/users/EditNoteform'
 import LocaCreate from './features/loca/UserEdit'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
@@ -33,6 +35,7 @@ function App() {
               <Route path="userslist" element={<UsersList />} />
               <Route path="user" element={<User />} />
               <Route path="usergetnum" element={<UsergetNum />} />
+              <Route path=":postId" element={<SinglePostPage />} />
               <Route path="usergetwho" element={<UsergetWho/>} />
               <Route path="recommend" element={<Recommend/>} />
               <Route path="location/create" element={<LocaCreate/>} />
