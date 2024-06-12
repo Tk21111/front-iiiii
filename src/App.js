@@ -26,7 +26,7 @@ function App() {
         <Route index element={<Public />} />
         <Route path="registor" element={<Signin/>} />
         <Route path="login" element={<Login />} />
-
+        ขห น่ารัก
         {/* protected routes */}
         <Route element={<PersistLogin/>}>
           <Route element={<RequireAuth/>}>

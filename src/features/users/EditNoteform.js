@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useGetPostsQuery } from './postsSlice';
-import { useUpdatePostMutation, useDeletePostMutation } from "./postsSlice";
-import { useGetUsersQuery } from '../users/usersSlice';
+import { useGetAllnoteQuery } from './NoteApiSlice';
+import { useDeleteNoteMutation, useUpdateNoteMutation } from "./NoteApiSlice";
 
 const EditPostForm = () => {
     const { postId } = useParams()
     const navigate = useNavigate()
 
-    const [updatePost, { isLoading }] = useUpdatePostMutation()
+    const [updateNost, { isLoading }] = useUpdateNoteMutation()
     const [deletePost] = useDeletePostMutation()
 
-    const { post, isLoading: isLoadingPosts, isSuccess } = useGetPostsQuery('getPosts', {
+    const { post, isLoading: isLoadingPosts, isSuccess } = useGetAllnoteQuery('getPosts', {
         selectFromResult: ({ data, isLoading, isSuccess }) => ({
             post: data?.entities[postId],
             isLoading,
@@ -19,7 +18,6 @@ const EditPostForm = () => {
         }),
     })
 
-    const { data: users, isSuccess: isSuccessUsers } = useGetUsersQuery('getUsers')
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
@@ -27,11 +25,10 @@ const EditPostForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            setTitle(post.title)
-            setContent(post.body)
-            setUserId(post.userId)
+            setTitle(post.text)
+            setContent(post.timeOut)
         }
-    }, [isSuccess, post?.title, post?.body, post?.userId])
+    }, [isSuccess, post?.text])
 
     if (isLoadingPosts) return <p>Loading...</p>
 
@@ -52,7 +49,7 @@ const EditPostForm = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updatePost({ id: post?.id, title, body: content, userId }).unwrap()
+                await updateNost({ id: post?.id, title, body: content, userId }).unwrap()
 
                 setTitle('')
                 setContent('')

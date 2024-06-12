@@ -12,10 +12,23 @@ export const noteApislice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getAllnote: builder.query({
             query: () => '/note/all',
-            invalidatesTags: [
-                { type: 'Note', id: "LIST" }
-            ]
+            transformResponse : responseData => {
+                const loadedNotes = responseData.map(note => {
+                    note.id = note._id
+                    return note
+                });
+                return notesAdapter.setAll(initialState , loadedNotes)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Note', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Note', id }))
+                    ]
+                } else return [{ type: 'Note', id: 'LIST' }]
+            }
         }),
+        
         
         getAllNoteUser: builder.mutation({ //username didn't get use the func intent is not working
             query: (data) => ({
@@ -42,6 +55,7 @@ export const noteApislice = apiSlice.injectEndpoints({
                     ]
                 } else return [{ type: 'Note', id: 'LIST' }]
             }
+           
         }),
         createNote : builder.mutation({
             query: (data) => ({ //same
@@ -83,7 +97,7 @@ export const noteApislice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery  } = noteApislice;
+export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery  } = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
 
