@@ -1,83 +1,117 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useGetAllnoteQuery } from './NoteApiSlice';
-import { useDeleteNoteMutation, useUpdateNoteMutation } from "./NoteApiSlice";
+import { useGetAllNoteUserMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../auth/authSlice';
 
 const EditPostForm = () => {
-    const { postId } = useParams()
+    const { noteId } = useParams()
     const navigate = useNavigate()
+    console.log(noteId)
 
-    const [updateNost, { isLoading }] = useUpdateNoteMutation()
-    const [deletePost] = useDeletePostMutation()
+    const [updateNote, { isLoading }] = useUpdateNoteMutation()
+    const [deletePost] = useDeleteNoteMutation()
 
-    const { post, isLoading: isLoadingPosts, isSuccess } = useGetAllnoteQuery('getPosts', {
-        selectFromResult: ({ data, isLoading, isSuccess }) => ({
-            post: data?.entities[postId],
-            isLoading,
-            isSuccess
-        }),
-    })
-
-
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [userId, setUserId] = useState('')
+    const username = useSelector(selectCurrentUser);
+    const [getAllNoteUser, { isLoading: isLoadingNotes }] = useGetAllNoteUserMutation();
+    const [note, setNote] = useState(null);
 
     useEffect(() => {
-        if (isSuccess) {
-            setTitle(post.text)
-            setContent(post.timeOut)
+        const fetchData = async () => {
+            try {
+                const result = await getAllNoteUser({ username }).unwrap();
+                setNote(result.entities[noteId]);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [getAllNoteUser, username, noteId]);
+
+    const [title, setTitle] = useState('')
+    const [ExpTime, setExpTime] = useState(Date)
+    const [count, setCount] = useState(0)
+    const [countExp, setCountExp] = useState(0)
+    const [tag, setTag] = useState([])
+    const [done, setDone] = useState(false)
+
+    useEffect(() => {
+        if (note) {
+            setTitle(note.text ?? 'undefined')
+            //down
+            setExpTime(
+                (note) => {
+                    if (note.timeOut) {
+                        console.log(note.timeOut)
+                        let date = note.timeOut;
+                        if (date) {
+                            let dateRefactor = date.split('T')[0];
+                            return dateRefactor;
+                        }
+                        return date;
+                    } else {
+                        return '';
+                    }
+                }
+            );
+            
+            setCount(note.count ?? 0)
+            setCountExp(note.countExp ?? 0)
+            setDone(note.done ?? false)
+            setTag(note.tag ?? [])
         }
-    }, [isSuccess, post?.text])
+    }, [note]);
 
-    if (isLoadingPosts) return <p>Loading...</p>
+    if (isLoadingNotes) return <p>Loading...</p>
 
-    if (!post) {
+    if (!note) {
         return (
             <section>
-                <h2>Post not found!</h2>
+                <h2>Note not found!</h2>
             </section>
         )
     }
 
     const onTitleChanged = e => setTitle(e.target.value)
-    const onContentChanged = e => setContent(e.target.value)
-    const onAuthorChanged = e => setUserId(Number(e.target.value))
+    const onExpTimeChanged = e => setExpTime(e.target.value)
+    const oncountChanged = e => setCount(e.target.value)
+    const oncountExpChanged = e => setCountExp(e.target.value)
+    const ontagChanged = e => setTag(e.target.value)
+    const ondoneChanged = e => setDone(e.target.value)
 
-    const canSave = [title, content, userId].every(Boolean) && !isLoading;
+    const canSave = [title, ExpTime , count , countExp , tag].every(Boolean) && !isLoading;
 
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNost({ id: post?.id, title, body: content, userId }).unwrap()
+                await updateNote({ id: note.id, text : title, date : ExpTime , count ,countExp , done , tag  }).unwrap()
 
                 setTitle('')
-                setContent('')
-                setUserId('')
-                navigate(`/post/${postId}`)
+                setCount(0)
+                setCountExp(0)
+                setDone(false)
+                setTag([])
+                setExpTime('')
+                console.log('runed')
+                navigate(`/note/${note.id}`)
             } catch (err) {
                 console.error('Failed to save the post', err)
             }
         }
     }
 
-    let usersOptions
-    if (isSuccessUsers) {
-        usersOptions = users.ids.map(id => (
-            <option
-                key={id}
-                value={id}
-            >{users.entities[id].name}</option>
-        ))
-    }
-
     const onDeletePostClicked = async () => {
         try {
-            await deletePost({ id: post?.id }).unwrap()
+            await deletePost({ id: note.id , username : username  }).unwrap()
 
             setTitle('')
-            setContent('')
-            setUserId('')
+            setCount(0)
+            setCountExp(0)
+            setDone(false)
+            setTag([])
+            setExpTime('')
+
             navigate('/')
         } catch (err) {
             console.error('Failed to delete the post', err)
@@ -96,17 +130,40 @@ const EditPostForm = () => {
                     value={title}
                     onChange={onTitleChanged}
                 />
-                <label htmlFor="postAuthor">Author:</label>
-                <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-                    <option value=""></option>
-                    {usersOptions}
-                </select>
-                <label htmlFor="postContent">Content:</label>
+                <label htmlFor="postExpTime">ExpTime:</label>
                 <textarea
-                    id="postContent"
-                    name="postContent"
-                    value={content}
-                    onChange={onContentChanged}
+                    id="postExpTime"
+                    name="postExpTime"
+                    value={ExpTime}
+                    onChange={onExpTimeChanged}
+                />
+                <label htmlFor="postExpTime">count:</label>
+                <textarea
+                    id="postExpTime"
+                    name="postExpTime"
+                    value={count}
+                    onChange={oncountChanged}
+                />
+                <label htmlFor="postExpTime">countExp:</label>
+                <textarea
+                    id="postExpTime"
+                    name="postExpTime"
+                    value={countExp}
+                    onChange={oncountExpChanged}
+                />
+                <label htmlFor="postExpTime">Tag:</label>
+                <textarea
+                    id="postExpTime"
+                    name="postExpTime"
+                    value={tag}
+                    onChange={ontagChanged}
+                />
+                <label htmlFor="postExpTime">Done (True / False):</label>
+                <textarea
+                    id="postExpTime"
+                    name="postExpTime"
+                    value={done}
+                    onChange={ondoneChanged}
                 />
                 <button
                     type="button"

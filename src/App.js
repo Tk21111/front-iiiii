@@ -4,13 +4,9 @@ import Public from './components/Pubilc'
 import Login from './features/auth/Hlogin'
 import Welcome from './features/auth/Welcome'
 import RequireAuth from './features/auth/RequireAuth'
-import UsersList from './features/users/UsersList'
 import User from './features/users/User'
-import UsergetNum from './features/users/UserGetNum'
 import Signin from './features/auth/Hsignin'
-import UsergetWho from './features/users/UserGetWho'
 import Recommend from './features/users/Recommendtion'
-import AdminGive from './features/users/AdminGive'
 import SinglePostPage from './features/users/SigleNotePage'
 import EditPostForm from './features/users/EditNoteform'
 import LocaCreate from './features/loca/UserEdit'
@@ -32,11 +28,9 @@ function App() {
           <Route element={<RequireAuth/>}>
             <Route element={<Prefetch/>}>
               <Route path="welcome" element={<Welcome />} />
-              <Route path="userslist" element={<UsersList />} />
               <Route path="user" element={<User />} />
-              <Route path="usergetnum" element={<UsergetNum />} />
-              <Route path=":postId" element={<SinglePostPage />} />
-              <Route path="usergetwho" element={<UsergetWho/>} />
+              <Route path="user/note/:noteId" element={<SinglePostPage />} />
+              <Route path="user/note/edit/:noteId" element={<EditPostForm />} />
               <Route path="recommend" element={<Recommend/>} />
               <Route path="location/create" element={<LocaCreate/>} />
               <Route path="location" element={<GetAllLoca/>} />

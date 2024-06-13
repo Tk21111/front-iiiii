@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import PostsExcerpt from './NotesExcerpt';
-import { useGetAllNoteUserMutation , useGetAllnoteQuery } from './NoteApiSlice';
-import { useSelector } from 'react-redux';
+import { useGetAllNoteUserMutation } from './NoteApiSlice';
+import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
+import PostsExcerpt from './NotesExcerpt'
 
 import { Link } from 'react-router-dom';
 
 const GetAllNoteUser = () => {
-    const user = useSelector(selectCurrentUser);
+    const user = { "username" : useSelector(selectCurrentUser)};
     const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
 
     useEffect(() => {
-        
         const fetchData = async () => {
             try {
                 if (!hasFetched) {
-                    console.log(user);
+                    console.log(user)
                     await getAllNoteUser(user);
                     setHasFetched(true);
                 }
@@ -26,28 +25,16 @@ const GetAllNoteUser = () => {
         };
 
         fetchData();
-    }, [getAllNoteUser, hasFetched, user]);
+    }, [getAllNoteUser, hasFetched]);
 
     let content;
 
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        //wrong data type wtf i'm doing 23.30 12/6/2024
+        //this is what u have to modifine
         console.log(users);
-        const usersEn = users.entities
-        console.log(usersEn)
-        if (usersEn && Array.isArray(usersEn) && usersEn.length > 0) {
-            content = (
-                <ul>
-                    {usersEn.map((userData, i) => (
-                        <li key={i}>{`Food : ${userData.text || 'undefined'}  have : ${userData.count || 'undefined'}  is expired :  ${userData.done || 'undefined'}  timeout : ${userData.timeOut || 'undefined'}  tag : ${userData.tag || 'undefined'}`}</li>
-                    ))}
-                </ul>
-            );
-        } else {
-            content = <p>No data available.</p>;
-        }
+        content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -66,4 +53,12 @@ const GetAllNoteUser = () => {
     return content;
 };
 
+
 export default GetAllNoteUser;
+
+/*
+<ul>
+                    {users.map((user, i) => (
+                        <li key={i}>{`Food : ${user.text}  have : ${user.count}  is expired :  ${user.done}  timeout : ${user.timeOut? user.timeOut : "undefined"}  tag : ${user.tag ? user.tag : 'undefined'}`}</li>
+                    ))}
+                </ul>*/
