@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useGetAllNoteUserMutation } from './NoteApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
-import PostsExcerpt from './NotesExcerpt'
 
 const SinglePostPage = () => {
 

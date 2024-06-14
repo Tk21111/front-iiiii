@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGetAllNoteUserMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 
 const EditPostForm = () => {
-    const { noteId } = useParams()
-    const navigate = useNavigate()
-    console.log(noteId)
+    const { noteId } = useParams();
+    const navigate = useNavigate();
+    console.log(noteId);
 
-    const [updateNote, { isLoading }] = useUpdateNoteMutation()
-    const [deletePost] = useDeleteNoteMutation()
+    const [updateNote, { isLoading }] = useUpdateNoteMutation();
+    const [deletePost] = useDeleteNoteMutation();
 
     const username = useSelector(selectCurrentUser);
     const [getAllNoteUser, { isLoading: isLoadingNotes }] = useGetAllNoteUserMutation();
@@ -29,94 +29,62 @@ const EditPostForm = () => {
         fetchData();
     }, [getAllNoteUser, username, noteId]);
 
-    const [title, setTitle] = useState('')
-    const [ExpTime, setExpTime] = useState(Date)
-    const [count, setCount] = useState(0)
-    const [countExp, setCountExp] = useState(0)
-    const [tag, setTag] = useState([])
-    const [done, setDone] = useState(false)
+    const [title, setTitle] = useState('');
+    const [expTime, setExpTime] = useState('');
+    const [count, setCount] = useState(0);
+    const [countExp, setCountExp] = useState(0);
+    const [tag, setTag] = useState('');
+    const [done, setDone] = useState(false);
 
     useEffect(() => {
         if (note) {
-            setTitle(note.text ?? 'undefined')
-            //down
-            setExpTime(
-                (note) => {
-                    if (note.timeOut) {
-                        console.log(note.timeOut)
-                        let date = note.timeOut;
-                        if (date) {
-                            let dateRefactor = date.split('T')[0];
-                            return dateRefactor;
-                        }
-                        return date;
-                    } else {
-                        return '';
-                    }
-                }
-            );
-            
-            setCount(note.count ?? 0)
-            setCountExp(note.countExp ?? 0)
-            setDone(note.done ?? false)
-            setTag(note.tag ?? [])
+            setTitle(note.text ?? '');
+            setExpTime(note.timeOut ? note.timeOut.split('T')[0] : '');
+            setCount(note.count ?? 0);
+            setCountExp(note.countExp ?? 0);
+            setTag(note.tag ?? '');
+            setDone(note.done ?? false);
         }
     }, [note]);
 
-    if (isLoadingNotes) return <p>Loading...</p>
+    if (isLoadingNotes) return <p>Loading...</p>;
 
     if (!note) {
         return (
             <section>
                 <h2>Note not found!</h2>
             </section>
-        )
+        );
     }
 
-    const onTitleChanged = e => setTitle(e.target.value)
-    const onExpTimeChanged = e => setExpTime(e.target.value)
-    const oncountChanged = e => setCount(e.target.value)
-    const oncountExpChanged = e => setCountExp(e.target.value)
-    const ontagChanged = e => setTag(e.target.value)
-    const ondoneChanged = e => setDone(e.target.value)
+    const onTitleChanged = e => setTitle(e.target.value);
+    const onExpTimeChanged = e => setExpTime(e.target.value);
+    const onCountChanged = e => setCount(Number(e.target.value));
+    const onCountExpChanged = e => setCountExp(Number(e.target.value));
+    const onTagChanged = e => setTag(e.target.value);
+    const onDoneChanged = e => setDone(e.target.checked);
 
-    const canSave = [title, ExpTime , count , countExp , tag].every(Boolean) && !isLoading;
+    const canSave = [title, expTime, tag].every(Boolean) && !isLoading && count >= 0 && countExp >= 0;
 
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNote({ id: note.id, text : title, date : ExpTime , count ,countExp , done , tag  }).unwrap()
-
-                setTitle('')
-                setCount(0)
-                setCountExp(0)
-                setDone(false)
-                setTag([])
-                setExpTime('')
-                console.log('runed')
-                navigate(`/note/${note.id}`)
+                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag }).unwrap();
+                navigate(`/user/note/${note.id}`)
             } catch (err) {
-                console.error('Failed to save the post', err)
+                console.error('Failed to save the post', err);
             }
         }
-    }
+    };
 
     const onDeletePostClicked = async () => {
         try {
-            await deletePost({ id: note.id , username : username  }).unwrap()
-
-            setTitle('')
-            setCount(0)
-            setCountExp(0)
-            setDone(false)
-            setTag([])
-            setExpTime('')
-
-            navigate('/')
+            await deletePost({ id: note.id, username }).unwrap();
+            navigate('/user');
         } catch (err) {
-            console.error('Failed to delete the post', err)
+            console.error('Failed to delete the post', err);
         }
-    }
+    };
 
     return (
         <section>
@@ -131,39 +99,48 @@ const EditPostForm = () => {
                     onChange={onTitleChanged}
                 />
                 <label htmlFor="postExpTime">ExpTime:</label>
-                <textarea
+                <input
+                    type="date"
                     id="postExpTime"
                     name="postExpTime"
-                    value={ExpTime}
+                    value={expTime}
                     onChange={onExpTimeChanged}
                 />
-                <label htmlFor="postExpTime">count:</label>
-                <textarea
-                    id="postExpTime"
-                    name="postExpTime"
+                <label htmlFor="postCount">Count:</label>
+                <input
+                    type="number"
+                    id="postCount"
+                    name="postCount"
                     value={count}
-                    onChange={oncountChanged}
+                    onChange={onCountChanged}
+                    max="999"
+                    min="0"
                 />
-                <label htmlFor="postExpTime">countExp:</label>
-                <textarea
-                    id="postExpTime"
-                    name="postExpTime"
+                <label htmlFor="postCountExp">CountExp:</label>
+                <input
+                    type="number"
+                    id="postCountExp"
+                    name="postCountExp"
                     value={countExp}
-                    onChange={oncountExpChanged}
+                    onChange={onCountExpChanged}
+                    max="999"
+                    min="0"
                 />
-                <label htmlFor="postExpTime">Tag:</label>
-                <textarea
-                    id="postExpTime"
-                    name="postExpTime"
+                <label htmlFor="postTag">Tag:</label>
+                <input
+                    type="text"
+                    id="postTag"
+                    name="postTag"
                     value={tag}
-                    onChange={ontagChanged}
+                    onChange={onTagChanged}
                 />
-                <label htmlFor="postExpTime">Done (True / False):</label>
-                <textarea
-                    id="postExpTime"
-                    name="postExpTime"
-                    value={done}
-                    onChange={ondoneChanged}
+                <label htmlFor="postDone">Done (True / False):</label>
+                <input
+                    type="checkbox"
+                    id="postDone"
+                    name="postDone"
+                    checked={done}
+                    onChange={onDoneChanged}
                 />
                 <button
                     type="button"
@@ -180,7 +157,7 @@ const EditPostForm = () => {
                 </button>
             </form>
         </section>
-    )
-}
+    );
+};
 
-export default EditPostForm
+export default EditPostForm;

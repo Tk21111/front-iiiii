@@ -13,16 +13,9 @@ const Welcome = () => {
         <section className="welcome">
             <h1>{welcome}</h1>
             <p> If you want username just login again </p>
-            <p><Link to="/user" > Your random number </Link></p>
-            <p><Link to="/usergetnum" > Go get your number </Link></p>
-            <h2> After เฉลย </h2>
-            <p><Link to="/userslist">Go to the Users List</Link></p>
-            <p><Link to="/usergetwho"> Who is your buddy???? </Link></p>
-            <h2> IIGHHUSADUHFUIHFUIHF app</h2>
-            <p>  To lazy for check role in frontend</p>
+            <p><Link to="/user" > Add yours food in list </Link></p>
             <p><Link to="/recommend"> for recommendation </Link></p>
             <p><Link to="/location"> for location</Link></p>
-            <h2> Log out idk why u need this lol</h2>
             <p><Link to="/logout"> log out</Link></p>
         </section>
     )
