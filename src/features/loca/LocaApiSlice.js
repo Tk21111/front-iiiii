@@ -8,10 +8,24 @@ export const locaApislice = apiSlice.injectEndpoints({
         getAllloca: builder.query({
             query: () => '/location/all',
         }),
+        getAllUserloca: builder.mutation({
+            query: (data) => ({
+                url: '/location/',
+                method: 'PATCH',
+                body : { ...data}
+            })
+        }),
         createloca : builder.mutation({
             query: (data) => ({ //same
                 url: '/location/create',
                 method: 'POST',
+                body : { ...data}
+            }),
+        }),
+        updateloca : builder.mutation({
+            query: (data) => ({ //same
+                url: '/location/update',
+                method: 'PATCH',
                 body : { ...data}
             }),
         }),
