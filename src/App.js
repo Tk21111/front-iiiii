@@ -25,7 +25,7 @@ function App() {
 
         {/* public routes */}
         <Route index element={<Public />} />
-        <Route path="register" element={<Signin />} />
+        <Route path="registor" element={<Signin />} />
         <Route path="login" element={<Login />} />
 
         {/* protected routes */}
@@ -49,7 +49,6 @@ function App() {
                 <Route index element={<GetAllLoca />} />
                 <Route path=":noteId" element={<SingleLocaPage />}/>
                 <Route path="create/:noteId" element={<LocaCreate />} />
-                <Route path="edit/:noteId" element={<EditLocaForm />} />
               </Route>
 
               {/* recommend */}

@@ -28,7 +28,7 @@ const GetAllLoca = () => {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
         //this is what u have to modifine
-        console.log(users);
+        
         content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
     } else if (isError) {
         let msg;

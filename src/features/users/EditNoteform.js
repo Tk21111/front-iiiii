@@ -5,9 +5,10 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 
 const EditPostForm = () => {
+
+    //noteId = {noteId} (in App.js)
     const { noteId } = useParams();
     const navigate = useNavigate();
-    console.log(noteId);
 
     const [updateNote, { isLoading }] = useUpdateNoteMutation();
     const [deletePost] = useDeleteNoteMutation();
@@ -69,7 +70,7 @@ const EditPostForm = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag }).unwrap();
+                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag: tag.split(',') }).unwrap();
                 navigate(`/user/note/${note.id}`)
             } catch (err) {
                 console.error('Failed to save the post', err);

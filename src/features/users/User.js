@@ -15,7 +15,6 @@ const GetAllNoteUser = () => {
         const fetchData = async () => {
             try {
                 if (!hasFetched) {
-                    console.log(user)
                     await getAllNoteUser(user);
                     setHasFetched(true);
                 }
@@ -32,9 +31,16 @@ const GetAllNoteUser = () => {
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
+
         //this is what u have to modifine
-        console.log(users);
-        content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
+        //user = {data : ids , entities}
+
+        if(users.ids.length !== 0){
+            content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
+        } else 
+            content = <Link to="/user/note/create">Create yours own note</Link>
+        
+        
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -55,10 +61,3 @@ const GetAllNoteUser = () => {
 
 
 export default GetAllNoteUser;
-
-/*
-<ul>
-                    {users.map((user, i) => (
-                        <li key={i}>{`Food : ${user.text}  have : ${user.count}  is expired :  ${user.done}  timeout : ${user.timeOut? user.timeOut : "undefined"}  tag : ${user.tag ? user.tag : 'undefined'}`}</li>
-                    ))}
-                </ul>*/

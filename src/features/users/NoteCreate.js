@@ -56,9 +56,9 @@ const CreatePost = () => {
 
     return (
         <section>
-            <h2>Create Post</h2>
+            <h2>Create Note</h2>
             <form>
-                <label htmlFor="postTitle">Post Title:</label>
+                <label htmlFor="postTitle">Food name:</label>
                 <input
                     type="text"
                     id="postTitle"
@@ -102,7 +102,7 @@ const CreatePost = () => {
                     value={tag}
                     onChange={onTagChanged}
                 />
-                <label htmlFor="postDone">Done:</label>
+                <label htmlFor="postDone">Exp?:</label>
                 <input
                     type="checkbox"
                     id="postDone"

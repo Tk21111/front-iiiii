@@ -30,7 +30,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        //console.log(user)
+        
         try {
             const userData = await login({ user, pwd }).unwrap()
             //diffrent the ...userData is a accessToken

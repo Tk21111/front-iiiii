@@ -8,7 +8,7 @@ import { selectCurrentUser } from '../auth/authSlice';
 const SinglePostPage = () => {
 
     const noteId = useParams()
-    console.log(noteId)
+    
     const username = useSelector(selectCurrentUser);
     const [getAllNoteUser , { isLoading }] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
@@ -26,7 +26,6 @@ const SinglePostPage = () => {
         fetchData();
     }, [getAllNoteUser, username, noteId]);
     if (isLoading) return <p>Loading...</p>
-    console.log(note)
     if (!note) {
         return (
             <section>

@@ -26,13 +26,13 @@ const Signin = () => {
 
     useEffect(() => {
         setErrMsg('')
-    }, [user, pwd ,cpwd, no])
+    }, [user, pwd ,cpwd, ])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (pwd === cpwd && (no <=36 && no >=0) ) {
+        if (pwd === cpwd) {
             try {
-                const userData = await signin({ user, pwd , no }).unwrap()
+                const userData = await signin({ user, pwd }).unwrap()
                 //diffrent the ...userData is a accessToken
                 dispatch(setCredentials({ ...userData, user }))
                 setUser('')
@@ -60,7 +60,6 @@ const Signin = () => {
 
     const handleUserInput = (e) => setUser(e.target.value)
     const handlePwdInput = (e) => setPwd(e.target.value)
-    const handleNoInput = (e) => setNo(e.target.value)
     const handleCPwdInput = (e) => setCPwd(e.target.value)
     
 
@@ -81,17 +80,6 @@ const Signin = () => {
                     autoComplete="off"
                     required
                 />
-
-                <label htmlFor="no">เลขที่มึงอ่ะ</label>
-                <input
-                    type="number"
-                    id="no."
-                    value={no}
-                    onChange={handleNoInput}
-                    autoComplete="off"
-                    required
-                />
-
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password" //doesn't show it 

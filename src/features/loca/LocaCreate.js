@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../auth/authSlice';
 const CreatePost = () => {
     const navigate = useNavigate()
     const { noteId } = useParams();
-    console.log(noteId)
+    
     const username = useSelector(selectCurrentUser);
 
     const [createLoca, { isLoading }] = useCreatelocaMutation()
