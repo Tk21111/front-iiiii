@@ -1,15 +1,17 @@
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useGetAlllocaQuery } from './LocaApiSlice';
+import { useGetAlllocaQuery , useDeletelocaMutation} from './LocaApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
 
 const SingleLocaPage = () => {
 
     const locaId = useParams();
+    const navigate = useNavigate();
     console.log(locaId);
     const { data , isLoading, isSuccess, isError, error } = useGetAlllocaQuery();
+    const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
@@ -39,6 +41,7 @@ const SingleLocaPage = () => {
         setRefresh(prev => prev + 1); // This will trigger a re-fetch
     };
     if (isLoading) return <p>Loading...</p>
+    if (isError) return <p>Can't find location sharing post</p>
     console.log(loca)
     if (!data) {
         return (
@@ -48,6 +51,13 @@ const SingleLocaPage = () => {
         )
     }
 
+    const ondeletePostClicked = async() => {
+        if(locaId.noteId){
+            await deleteLoca({ id : locaId.noteId}).unwrap();
+            navigate('/location')
+        }
+    }
+
     return (
         <article>
             <h2>{text}</h2>
@@ -55,9 +65,12 @@ const SingleLocaPage = () => {
             <p>Subdistrict : {loca.subdistrict}</p>
             <p>County : {loca.county}</p>
             <p>more: {loca.more ? loca.more : "Don't have more"}</p>
-            <p className="postCredit">
-                <Link to={`/location/edit/${locaId.noteId}`}>Edit Post</Link>
-            </p>
+            <button
+                    type="button"
+                    onClick={ondeletePostClicked}
+                >
+                    Delete Post
+                </button>
         </article>
     )
 }

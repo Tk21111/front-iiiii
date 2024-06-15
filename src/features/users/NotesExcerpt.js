@@ -32,6 +32,7 @@ const PostsExcerpt = ({ postId: noteId }) => {
             <p>{note.timeOut}</p>
             <p className="postCredit">
                 <Link to={`note/${note.id}`}>View Post</Link>
+                <Link to={`/location/create/${note.id}`}> Create sharing location with this food</Link>
                 <Link to={`note/create`}> Create </Link>
             </p>
         </article>

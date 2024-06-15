@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useGetAlllocaQuery } from './LocaApiSlice';
+import { Link , useNavigate } from 'react-router-dom';
+import { useGetAlllocaQuery , useDeletelocaMutation } from './LocaApiSlice';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 
 const LocasExcerpt = ({ postId: locaId }) => {
 
+    const navigate = useNavigate();
+
     const { data, isLoading } = useGetAlllocaQuery();
     const [loca, setLoca] = useState(null);
     const [text, setText] = useState('');
+
+    const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
 
     useEffect(() => {
         if (data && data.entities) {
@@ -26,9 +30,13 @@ const LocasExcerpt = ({ postId: locaId }) => {
         return <p>Loading...</p>;
     }
 
+    if (isDeleting) {
+        return <p> deleting</p>
+    }
     if (!loca) {
         return <p>Location not found</p>;
     }
+
 
     return (
         <article>
@@ -36,7 +44,7 @@ const LocasExcerpt = ({ postId: locaId }) => {
             <p>{loca.town}</p>
             <p className="postCredit">
                 <Link to={`${loca.id}`}>View Post</Link>
-                <Link to={`create`}>Create</Link>
+                <Link to={`/user/note/create`}>Create</Link>
             </p>
         </article>
     );

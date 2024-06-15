@@ -11,7 +11,7 @@ import SinglePostPage from './features/users/SingleNotePage'
 import EditPostForm from './features/users/EditNoteform'
 import EditLocaForm from './features/loca/EditLocaform'
 import CreatePost from './features/users/NoteCreate'
-import LocaCreate from './features/loca/UserEdit'
+import LocaCreate from './features/loca/LocaCreate'
 import SingleLocaPage from './features/loca/SingleLocaPage'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
@@ -48,7 +48,7 @@ function App() {
               <Route path="location">
                 <Route index element={<GetAllLoca />} />
                 <Route path=":noteId" element={<SingleLocaPage />}/>
-                <Route path="create" element={<LocaCreate />} />
+                <Route path="create/:noteId" element={<LocaCreate />} />
                 <Route path="edit/:noteId" element={<EditLocaForm />} />
               </Route>
 
