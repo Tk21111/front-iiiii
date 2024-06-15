@@ -1,26 +1,63 @@
 import { useEffect, useState } from 'react';
 import { useGetAllNoteUserMutation } from './NoteApiSlice';
-import {useSelector} from 'react-redux'
-import { selectCurrentUser } from '../auth/authSlice'
-
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../auth/authSlice';
+import PostsExcerpt from './NotesExcerpt';
 import list from './menu';
+import { Link } from 'react-router-dom';
 
 const GetAllNoteUser = () => {
-    const user = { "username" : useSelector(selectCurrentUser)};
-    const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
+    const username = useSelector(selectCurrentUser);
+    const user = { username };
+    const [getAllNoteUser, { isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
+    const [listSorted, setListSorted] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                if (!hasFetched) {
-                    console.log(user)
-                    await getAllNoteUser(user);
+            if (!hasFetched) {
+                try {
+                    console.log(user);
+                    const dataApi = await getAllNoteUser(user);
+                    console.log(dataApi.data);
                     setHasFetched(true);
+                    const { ids, entities } = dataApi.data;
+                    console.log(ids);
+                    let sorted = [];
+                    for (let i of ids) {
+                        let e = entities[i];
+                        console.log(e);
+                        console.log(e.tag); //obj
+                        if (e.tag) {
+                            for (let y of e.tag) {
+                                sorted.push(y);
+                            }
+                        }
+                    }
+                    console.log(list);
+                    console.log(sorted);
+                    console.log(Object.keys(list))
+                    const listTmp = Object.keys(list).filter(val => {
+                        return sorted.some(l => l === val);
+                    });
+                    console.log(listTmp)
+                    const haveList = listTmp.length > 0 ? listTmp : undefined;
+                    if (haveList) {
+                        let valueList = []
+                        for (let f of haveList){
+                            let valueObj = list[f];
+                            console.log(valueObj)
+                            valueList = valueList.concat(valueObj)
+                            console.log(valueList)
+                        }
+                        setListSorted(valueList)
+                        
+                    } else {
+                        setListSorted('None match')
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching data:', error);
             }
         };
 
@@ -31,62 +68,10 @@ const GetAllNoteUser = () => {
 
     if (isLoading) {
         content = <p>Loading...</p>;
-    } else if (isSuccess) {
-        //this is what u have to modifine
-
-        /* what the fuck is this stupid compare list in list 
-        console.log(list)
-        console.log(users);
-        const { ids , entities } = users
-        let list1 = []
-        let list2 = []
-        for (let i of ids) {
-            list1.push(entities[i].tag)
-        };
-
-        for (let f of list){
-            list2.push(f.tag)
-        };
-        if (list1.length !== list2.length) {
-            return false;
-        }
-    
-        function checkListsEquality(list1, list2) {
-            if (list1.length !== list2.length) {
-                return false;
-            }
-        
-            for (let i = 0; i < list1.length; i++) {
-                if (Array.isArray(list1[i]) && Array.isArray(list2[i])) {
-                    if (list1[i].length !== list2[i].length) {
-                        return false;
-                    }
-                    for (let j = 0; j < list1[i].length; j++) {
-                        if (list1[i][j] !== list2[i][j]) {
-                            return false;
-                        }
-                    }
-                } else if (list1[i] !== list2[i]) {
-                    return false;
-                }
-            }
-        
-            return true;
-        }
-
-        console.log(checkListsEquality(list1,list2))
-
-        
-        const result = listO.map(role => list1.includes(role)).find(val => val === true);
-        console.log(result)*/
-        const jsonString = JSON.stringify(list)
-        content = (
-            <section className="users">
-                <h1>Your giver is</h1>
-                <h2> {jsonString} </h2>
-                <Link to="/welcome">Back to Welcome</Link>
-            </section>
-        );
+    } else if (isSuccess && hasFetched && listSorted) {
+        console.log(listSorted);
+        content = listSorted.map(val => <p key={val}>{',' + val}</p>)
+        //content = listSorted.map((item, index) => <PostsExcerpt key={index} postId={item} />);
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -105,12 +90,4 @@ const GetAllNoteUser = () => {
     return content;
 };
 
-
 export default GetAllNoteUser;
-
-/*
-<ul>
-                    {users.map((user, i) => (
-                        <li key={i}>{`Food : ${user.text}  have : ${user.count}  is expired :  ${user.done}  timeout : ${user.timeOut? user.timeOut : "undefined"}  tag : ${user.tag ? user.tag : 'undefined'}`}</li>
-                    ))}
-                </ul>*/
