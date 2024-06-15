@@ -12,6 +12,7 @@ const PersistLogin = () => {
     const token = useSelector(selectCurrentToken);
     const dispatch = useDispatch(); // Moved useDispatch here
     const effectRan = useRef(false);
+
     const [trueSuccess, setTrueSuccess] = useState(false);
 
     const [refresh, {
@@ -22,35 +23,30 @@ const PersistLogin = () => {
         error
     }] = useRefreshMutation();
 
-    useEffect(() => {
-        const verifyRefreshToken = async () => {
-            try {
-                await refresh();
-                setTrueSuccess(true);
-            } catch (err) {
-                console.error(err);
-            }
-        };
+     useEffect(() => {
 
-        // Skip the first effect run in development mode due to React 18 Strict Mode
-        if (effectRan.current === true || process.env.NODE_ENV !== 'development') {
-            if (!token && persist) {
-                verifyRefreshToken()
-                /*
-                if (token) {
-                    console.log(token);
-                    const decoded = jwtDecode(token);
-                    dispatch(setCredentials({ "username": decoded.username }));
+        if (effectRan.current === true || process.env.NODE_ENV !== 'development') { // React 18 Strict Mode
+
+            const verifyRefreshToken = async () => {
+                //console.log('verifying refresh token')
+                try {
+                    const response = await refresh()
+                    const { accessToken } = response.data
+                    console.log(response.data)
+                    setTrueSuccess(true)
                 }
-                    */
-            };
+                catch (err) {
+                    console.error(err)
+                }
+            }
+
+            if (!token && persist) verifyRefreshToken()
         }
 
-        return () => {
-            effectRan.current = true;
-        };
-    }, [token, persist, refresh, dispatch]); // Added dispatch to dependency array
+        return () => effectRan.current = true
 
+        // eslint-disable-next-line
+    }, [token, persist, refresh])
     let content;
 
     if (!persist) {
