@@ -1,19 +1,41 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { useSelector } from 'react-redux';
-import { selectCurrentToken } from "../auth/authSlice";
+import { createEntityAdapter ,createSelector} from "@reduxjs/toolkit";
 
+const locasAdapter = createEntityAdapter({
+    sortComparer: (a, b) => (a.user === b.user) ? 0 : a.user ? 1 : -1
+})
+
+const initialState = locasAdapter.getInitialState()
 
 export const locaApislice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getAllloca: builder.query({
             query: () => '/location/all',
+            transformResponse : responseData => {
+                const loadedLoca = responseData.map(loca => {
+                    loca.id = loca._id
+                    return loca
+                });
+                return locasAdapter.setAll(initialState , loadedLoca)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Loca', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Loca', id }))
+                    ]
+                } else return [{ type: 'Loca', id: 'LIST' }]
+            }
         }),
         getAllUserloca: builder.mutation({
             query: (data) => ({
                 url: '/location/',
                 method: 'PATCH',
                 body : { ...data}
-            })
+            }),
+            invalidatesTags: [
+                { type: 'Loca', id: "LIST" }
+            ]
         }),
         createloca : builder.mutation({
             query: (data) => ({ //same
@@ -21,6 +43,9 @@ export const locaApislice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body : { ...data}
             }),
+            invalidatesTags: [
+                { type: 'Loca', id: "LIST" }
+            ]
         }),
         updateloca : builder.mutation({
             query: (data) => ({ //same
@@ -28,6 +53,9 @@ export const locaApislice = apiSlice.injectEndpoints({
                 method: 'PATCH',
                 body : { ...data}
             }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Loca', id: arg.id }
+            ]
         }),
         deleteloca : builder.mutation({
             query: (data) => ({ //same
@@ -38,9 +66,28 @@ export const locaApislice = apiSlice.injectEndpoints({
                     ...data
                 }
             }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Loca', id: arg.id }
+            ]
          }),
         
     })
 });
 
 export const { useCreatelocaMutation, useDeletelocaMutation , useGetAlllocaQuery } = locaApislice;
+// returns the query result object
+export const selectLocasResult = locaApislice.endpoints.getAllloca.select()
+
+// creates memoized selector
+const selectLocasData = createSelector(
+    selectLocasResult,
+    LocasResult => LocasResult.data // normalized state object with ids & entities
+)
+
+//getSelectors creates these selectors and we rename them with aliases using destructuring
+export const {
+    selectAll: selectAllLocas,
+    selectById: selectLocaById,
+    selectIds: selectLocaIds
+    // Pass in a selector that returns the Locas slice of state
+} = locasAdapter.getSelectors(state => selectLocasData(state) ?? initialState)

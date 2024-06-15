@@ -2,27 +2,34 @@ import { useEffect, useState } from 'react';
 import { useGetAlllocaQuery } from './LocaApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice'
+import LocasExcerpt from './LocaExcerpt';
 
 import { Link } from 'react-router-dom';
 
 const GetAllLoca = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetAlllocaQuery();
+    const [loading, setLoading] = useState(true);
+    const [refresh, setRefresh] = useState(0);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setLoading(false);
+        }
+    }, [isLoading]);
+
+    const handleRefresh = () => {
+        setLoading(true);
+        setRefresh(prev => prev + 1); // This will trigger a re-fetch
+    };
+    
     let content;
 
-    if (isLoading) {
+    if (loading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
         //this is what u have to modifine
         console.log(users);
-        const jsonString = JSON.stringify(users)
-        content = (
-            <section className="users">
-                <h1>Location page</h1>
-                <h2> {jsonString} </h2>
-                <Link to="/welcome">Back to Welcome</Link>
-                <Link to="/location/create"> create sharing location</Link>
-            </section>
-        );
+        content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -34,7 +41,6 @@ const GetAllLoca = () => {
             <section>
                 <h1>{msg}</h1>
                 <Link to="/welcome">Back to Welcome</Link>
-                <Link to="/location/create"> create sharing location</Link>
             </section>
         );
     }
