@@ -31,11 +31,12 @@ const PersistLogin = () => {
                 //console.log('verifying refresh token')
                 try {
                     const response = await refresh()
-                    const { resData } = response.data.accessToken
+                    const  resData  = response.data.accessToken
                     console.log(response.data.accessToken)
+
                     const decoded = jwtDecode(resData);
-                    console.log(decoded)
-                    setCredentials(decoded.userinfo , response.data )
+                    console.log(decoded.userinfo.username)
+                    setCredentials({user : decoded.userinfo.username, accessToken : response.data})
                     setTrueSuccess(true)
                 }
                 catch (err) {
