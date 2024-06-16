@@ -31,8 +31,11 @@ const PersistLogin = () => {
                 //console.log('verifying refresh token')
                 try {
                     const response = await refresh()
-                    const { accessToken } = response.data
-                    console.log(response.data)
+                    const { resData } = response.data.accessToken
+                    console.log(response.data.accessToken)
+                    const decoded = jwtDecode(resData);
+                    console.log(decoded)
+                    setCredentials(decoded.userinfo , response.data )
                     setTrueSuccess(true)
                 }
                 catch (err) {
