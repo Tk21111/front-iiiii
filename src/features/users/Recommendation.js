@@ -62,12 +62,18 @@ const GetAllNoteUser = () => {
     }, [getAllNoteUser, hasFetched]);
 
     let content;
-
+    let search = 'ไก่'
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess && hasFetched && listSorted) {
+        if (search){        
+            const filterList = listSorted.filter(val => val.includes(search))
+            content = <p>{filterList}</p>
+        } else {
+            content = <p>{listSorted}</p>
+        }
         
-        content = <p>{listSorted}</p>
+        
         //content = listSorted.map((item, index) => <PostsExcerpt key={index} postId={item} />);
     } else if (isError) {
         let msg;

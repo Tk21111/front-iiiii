@@ -37,8 +37,7 @@ const PersistLogin = () => {
                     
                     //have to dispatch anyway
                     dispatch(setCredentials({user : decoded.userinfo.username, accessToken}))
-                    console.log('send to authSlice')
-
+                    
                     setTrueSuccess(true)
                     
                 }

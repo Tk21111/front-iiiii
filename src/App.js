@@ -10,6 +10,7 @@ import Recommend from './features/users/Recommendation'
 import SinglePostPage from './features/users/SingleNotePage'
 import EditPostForm from './features/users/EditNoteform'
 import EditLocaForm from './features/loca/EditLocaform'
+import GetAlluserLoca from './features/loca/LocaUser'
 import CreatePost from './features/users/NoteCreate'
 import LocaCreate from './features/loca/LocaCreate'
 import SingleLocaPage from './features/loca/SingleLocaPage'
@@ -47,6 +48,7 @@ function App() {
               {/* location */}
               <Route path="location">
                 <Route index element={<GetAllLoca />} />
+                <Route path="ofuser" element={<GetAlluserLoca />} />
                 <Route path=":noteId" element={<SingleLocaPage />}/>
                 <Route path="create/:noteId" element={<LocaCreate />} />
               </Route>

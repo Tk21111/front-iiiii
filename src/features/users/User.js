@@ -3,6 +3,7 @@ import { useGetAllNoteUserMutation } from './NoteApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
 import PostsExcerpt from './NotesExcerpt'
+import filterEntitiesByTag from './Search';
 
 import { Link } from 'react-router-dom';
 
@@ -31,37 +32,8 @@ const GetAllNoteUser = () => {
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        function filterEntitiesByTag(entities, tagsToFilter, x) {
-            let filteredEntities = {};
-            
-            try {
-                if (!Array.isArray(tagsToFilter)) {
-                    tagsToFilter = [tagsToFilter];
-                }
-            
-                for (let key in entities) {
-                    if (entities.hasOwnProperty(key)) {
-                        let entity = entities[key];
-                        if (Array.isArray(entity[x])){
-                            if (entity[x] && entity[x].some(tag => tagsToFilter.includes(tag))) {
-                                filteredEntities[key] = entity;
-                            }
-                        } else {
-                            if (entity[x] && tagsToFilter.includes(entity[x]))
-                            filteredEntities[key] = entity
-                        }
-                        
-                    }
-                }
-            
-            } catch (err) {
-                console.log(err)
-            }
-            
-            return filteredEntities;
-        }
-        
-        const serch = 'pork'
+
+        const serch = null
         const type = 'text'
 
         //this is what u have to modifine

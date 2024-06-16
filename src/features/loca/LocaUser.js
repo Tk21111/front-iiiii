@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAlllocaQuery } from './LocaApiSlice';
+import { useGetAllUserlocaQuery } from './LocaApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice'
 import LocasExcerpt from './LocaExcerpt';
@@ -7,8 +7,8 @@ import filterEntitiesByTag from '../users/Search';
 
 import { Link } from 'react-router-dom';
 
-const GetAllLoca = () => {
-    const { data: users, isLoading, isSuccess, isError, error } = useGetAlllocaQuery();
+const GetAlluserLoca = () => {
+    const { data: users, isLoading, isSuccess, isError, error } = useGetAllUserlocaQuery();
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
@@ -35,9 +35,9 @@ const GetAllLoca = () => {
         //this is what u have to modifine
         //user = { ids , entities}
         console.log(users)
-        if(users.ids.length !== 0 && !serch ){
+        if(users?.ids?.length !== 0 && !serch ){
             content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
-        } else if (serch) {
+        } else if (users?.ids?.length !== 0 && serch) {
             const f = filterEntitiesByTag(users.entities , serch , type)
             const key = Object.keys(f)
             content = key.map(postId => <LocasExcerpt key={postId} postId={postId} />)
@@ -61,4 +61,4 @@ const GetAllLoca = () => {
 };
 
 
-export default GetAllLoca;
+export default GetAlluserLoca;

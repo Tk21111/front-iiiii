@@ -27,15 +27,23 @@ export const locaApislice = apiSlice.injectEndpoints({
                 } else return [{ type: 'Loca', id: 'LIST' }]
             }
         }),
-        getAllUserloca: builder.mutation({
-            query: (data) => ({
-                url: '/location/',
-                method: 'PATCH',
-                body : { ...data}
-            }),
-            invalidatesTags: [
-                { type: 'Loca', id: "LIST" }
-            ]
+        getAllUserloca: builder.query({
+            query: () => '/location/',
+            transformResponse : responseData => {
+                const loadedLoca = responseData.map(loca => {
+                    loca.id = loca._id
+                    return loca
+                });
+                return locasAdapter.setAll(initialState , loadedLoca)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Loca', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Loca', id }))
+                    ]
+                } else return [{ type: 'Loca', id: 'LIST' }]
+            }
         }),
         createloca : builder.mutation({
             query: (data) => ({ //same
@@ -74,7 +82,7 @@ export const locaApislice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useCreatelocaMutation, useDeletelocaMutation , useGetAlllocaQuery } = locaApislice;
+export const { useCreatelocaMutation, useDeletelocaMutation , useGetAlllocaQuery , useGetAllUserlocaQuery } = locaApislice;
 // returns the query result object
 export const selectLocasResult = locaApislice.endpoints.getAllloca.select()
 
