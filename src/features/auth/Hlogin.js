@@ -34,7 +34,7 @@ const Login = () => {
         try {
             const userData = await login({ user, pwd }).unwrap()
             //diffrent the ...userData is a accessToken
-            
+            console.log({...userData , user})
             dispatch(setCredentials({ ...userData, user }))
             setUser('')
             setPwd('')

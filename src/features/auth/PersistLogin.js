@@ -24,20 +24,23 @@ const PersistLogin = () => {
     }] = useRefreshMutation();
 
      useEffect(() => {
-
+        
         if (effectRan.current === true || process.env.NODE_ENV !== 'development') { // React 18 Strict Mode
-
+            
             const verifyRefreshToken = async () => {
-                //console.log('verifying refresh token')
+                
                 try {
-                    const response = await refresh()
-                    const  resData  = response.data.accessToken
-                    console.log(response.data.accessToken)
+                    const response = await refresh();
+                    
+                    const  accessToken  = response.data.accessToken
+                    const decoded = jwtDecode(accessToken);
+                    
+                    //have to dispatch anyway
+                    dispatch(setCredentials({user : decoded.userinfo.username, accessToken}))
+                    console.log('send to authSlice')
 
-                    const decoded = jwtDecode(resData);
-                    console.log(decoded.userinfo.username)
-                    setCredentials({user : decoded.userinfo.username, accessToken : response.data})
                     setTrueSuccess(true)
+                    
                 }
                 catch (err) {
                     console.error(err)
