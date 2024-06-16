@@ -43,8 +43,7 @@ const LocasExcerpt = ({ postId: locaId }) => {
             <h2>{text}</h2>
             <p>{loca.town}</p>
             <p className="postCredit">
-                <Link to={`${loca.id}`}>View Post</Link>
-                <Link to={`/user/note/create`}>Create</Link>
+                <Link to={`/location/${loca.id}`}>View Post</Link>
             </p>
         </article>
     );

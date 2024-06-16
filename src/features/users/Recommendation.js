@@ -69,10 +69,10 @@ const GetAllNoteUser = () => {
     } else if (isSuccess && hasFetched && listSorted) {
         if (search){        
             const filterList = listSorted.filter(val => val.includes(search))
-            const i = filterList.map(val => '       , ' + val )
+            const i = filterList.map(val => <article>{val}</article>)
             content = <p>{i}</p>
         } else {
-            const i = listSorted.map(val => '       , ' + val )
+            const i = listSorted.map(val => <article>{val}</article>)
             content = <p>{i}</p>
         }
         
@@ -95,6 +95,7 @@ const GetAllNoteUser = () => {
 
     return (
         <div>
+            <p><Link to="/welcome"> Home </Link></p>
             <div>
                 <label>
                     Search Query:
@@ -106,7 +107,7 @@ const GetAllNoteUser = () => {
                 </label>
             </div>
             {content}
-            <p><Link to="/welcome"> Home </Link></p>
+            
         </div>
     );
 };

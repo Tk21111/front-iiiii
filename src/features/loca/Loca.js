@@ -35,7 +35,7 @@ const GetAllLoca = () => {
 
         //this is what u have to modifine
         //user = { ids , entities}
-        console.log(users)
+
         if(users.ids.length !== 0 && !search ){
             content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
         } else if (search) {
@@ -61,6 +61,7 @@ const GetAllLoca = () => {
     return (
         <div>
             <p><Link to="/welcome"> Home </Link></p>
+            <Link to={`/user/note/create`}>Create</Link>
             <div>
                 <label>
                     Search Query:

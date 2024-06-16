@@ -71,6 +71,7 @@ const GetAllNoteUser = () => {
     return (
         <div>
             <p><Link to="/welcome"> Home </Link></p>
+            <Link to={`note/create`}> Create </Link>
             <div>
                 <label>
                     Search Query:

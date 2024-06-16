@@ -1,22 +1,28 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
+
+
 import Login from './features/auth/Hlogin'
 import Welcome from './features/auth/Welcome'
 import RequireAuth from './features/auth/RequireAuth'
-import User from './features/users/User'
 import Signin from './features/auth/Hsignin'
-import Recommend from './features/users/Recommendation'
-import SinglePostPage from './features/users/SingleNotePage'
-import EditPostForm from './features/users/EditNoteform'
-import EditLocaForm from './features/loca/EditLocaform'
-import GetAlluserLoca from './features/loca/LocaUser'
-import CreatePost from './features/users/NoteCreate'
-import LocaCreate from './features/loca/LocaCreate'
-import SingleLocaPage from './features/loca/SingleLocaPage'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
+
+
+
+import User from './features/users/User'
+import Recommend from './features/users/Recommendation'
+import SinglePostPage from './features/users/SingleNotePage'
+import EditPostForm from './features/users/EditNoteform'
+import CreatePost from './features/users/NoteCreate'
+
+
+import GetAlluserLoca from './features/loca/LocaUser'
+import LocaCreate from './features/loca/LocaCreate'
+import SingleLocaPage from './features/loca/SingleLocaPage'
 import GetAllLoca from './features/loca/Loca'
 
 function App() {
