@@ -12,6 +12,9 @@ const GetAllLoca = () => {
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
+    const [search, setSearch] = useState('');
+    const [searchType, setSearchType] = useState('text');
+
     useEffect(() => {
         if (!isLoading) {
             setLoading(false);
@@ -29,16 +32,14 @@ const GetAllLoca = () => {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
         //this is what u have to modifine
-        const serch = null
-        const type = 'text'
 
         //this is what u have to modifine
         //user = { ids , entities}
         console.log(users)
-        if(users.ids.length !== 0 && !serch ){
+        if(users.ids.length !== 0 && !search ){
             content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
-        } else if (serch) {
-            const f = filterEntitiesByTag(users.entities , serch , type)
+        } else if (search) {
+            const f = filterEntitiesByTag(users.entities , search , searchType)
             const key = Object.keys(f)
             content = key.map(postId => <LocasExcerpt key={postId} postId={postId} />)
         }
@@ -57,7 +58,31 @@ const GetAllLoca = () => {
         );
     }
 
-    return content;
+    return (
+        <div>
+            <p><Link to="/welcome"> Home </Link></p>
+            <div>
+                <label>
+                    Search Query:
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Search Type:
+                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                        <option value="text">Text</option>
+                        <option value="town">Town</option>
+                        <option value="subdistrict ">Subdistrict </option>
+                        <option value="county ">County </option>
+                    </select>
+                </label>
+            </div>
+            {content}
+        </div>
+    );
 };
 
 

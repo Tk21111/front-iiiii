@@ -45,6 +45,8 @@ const SinglePostPage = () => {
             <p className="postCredit">
                 <Link to={`/user/note/edit/${noteId.noteId}`}>Edit Post</Link>
             </p>
+            <p><Link to="/user"> Food List </Link></p>
+            <p><Link to="/welcome"> Home </Link></p>
         </article>
     )
 }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useCreateNoteMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
+import { Link } from 'react-router-dom';
 
 const CreatePost = () => {
     const navigate = useNavigate()
@@ -56,6 +57,8 @@ const CreatePost = () => {
 
     return (
         <section>
+            <p><Link to="/user"> Food List </Link></p>
+            <p><Link to="/welcome"> Home </Link></p>
             <h2>Create Note</h2>
             <form>
                 <label htmlFor="postTitle">Food name:</label>

@@ -10,11 +10,11 @@ function filterEntitiesByTag(entities, tagsToFilter, x) {
             if (entities.hasOwnProperty(key)) {
                 let entity = entities[key];
                 if (Array.isArray(entity[x])){
-                    if (entity[x] && entity[x].some(tag => tagsToFilter.includes(tag))) {
+                    if (entity[x] && entity[x].some(tag => tag.includes(tagsToFilter))) {
                         filteredEntities[key] = entity;
                     }
                 } else {
-                    if (entity[x] && tagsToFilter.includes(entity[x]))
+                    if (entity[x] && entity[x].includes(tagsToFilter))
                     filteredEntities[key] = entity
                 }
                 

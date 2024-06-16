@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetAllNoteUserMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
@@ -89,6 +90,8 @@ const EditPostForm = () => {
 
     return (
         <section>
+            <p><Link to="/user"> Food List </Link></p>
+            <p><Link to="/welcome"> Home </Link></p>
             <h2>Edit Post</h2>
             <form>
                 <label htmlFor="postTitle">Post Title:</label>

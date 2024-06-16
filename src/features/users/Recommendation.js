@@ -12,6 +12,7 @@ const GetAllNoteUser = () => {
     const [getAllNoteUser, { isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
     const [listSorted, setListSorted] = useState();
+    const [search , setSearch] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,15 +63,17 @@ const GetAllNoteUser = () => {
     }, [getAllNoteUser, hasFetched]);
 
     let content;
-    let search = 'ไก่'
+
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess && hasFetched && listSorted) {
         if (search){        
             const filterList = listSorted.filter(val => val.includes(search))
-            content = <p>{filterList}</p>
+            const i = filterList.map(val => '       , ' + val )
+            content = <p>{i}</p>
         } else {
-            content = <p>{listSorted}</p>
+            const i = listSorted.map(val => '       , ' + val )
+            content = <p>{i}</p>
         }
         
         
@@ -90,7 +93,22 @@ const GetAllNoteUser = () => {
         );
     }
 
-    return content;
+    return (
+        <div>
+            <div>
+                <label>
+                    Search Query:
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </label>
+            </div>
+            {content}
+            <p><Link to="/welcome"> Home </Link></p>
+        </div>
+    );
 };
 
 export default GetAllNoteUser;

@@ -3,7 +3,7 @@ import { useNavigate , useParams } from 'react-router-dom'
 import { useCreatelocaMutation } from './LocaApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
-
+import { Link } from 'react-router-dom';
 const CreatePost = () => {
     const navigate = useNavigate()
     const { noteId } = useParams();
@@ -43,6 +43,8 @@ const CreatePost = () => {
 
     return (
         <section>
+            <p><Link to="/user"> Food List </Link></p>
+            <p><Link to="/welcome"> Home </Link></p>
             <h2>Create Post</h2>
             <form>
                 <label htmlFor="locaTown">Town:</label>

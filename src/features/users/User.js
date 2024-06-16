@@ -12,6 +12,9 @@ const GetAllNoteUser = () => {
     const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
 
+    const [search, setSearch] = useState('');
+    const [searchType, setSearchType] = useState('text');
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,18 +36,19 @@ const GetAllNoteUser = () => {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
 
-        const serch = null
-        const type = 'text'
 
         //this is what u have to modifine
         //user = { ids , entities}
         console.log(users)
-        if(users.ids.length !== 0 && !serch ){
+
+        if(users.ids.length !== 0 && !search ){
             content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
-        } else if (serch) {
-            const f = filterEntitiesByTag(users.entities , serch , type)
+        } else if (search) {
+            console.log(users.entities)
+            const f = filterEntitiesByTag(users.entities , search , searchType)
             const key = Object.keys(f)
             content = key.map(postId => <PostsExcerpt key={postId} postId={postId} />)
+            console.log(content)
         } else {
             content = <Link to="/user/note/create">Create yours own note</Link>
         }
@@ -64,8 +68,31 @@ const GetAllNoteUser = () => {
         );
     }
 
-    return content;
+    return (
+        <div>
+            <p><Link to="/welcome"> Home </Link></p>
+            <div>
+                <label>
+                    Search Query:
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Search Type:
+                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                        <option value="text">Text</option>
+                        <option value="tag">Tag</option>
+                    </select>
+                </label>
+            </div>
+            {content}
+        </div>
+    );
 };
+
 
 
 export default GetAllNoteUser;

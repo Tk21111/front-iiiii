@@ -80,6 +80,8 @@ const SingleLocaPage = () => {
                 >
                     Delete Post
                 </button>
+            <p><Link to="/location"> Location List </Link></p>
+            <p><Link to="/welcome"> Home </Link></p>
         </article>
     )
 }
