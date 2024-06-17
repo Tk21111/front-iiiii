@@ -4,35 +4,48 @@ import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 
-const PostsExcerpt = ({ postId: noteId }) => {
+const PostsExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
+
     const [getAllNoteUser] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
+    const [set , setSet] =useState(false)
+    
+    useEffect (()=> {
+        if(!note){
+            setNote(i);
+            setSet(true)
+        }
+    }, [i,note])
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const result = await getAllNoteUser({ username }).unwrap();
-                setNote(result.entities[noteId]);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+            if (!note && set){
+                try {
+                    const result = await getAllNoteUser({ username }).unwrap();
+                    setNote(result.entities[Object.keys(i)]);
+                    setSet(true)
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }    
         };
 
         fetchData();
-    }, [getAllNoteUser, username, noteId]);
+    }, [getAllNoteUser , note]);
+
+    
 
     if (!note) {
         return <p>Loading...</p>;
     }
-
     return (
         <article>
-            <h2>{note.text}</h2>
-            <p>{note.timeOut}</p>
+            <h2>{i.text}</h2>
+            <p>{i.timeOut}</p>
             <p className="postCredit">
-                <Link to={`note/${note.id}`}>View Post</Link>
-                <Link to={`/location/create/${note.id}`}> Create sharing location with this food</Link>
+                <Link to={`note/${i.id}`}>View Post</Link>
+                <Link to={`/location/create/${i.id}`}> Create sharing location with this food</Link>
                 
             </p>
         </article>

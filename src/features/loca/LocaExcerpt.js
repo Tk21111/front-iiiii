@@ -4,16 +4,36 @@ import { useGetAlllocaQuery , useDeletelocaMutation } from './LocaApiSlice';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 
-const LocasExcerpt = ({ postId: locaId }) => {
+
+const LocasExcerpt = ({ i }) => {
+
+
 
     const navigate = useNavigate();
 
     const { data, isLoading } = useGetAlllocaQuery();
     const [loca, setLoca] = useState(null);
     const [text, setText] = useState('');
+    const [set , setSet] =useState(false)
 
     const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
 
+    useEffect (()=> {
+        try {
+            if(!text){
+                setLoca(i);
+                setText(i.text)
+                setSet(true)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+        
+    }, [i, loca])
+    
+
+
+    /*
     useEffect(() => {
         if (data && data.entities) {
             const loca = data.entities[locaId];
@@ -25,10 +45,7 @@ const LocasExcerpt = ({ postId: locaId }) => {
             }
         }
     }, [data, locaId]);
-
-    if (isLoading) {
-        return <p>Loading...</p>;
-    }
+    */
 
     if (isDeleting) {
         return <p> deleting</p>
