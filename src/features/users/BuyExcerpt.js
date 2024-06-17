@@ -20,7 +20,20 @@ const BuyExcerpt = ({ i }) => {
         }
     }, [i,note])
 
+    console.log(i)
+    //key with tag
     let key = note ? Object.keys(note) : 0;
+
+    let tag;
+    if (Array.isArray(key)){
+        tag = note.tag
+        key.pop();
+    console.log(key)
+    if (key.length === 0){
+        key = 'None found'
+    }
+    }
+    
     let content = {};
     let countEn = 0;
     let countExpEn = 0;
@@ -31,17 +44,22 @@ const BuyExcerpt = ({ i }) => {
         //get all of count and countExp
         
         for (let f of key){
-            let entities = note[f]
-            let objCC = {}
+            try {
+                let entities = note[f]
+                let objCC = {}
 
-            countEn += entities.count
-            objCC['count'] = entities.count
-            countExpEn += entities.countExp
-            objCC['countExp'] = entities.countExp
+                countEn += entities.count ? entities.count : 0;
+                objCC['count'] = entities.count ? entities.count : 0;
+                countExpEn += entities.countExp ? entities.countExp : 0;
+                objCC['countExp'] = entities.countExp ? entities.countExp : 0;
 
-            console.log(objCC)
+                console.log(objCC)
+                
+                content[entities.text] = objCC
+            } catch (err){
+                console.log(err)
+            }
             
-            content[entities.text] = objCC
         }
 
     //obj {key : count , countExp}
@@ -68,7 +86,7 @@ const BuyExcerpt = ({ i }) => {
     }
     return (
         <article>
-            <h2>{i.text}</h2>
+            <h2>{tag}</h2>
             <p>{JSON.stringify(content)}</p>
             <p>{'Buy ; ' + countEn + '   :   ' + 'Expire ; ' +countExpEn}</p>
             <p>{suggestion}</p>

@@ -45,13 +45,19 @@ const Buyrecommend = () => {
 
         //get taggg
         for (let f of tag){ 
+            //content = {tag : obj}
             tagEn[f] = filterEntitiesByTag(users.entities, f, 'tag');
+            tagEn[f]['tag'] = f;
+
+            console.log(tagEn)
+            for (let i of Object.keys(tagEn)){
+                
+                content.push(<BuyExcerpt key={i} i={tagEn[i]} />);
+            }
         }
 
 
-        for (let i of Object.keys(tagEn)){
-            content.push(<BuyExcerpt key={i} i={tagEn[i]} />);
-        }
+        
 
         console.log(content)
         
