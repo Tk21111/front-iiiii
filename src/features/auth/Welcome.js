@@ -17,6 +17,7 @@ const Welcome = () => {
             <p><Link to="/recommend"> for recommendation </Link></p>
             <p><Link to="/location"> for location</Link></p>
             <p><Link to="/location/ofuser"> for users location</Link></p>
+            <p><Link to="/buyrecommend">  By recommend</Link></p>
             <p><Link to="/logout"> log out</Link></p>
         </section>
     )

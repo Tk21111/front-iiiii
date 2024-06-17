@@ -25,6 +25,9 @@ import LocaCreate from './features/loca/LocaCreate'
 import SingleLocaPage from './features/loca/SingleLocaPage'
 import GetAllLoca from './features/loca/Loca'
 
+
+import Buyrecommend from './features/users/Buyguild'
+
 function App() {
   return (
     <Routes>
@@ -50,6 +53,8 @@ function App() {
                   <Route path="edit/:noteId" element={<EditPostForm />} />
                 </Route>
               </Route>
+
+              <Route path="buyrecommend"element={<Buyrecommend/>}/>
 
               {/* location */}
               <Route path="location">
