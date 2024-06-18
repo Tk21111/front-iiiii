@@ -20,7 +20,6 @@ const BuyExcerpt = ({ i }) => {
         }
     }, [i,note])
 
-    console.log(i)
     //key with tag
     let key = note ? Object.keys(note) : 0;
 
@@ -52,8 +51,6 @@ const BuyExcerpt = ({ i }) => {
                 objCC['count'] = entities.count ? entities.count : 0;
                 countExpEn += entities.countExp ? entities.countExp : 0;
                 objCC['countExp'] = entities.countExp ? entities.countExp : 0;
-
-                console.log(objCC)
                 
                 content[entities.text] = objCC
             } catch (err){
@@ -63,8 +60,8 @@ const BuyExcerpt = ({ i }) => {
         }
 
     //obj {key : count , countExp}
-    console.log(content)
-    console.log(note)
+    
+
         //setCount(countEn)
         //setCountExp(countExpEn)
 
