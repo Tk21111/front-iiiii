@@ -12,7 +12,6 @@ const Welcome = () => {
     const content = (
         <section className="welcome">
             <h1>{welcome}</h1>
-            <p> If you want username just login again </p>
             <p><Link to="/user" > Add yours food in list </Link></p>
             <p><Link to="/recommend"> for recommendation </Link></p>
             <p><Link to="/location"> for location</Link></p>

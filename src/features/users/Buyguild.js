@@ -41,26 +41,28 @@ const Buyrecommend = () => {
         //content is list because str didn't work
         content = []
         let tagEn = {};
-        
+        let inEn;
+        if (search){
+            inEn = filterEntitiesByTag(users.entities , search, searchType , false );
+        } else{
+            inEn = users.entities
+        }
 
-        //get taggg
-        for (let f of users.ids){ 
+        //get taggg from entities and assigned
+        for (let f of Object.keys(inEn)){ 
 
-            let ObjEn = users.entities[f];
-            let tag = ObjEn.tag;
-
+            let tag = inEn[f].tag;
+            //let tag = ObjEn.tag;
 
             //content = {tag : obj}
-            tagEn[tag] = filterEntitiesByTag(users.entities, tag, 'tag' , true);
+            tagEn[tag] = filterEntitiesByTag(inEn, tag, 'tag' , true);
 
             //get tag into entities
             tagEn[tag]['tag'] = tag;
 
         }
 
-        if (search){
-            
-        }
+        
 
         //get into article
         for (let i of Object.keys(tagEn)){     
@@ -107,7 +109,7 @@ const Buyrecommend = () => {
                         value={searchType}
                         onChange={(e) => setSearchType(e.target.value)}
                     >
-                        <option value="text">Text</option>
+                        <option value="text">Food</option>
                         <option value="tag">Tag</option>
                     </select>
                 </label>
