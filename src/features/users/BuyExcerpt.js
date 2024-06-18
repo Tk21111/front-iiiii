@@ -28,7 +28,7 @@ const BuyExcerpt = ({ i }) => {
     if (Array.isArray(key)){
         tag = note.tag
         key.pop();
-    console.log(key)
+    
     if (key.length === 0){
         key = 'None found'
     }

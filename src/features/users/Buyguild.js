@@ -18,10 +18,10 @@ const Buyrecommend = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (!hasFetched) {
+                if (!hasFetched && !users) {
                     await getAllNoteUser(user);
                     setHasFetched(true);
-                    console.log('f')
+                    
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -29,7 +29,7 @@ const Buyrecommend = () => {
         };
 
         fetchData();
-    }, [ hasFetched]);
+    }, [hasFetched]);
 
     let content;
 
@@ -40,26 +40,36 @@ const Buyrecommend = () => {
         //user = { ids , entities}
         //content is list because str didn't work
         content = []
-        let tag = ['asd','asf','asaad'];
         let tagEn = {};
+        
 
         //get taggg
-        for (let f of tag){ 
-            //content = {tag : obj}
-            tagEn[f] = filterEntitiesByTag(users.entities, f, 'tag');
-            tagEn[f]['tag'] = f;
+        for (let f of users.ids){ 
 
-            console.log(tagEn)
-            for (let i of Object.keys(tagEn)){
-                
-                content.push(<BuyExcerpt key={i} i={tagEn[i]} />);
-            }
+            let ObjEn = users.entities[f];
+            let tag = ObjEn.tag;
+
+
+            //content = {tag : obj}
+            tagEn[tag] = filterEntitiesByTag(users.entities, tag, 'tag' , true);
+
+            //get tag into entities
+            tagEn[tag]['tag'] = tag;
+
         }
 
+        if (search){
+            
+        }
+
+        //get into article
+        for (let i of Object.keys(tagEn)){     
+            content.push(<BuyExcerpt key={i} i={tagEn[i]} />);
+        }
 
         
 
-        console.log(content)
+        
         
     } else if (isError) {
         let msg;

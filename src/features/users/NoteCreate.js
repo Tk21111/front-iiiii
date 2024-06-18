@@ -50,6 +50,10 @@ const CreatePost = () => {
                 setDone(false)
                 navigate(`/user`)
             } catch (err) {
+                if (err.status === 409){
+                    
+                    navigate(`/user/note/edit/${err.data.noteId}`)
+                }
                 console.error('Failed to save the post', err)
             }
         }

@@ -1,4 +1,4 @@
-function filterEntitiesByTag(entities, tagsToFilter, x) {
+function filterEntitiesByTag(entities, tagsToFilter, x , strict) {
     let filteredEntities = {};
     
     try {
@@ -10,17 +10,22 @@ function filterEntitiesByTag(entities, tagsToFilter, x) {
             if (entities.hasOwnProperty(key)) {
                 let entity = entities[key];
                 if (Array.isArray(entity[x])){
-                    if (entity[x] && entity[x].some(tag => tag.includes(tagsToFilter))) {
+                    if ( strict && entity[x] && entity[x].some(tag => tagsToFilter.includes(tag))) {
+                        filteredEntities[key] = entity;
+                    } else if (entity[x] && entity[x].some(tag => tag.includes(tagsToFilter))) {
                         filteredEntities[key] = entity;
                     }
                 } else {
-                    if (entity[x] && entity[x].includes(tagsToFilter))
+                    if (strict && entity[x] && tagsToFilter.includes(entity[x])){
                     filteredEntities[key] = entity
+                    } else if (entity[x] && entity[x].includes(tagsToFilter)){
+                        filteredEntities[key] = entity
+                    }
                 }
-                
+        
             }
         }
-    
+
     } catch (err) {
         console.log(err)
     }
