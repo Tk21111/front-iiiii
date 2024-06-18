@@ -8,7 +8,11 @@ import filterEntitiesByTag from '../users/Search';
 import { Link } from 'react-router-dom';
 
 const GetAlluserLoca = () => {
-    const { data: users, isLoading, isSuccess, isError, error } = useGetAllUserlocaQuery();
+    const { data: users, isLoading, isSuccess, isError, error } = useGetAllUserlocaQuery(('loca', {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    }));
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 

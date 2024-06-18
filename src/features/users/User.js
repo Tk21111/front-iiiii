@@ -9,7 +9,11 @@ import { Link } from "react-router-dom";
 
 const GetAllNoteUser = () => {
     const user = { username: useSelector(selectCurrentUser) };
-    const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
+    const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    }));
     const [hasFetched, setHasFetched] = useState(false);
 
     const [search, setSearch] = useState("");
