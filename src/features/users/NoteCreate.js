@@ -26,7 +26,8 @@ const CreatePost = () => {
         count: 0,
         countExp: 0,
         tag: '',
-        done: false
+        done: false,
+        files: []
     }]);
 
     if (isLoading) return <p>Loading...</p>;
@@ -34,7 +35,13 @@ const CreatePost = () => {
     const canSave = notes.every(note => [note.title, note.expTime, note.tag].every(Boolean) && !isLoading && note.count >= 0 && note.countExp >= 0);
 
     const handleInputChange = (index, field, value) => {
+        //pos note in array
         const updatedNotes = notes.map((note, i) => i === index ? { ...note, [field]: value } : note);
+        setNotes(updatedNotes);
+    };
+
+    const handleFileChange = (index, files) => {
+        const updatedNotes = notes.map((note, i) => i === index ? { ...note, files: Array.from(files) } : note);
         setNotes(updatedNotes);
     };
 
@@ -45,7 +52,8 @@ const CreatePost = () => {
             count: 0,
             countExp: 0,
             tag: '',
-            done: false
+            done: false,
+            files: []
         }]);
     };
 
@@ -56,22 +64,32 @@ const CreatePost = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await createNote(notes.map(note => ({
-                    username,
-                    text: note.title,
-                    date: note.expTime,
-                    count: note.count,
-                    countExp: note.countExp,
-                    done: note.done,
-                    tag: note.tag.split(',')
-                }))).unwrap();
+                const formData = new FormData();
+                notes.forEach((note, index) => {
+                    formData.append(`notes[${index}][username]`, username);
+                    formData.append(`notes[${index}][text]`, note.title);
+                    formData.append(`notes[${index}][date]`, note.expTime);
+                    formData.append(`notes[${index}][count]`, note.count);
+                    formData.append(`notes[${index}][countExp]`, note.countExp);
+                    formData.append(`notes[${index}][done]`, note.done);
+                    formData.append(`notes[${index}][tag]`, note.tag);
+                    note.files.forEach((file) => {
+                        formData.append(`notes[${index}][files]`, file);
+                    });
+                });
+
+
+                await createNote({
+                    formData
+                }).unwrap();
                 setNotes([{
                     title: '',
                     expTime: formattedDate,
                     count: 0,
                     countExp: 0,
                     tag: '',
-                    done: false
+                    done: false,
+                    files: []
                 }]);
                 navigate(`/user`);
             } catch (err) {
@@ -146,6 +164,14 @@ const CreatePost = () => {
                             name={`postDone-${index}`}
                             checked={note.done}
                             onChange={(e) => handleInputChange(index, 'done', e.target.checked)}
+                        />
+                        <label htmlFor={`postFiles-${index}`}>Upload Images:</label>
+                        <input
+                            type="file"
+                            id={`postFiles-${index}`}
+                            name={`postFiles-${index}`}
+                            multiple
+                            onChange={(e) => handleFileChange(index, e.target.files)}
                         />
                         {index > 0 && (
                             <button type="button" onClick={() => handleRemoveNote(index)}>Remove</button>

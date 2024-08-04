@@ -62,7 +62,7 @@ export const noteApislice = apiSlice.injectEndpoints({
                 url: '/note/create',
                 method: 'POST',
                 credential : 'include',
-                body : { data}
+                body : data.formData,
             }),
             invalidatesTags: [
                 { type: 'Note', id: "LIST" }
