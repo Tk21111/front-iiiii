@@ -51,7 +51,7 @@ const GetAllNoteUser = () => {
                         setListSorted(valueList)
                         
                     } else {
-                        setListSorted('None match')
+                        setListSorted([])
                     }
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -67,14 +67,21 @@ const GetAllNoteUser = () => {
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess && hasFetched && listSorted) {
-        if (search){        
-            const filterList = listSorted.filter(val => val.includes(search))
-            const i = filterList.map(val => <article>{val}</article>)
-            content = <p>{i}</p>
+
+        console.log(listSorted)
+        if (listSorted){
+            if (search){        
+                const filterList = listSorted.filter(val => val.includes(search))
+                const i = filterList.map(val => <article>{val}</article>)
+                content = <p>{i}</p>
+            } else {
+                const i = listSorted.map(val => <article>{val}</article>)
+                content = <p>{i}</p>
+            }
         } else {
-            const i = listSorted.map(val => <article>{val}</article>)
-            content = <p>{i}</p>
+            content = <p>blank (nothing match)</p>
         }
+        
         
         
         //content = listSorted.map((item, index) => <PostsExcerpt key={index} postId={item} />);
@@ -82,6 +89,7 @@ const GetAllNoteUser = () => {
         let msg;
         if (error.status === 403) {
             msg = "Access denied. Go get a random number first.";
+            <Link to="/login">Back to Welcome</Link>
         } else {
             msg = JSON.stringify(error);
         }

@@ -41,7 +41,8 @@ const CreatePost = () => {
     };
 
     const handleFileChange = (index, files) => {
-        const updatedNotes = notes.map((note, i) => i === index ? { ...note, files: Array.from(files) } : note);
+        const fileArray = Array.from(files);
+        const updatedNotes = notes.map((note, i) => i === index ? { ...note, files: fileArray, preview: fileArray.map(file => URL.createObjectURL(file)) } : note);
         setNotes(updatedNotes);
     };
 
@@ -59,6 +60,16 @@ const CreatePost = () => {
 
     const handleRemoveNote = (index) => {
         setNotes(notes.filter((_, i) => i !== index));
+    };
+    const handleRemoveImage = (index) => {
+        // Create a new copy of the notes array to avoid direct state mutation
+        const updatedNotes = notes.map((note, i) => {
+            if (i === index) {
+                return { ...note, files: [], preview: [] };
+            }
+            return note;
+        });
+        setNotes(updatedNotes);
     };
 
     const onSavePostClicked = async () => {
@@ -173,8 +184,16 @@ const CreatePost = () => {
                             multiple
                             onChange={(e) => handleFileChange(index, e.target.files)}
                         />
+                        <div>
+                            {note?.preview?.map((src, fileIndex) => (
+                                <img key={fileIndex} src={src} alt={`preview-${fileIndex}`} style={{ flexGrow: 1, maxWidth: 200 , maxHeight: 200, borderBlockWidth : 1 , borderRadius : 25}} />
+                            )) || "no image"}
+                        </div>
                         {index > 0 && (
                             <button type="button" onClick={() => handleRemoveNote(index)}>Remove</button>
+                        )}
+                        {(
+                            <button type="button" onClick={() => handleRemoveImage(index)}>Remove Image</button>
                         )}
                     </div>
                 ))}

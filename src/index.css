@@ -26,6 +26,7 @@ input, button {
   min-height: 100vh;
   display: flex;
   padding: 1rem;
+  --LINK-COLOR: #00000;
 }
 
 section {
@@ -38,6 +39,10 @@ a, a:visited {
 
 a:hover, a:focus {
   color: rgba(245, 245, 245, 0.9);
+}
+
+a:any-link{
+  color: var(--LINK-COLOR)
 }
 
 /* || LOGIN */
@@ -53,6 +58,8 @@ a:hover, a:focus {
   padding: 0.5em;
   border-radius: 15px;
 }
+
+
 
 /* || PAGES */
 
