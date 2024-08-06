@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { Link } from 'react-router-dom';
 
+const { v4: uuid } = require('uuid');
+
 const CreatePost = () => {
     const navigate = useNavigate();
     const username = useSelector(selectCurrentUser);

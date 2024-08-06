@@ -8,7 +8,9 @@ import { selectCurrentUser } from '../auth/authSlice';
 const SinglePostPage = () => {
 
     const noteId = useParams()
-    
+
+
+    const URL = 'http://localhost:3500/'
     const username = useSelector(selectCurrentUser);
     const [getAllNoteUser , { isLoading }] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
@@ -33,10 +35,14 @@ const SinglePostPage = () => {
             </section>
         )
     }
+    console.log(note.path)
+    console.log("http://localhost:3500/"  +  note.path.toString().replace(/\\/g, '/'))
+    const imagePath = `http://localhost:3500/${note.path.toString().replace(/\\/g, '/')}`;
 
     return (
         <article>
             <h2>{note.text}</h2>
+            <img src={imagePath} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
             <p>Exp date : {note.timeOut}</p>
             <p>In count : {note.count}</p>
             <p>Exp count : {note.countExp}</p>
