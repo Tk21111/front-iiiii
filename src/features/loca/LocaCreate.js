@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useNavigate , useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useCreatelocaMutation } from './LocaApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { Link } from 'react-router-dom';
+
 const CreatePost = () => {
     const navigate = useNavigate()
     const { noteId } = useParams();
@@ -15,25 +16,39 @@ const CreatePost = () => {
     const [subdistrict, setSubdistrict] = useState('')
     const [county, setCounty] = useState('')
     const [more, setMore] = useState('')
-    
+    const [image, setImage] = useState(null)
 
     if (isLoading) return <p>Loading...</p>
 
     const onTownChange = e => setTown(e.target.value)
     const onSubdistrictChange = e => setSubdistrict(e.target.value)
-    const onCountryChange = e => setCounty(e.target.value)
+    const onCountyChange = e => setCounty(e.target.value)
     const onMoreChange = e => setMore(e.target.value)
+    const onImageChange = e => setImage(e.target.files[0])
 
-    const canSave = [town, subdistrict, county , noteId].every(Boolean)
+    const canSave = [town, subdistrict, county, noteId].every(Boolean)
 
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await createLoca({ food : noteId , username, town, subdistrict, county, more}).unwrap()
+                const formData = new FormData();
+
+                formData.append("food", noteId)
+                formData.append("username", username)
+                formData.append("town", town)
+                formData.append("subdistrict", subdistrict)
+                formData.append("county", county)
+                formData.append("more", more)
+                if (image) {
+                    formData.append("image", image)
+                }
+
+                await createLoca(formData)
                 setTown('');
                 setSubdistrict('');
                 setCounty('');
                 setMore('');
+                setImage(null);
                 navigate(`/location`)
             } catch (err) {
                 console.error('Failed to save the post', err)
@@ -43,8 +58,8 @@ const CreatePost = () => {
 
     return (
         <section>
-            <p><Link to="/user"> Food List </Link></p>
-            <p><Link to="/welcome"> Home </Link></p>
+            <p><Link to="/user">Food List</Link></p>
+            <p><Link to="/welcome">Home</Link></p>
             <h2>Create Post</h2>
             <form>
                 <label htmlFor="locaTown">Town:</label>
@@ -63,21 +78,28 @@ const CreatePost = () => {
                     value={subdistrict}
                     onChange={onSubdistrictChange}
                 />
-                <label htmlFor="locaCountry">Country:</label>
+                <label htmlFor="locaCountry">County:</label>
                 <input
                     type="text"
                     id="locacountry"
                     name="locacountry"
                     value={county}
-                    onChange={onCountryChange}
+                    onChange={onCountyChange}
                 />
-                <label htmlFor="locaMote">More info:</label>
+                <label htmlFor="locaMore">More info:</label>
                 <input
                     type="text"
                     id="locamore"
                     name="locamore"
                     value={more}
                     onChange={onMoreChange}
+                />
+                <label htmlFor="locaImage">Upload Image:</label>
+                <input
+                    type="file"
+                    id="locaImage"
+                    name="locaImage"
+                    onChange={onImageChange}
                 />
                 <button
                     type="button"

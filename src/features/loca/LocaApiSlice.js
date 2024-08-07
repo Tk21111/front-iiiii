@@ -46,10 +46,11 @@ export const locaApislice = apiSlice.injectEndpoints({
             }
         }),
         createloca : builder.mutation({
-            query: (data) => ({ //same
+            query: (data) => ({
+                 //same
                 url: '/location/create',
                 method: 'POST',
-                body : { ...data}
+                body : data,
             }),
             invalidatesTags: [
                 { type: 'Loca', id: "LIST" }
