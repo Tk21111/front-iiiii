@@ -43,7 +43,9 @@ const CreatePost = () => {
                     formData.append("image", image)
                 }
 
-                await createLoca(formData)
+                console.log(formData)
+
+                await createLoca({formData}).unwrap();
                 setTown('');
                 setSubdistrict('');
                 setCounty('');

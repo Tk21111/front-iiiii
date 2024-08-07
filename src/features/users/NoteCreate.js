@@ -91,6 +91,9 @@ const CreatePost = () => {
                     });
                 });
 
+                console.log(notes)
+                console.log(formData)
+
 
                 await createNote({
                     formData

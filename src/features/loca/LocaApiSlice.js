@@ -50,7 +50,8 @@ export const locaApislice = apiSlice.injectEndpoints({
                  //same
                 url: '/location/create',
                 method: 'POST',
-                body : data,
+                credential : 'include',
+                body : data.formData,
             }),
             invalidatesTags: [
                 { type: 'Loca', id: "LIST" }
