@@ -16,7 +16,8 @@ const CreatePost = () => {
     const [subdistrict, setSubdistrict] = useState('')
     const [county, setCounty] = useState('')
     const [more, setMore] = useState('')
-    const [image, setImage] = useState(null)
+    const [images, setImages] = useState([])  // Array to hold multiple images
+    const [imagePreviews, setImagePreviews] = useState([]);  // Array to hold image preview URLs
 
     if (isLoading) return <p>Loading...</p>
 
@@ -24,7 +25,20 @@ const CreatePost = () => {
     const onSubdistrictChange = e => setSubdistrict(e.target.value)
     const onCountyChange = e => setCounty(e.target.value)
     const onMoreChange = e => setMore(e.target.value)
-    const onImageChange = e => setImage(e.target.files[0])
+    
+    const onImageChange = e => {
+        const files = Array.from(e.target.files);
+        setImages(prevImages => [...prevImages, ...files]);
+
+        // Generate previews
+        const filePreviews = files.map(file => URL.createObjectURL(file));
+        setImagePreviews(prevPreviews => [...prevPreviews, ...filePreviews]);
+    }
+
+    const removeImage = index => {
+        setImages(prevImages => prevImages.filter((_, i) => i !== index));
+        setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
+    }
 
     const canSave = [town, subdistrict, county, noteId].every(Boolean)
 
@@ -39,18 +53,18 @@ const CreatePost = () => {
                 formData.append("subdistrict", subdistrict)
                 formData.append("county", county)
                 formData.append("more", more)
-                if (image) {
-                    formData.append("image", image)
-                }
+                
+                images.forEach((image, index) => {
+                    formData.append(`images`, image)
+                });
 
-                console.log(formData)
-
-                await createLoca({formData}).unwrap();
+                await createLoca({formData}).unwrap()
                 setTown('');
                 setSubdistrict('');
                 setCounty('');
                 setMore('');
-                setImage(null);
+                setImages([]);
+                setImagePreviews([]);
                 navigate(`/location`)
             } catch (err) {
                 console.error('Failed to save the post', err)
@@ -96,13 +110,44 @@ const CreatePost = () => {
                     value={more}
                     onChange={onMoreChange}
                 />
-                <label htmlFor="locaImage">Upload Image:</label>
+                <label htmlFor="locaImages">Upload Images:</label>
                 <input
                     type="file"
-                    id="locaImage"
-                    name="locaImage"
+                    id="locaImages"
+                    name="locaImages"
                     onChange={onImageChange}
+                    multiple  // Allow multiple file selection
                 />
+                
+                <div>
+                    {imagePreviews.map((preview, index) => (
+                        <div key={index} style={{ display: 'inline-block', margin: '10px', position: 'relative' }}>
+                            <img
+                                src={preview}
+                                alt={`Preview ${index}`}
+                                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => removeImage(index)}
+                                style={{
+                                    position: 'absolute',
+                                    top: '5px',
+                                    right: '5px',
+                                    background: 'red',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    cursor: 'pointer',
+                                    padding: '2px 6px'
+                                }}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
                 <button
                     type="button"
                     onClick={onSavePostClicked}

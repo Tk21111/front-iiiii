@@ -35,10 +35,9 @@ const SinglePostPage = () => {
             </section>
         )
     }
-    console.log(note.path)
-    console.log("http://localhost:3500/"  +  note.path.toString().replace(/\\/g, '/'))
-    const imagePath = `http://localhost:3500/${note.path.toString().replace(/\\/g, '/')}`;
 
+    const imagePath = `http://localhost:3500/${note.images.toString().replace(/\\/g, '/')}`;
+    console.log(note.images)
     return (
         <article>
             <h2>{note.text}</h2>

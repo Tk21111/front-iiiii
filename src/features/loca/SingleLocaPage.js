@@ -66,9 +66,22 @@ const SingleLocaPage = () => {
         }
     }
 
+    
+    const imagePath = loca?.images?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    
+   
+
     return (
         <article>
             <h2 ref={errRef} className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</h2>
+            {imagePath.map((path, i) => (
+                <img
+                    key={i}
+                    src={path}
+                    alt={`note image ${i}`}
+                    style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
+                />
+            ))}
             <h2>{text}</h2>
             <p>Town : {loca.town}</p>
             <p>Subdistrict : {loca.subdistrict}</p>
