@@ -44,7 +44,7 @@ const SingleLocaPage = () => {
     };
     if (isLoading) return <p>Loading...</p>
     if (isError) return <p>Can't find location sharing post</p>
-    if (deleteErr) return <p>401 cannot delete location that isn't yours</p>
+    
     if (!data) {
         return (
             <section>
@@ -61,6 +61,7 @@ const SingleLocaPage = () => {
             navigate('/location')
             } catch (err) {
                 console.log(err)
+                setErrMsg("401 cannot delete location that isn't yours")
             }
             
         }
@@ -82,19 +83,21 @@ const SingleLocaPage = () => {
                     style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
                 />
             ))}
-            <h2>{text}</h2>
-            <p>Town : {loca.town}</p>
-            <p>Subdistrict : {loca.subdistrict}</p>
-            <p>County : {loca.county}</p>
-            <p>more: {loca.more ? loca.more : "Don't have more"}</p>
-            <button
-                    type="button"
-                    onClick={ondeletePostClicked}
-                >
-                    Delete Post
-                </button>
-            <p><Link to="/location"> Location List </Link></p>
-            <p><Link to="/welcome"> Home </Link></p>
+            <div style={{margin: '2%'}}>
+                <h2>{text}</h2>
+                <p>Town : {loca.town}</p>
+                <p>Subdistrict : {loca.subdistrict}</p>
+                <p>County : {loca.county}</p>
+                <p>more: {loca.more ? loca.more : "Don't have more"}</p>
+                <button
+                        type="button"
+                        onClick={ondeletePostClicked}
+                    >
+                        Delete Post
+                    </button>
+                <p><Link to="/location"> Location List </Link></p>
+                <p><Link to="/welcome"> Home </Link></p>
+            </div>
         </article>
     )
 }
