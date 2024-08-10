@@ -12,7 +12,7 @@ import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
 
 
-
+import SpeechToText from './features/users/record'
 import User from './features/users/User'
 import Recommend from './features/users/Recommendation'
 import SinglePostPage from './features/users/SingleNotePage'
@@ -43,6 +43,8 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route element={<Prefetch />}>
               <Route path="welcome" element={<Welcome />} />
+
+              <Route path='record' element={<SpeechToText/>}/>
 
               {/* user && note */}
               <Route path="user">
