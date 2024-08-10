@@ -54,11 +54,22 @@ const LocasExcerpt = ({ i }) => {
         return <p>Location not found</p>;
     }
 
+    const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    console.log(imagePath)
 
     return (
         <article>
             <h2>{text}</h2>
             <p>{loca.town}</p>
+            <p>{loca.aka}</p>
+            {imagePath.map((path, i) => (
+                <img
+                    key={i}
+                    src={path}
+                    alt={`note image ${i}`}
+                    style={{ flexGrow: 1, maxWidth: '20%', maxHeight: '20%' }}
+                />
+            ))}
             <p style={{color: 'red'}}>{loca.organisation ? "organisation" : "user"}</p>
             <p className="postCredit">
                 <Link to={`/location/${loca.id}`}>View Post</Link>

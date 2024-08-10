@@ -11,7 +11,7 @@ import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
 
-
+import ProfileUpdateForm from './features/users/UserPr'
 import SpeechToText from './features/users/record'
 import User from './features/users/User'
 import Recommend from './features/users/Recommendation'
@@ -49,6 +49,7 @@ function App() {
               {/* user && note */}
               <Route path="user">
                 <Route index element={<User />} />
+                <Route path="update" element={<ProfileUpdateForm/>} />
                 <Route path="note">
                   <Route path="create" element={<CreatePost />} />
                   <Route path=":noteId" element={<SinglePostPage />} />

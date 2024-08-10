@@ -80,6 +80,13 @@ export const noteApislice = apiSlice.injectEndpoints({
                 { type: 'Note', id: arg.id }
             ]
         }),
+        updateUser: builder.mutation({
+            query: (data) => ({
+                url: '/user/update',
+                method: 'PATCH',
+                body: data.formData
+            })
+        }),
         deleteNote : builder.mutation({
             query: (data) => ({ //same
                 url: '/note/delete',
@@ -97,7 +104,7 @@ export const noteApislice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery  } = noteApislice;
+export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useUpdateUserMutation} = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
 
