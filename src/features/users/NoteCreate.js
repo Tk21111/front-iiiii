@@ -12,7 +12,7 @@ const mic = new SpeechRecognition();
 
 mic.continuous = true;
 mic.interimResults = true;
-mic.lang = "th-TH";
+mic.lang = "en-US";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -26,6 +26,8 @@ const CreatePost = () => {
   const day = String(currentDate.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
+  //speech to text save value 
+  const [spc , setSpc] = useState('')
   const [createNote, { isLoading }] = useCreateNoteMutation();
   const [notes, setNotes] = useState([
     {
@@ -40,6 +42,28 @@ const CreatePost = () => {
     },
   ]);
 
+  function findInStr (transcript, index) {
+    let arrindexkey = {}
+    for ( let i of ['title' , 'count' , 'countExp','tag']){
+      if(transcript.toLocaleLowerCase().includes(i)){
+        arrindexkey[i] = transcript.indexOf(i)
+      }
+    }
+    console.log(arrindexkey)
+    const keyI = Object.keys(arrindexkey)
+    if (keyI.length >= 1 ){
+      for(let n = 1  ; n<= keyI.length; n++){
+        console.log(transcript.substring(arrindexkey[keyI[n-1]]+ (keyI[n-1]?.length) || 0,arrindexkey[keyI[n]] ));
+        console.log(keyI[n-1]?.length)
+        handleInputChange(index, keyI[n-1] , transcript.substring(arrindexkey[keyI[n-1]]+ (keyI[n-1]?.length) || 0,arrindexkey[keyI[n]] ));
+      };
+      
+    }else{
+      handleInputChange(index, keyI[0], transcript);
+    }
+    
+  };
+
   const handleListen = (index) => {
     const note = notes[index];
     try{
@@ -49,13 +73,14 @@ const CreatePost = () => {
               mic.isRecognizing = true;  // Add a flag to track recognition status
             }
             
-            /*
+            
             mic.onend = () => {
               console.log("continue..");
               
             };
-            */
+            
           } else {
+            //causing bug cause it not working //fix try catch
             mic.stop();
             mic.onend = () => {
               console.log("Stopped Mic on Click");
@@ -73,9 +98,8 @@ const CreatePost = () => {
               .map((result) => result.transcript)
               .join("");
             console.log(transcript);
-            handleInputChange(index, "title", transcript);
-
-            
+            setSpc(transcript);
+            findInStr(transcript , index)
           };
         
           mic.onerror = (event) => {
@@ -231,6 +255,7 @@ const CreatePost = () => {
         <Link to="/welcome">Home</Link>
       </p>
       <h2>Create Note</h2>
+      <h1>{spc || "speech to text "}</h1>
       <form>
         {notes.map((note, index) => (
           <div key={index}>
