@@ -85,6 +85,7 @@ const SingleLocaPage = () => {
             ))}
             <div style={{margin: '2%'}}>
                 <h2>{text}</h2>
+                (<h1>{loca.organisation ? "organisation!!!!" : "user"}</h1>)
                 <p>Town : {loca.town}</p>
                 <p>Subdistrict : {loca.subdistrict}</p>
                 <p>County : {loca.county}</p>

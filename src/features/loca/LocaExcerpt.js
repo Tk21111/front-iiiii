@@ -59,6 +59,7 @@ const LocasExcerpt = ({ i }) => {
         <article>
             <h2>{text}</h2>
             <p>{loca.town}</p>
+            <p style={{color: 'red'}}>{loca.organisation ? "organisation" : "user"}</p>
             <p className="postCredit">
                 <Link to={`/location/${loca.id}`}>View Post</Link>
             </p>
