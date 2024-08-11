@@ -1,7 +1,7 @@
 import { useParams , useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useEffect, useState , useRef} from 'react';
-import { useGetAlllocaQuery , useDeletelocaMutation} from './LocaApiSlice';
+import { useGetAlllocaQuery , useDeletelocaMutation, useDonatelocaMutation} from './LocaApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
 
@@ -12,6 +12,7 @@ const SingleLocaPage = () => {
 
     const { data , isLoading, isSuccess, isError, error } = useGetAlllocaQuery();
     const [ deleteLoca , {isLoading : isDeleting , isError : deleteErr}] = useDeletelocaMutation();
+    const [donate , {isLoading : isDonating , isError : donateErr}] = useDonatelocaMutation();
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
     const [errMsg , setErrMsg] = useState('');
@@ -61,11 +62,38 @@ const SingleLocaPage = () => {
             navigate('/location')
             } catch (err) {
                 console.log(err)
-                setErrMsg("401 cannot delete location that isn't yours")
             }
             
         }
     }
+
+
+    const onDonateClicked = async (e) => {
+        e.preventDefault();
+        if (locaId.noteId) {
+            try {
+                const response = await donate({ id: locaId.noteId }).unwrap();
+    
+                // Assuming response was successful, navigate to '/location'
+                navigate(`/getuser/${loca.user}`);
+    
+            } catch (err) {
+                console.error(err);
+    
+                // Check the original status code from the error
+                if (err.originalStatus === 401) {
+                    setErrMsg("401 Unauthorized: Cannot delete location that isn't yours");
+                } else if (err.originalStatus === 500) {
+                    setErrMsg("500 Internal Server Error");
+                } else {
+                    setErrMsg("An unexpected error occurred");
+                }
+            }
+        } else {
+            setErrMsg("Note ID is missing");
+        }
+    };
+    
 
     
     const imagePath = loca?.images?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
@@ -85,11 +113,17 @@ const SingleLocaPage = () => {
             ))}
             <div style={{margin: '2%'}}>
                 <h2>{text}</h2>
-                (<h1>{loca.organisation ? "organisation!!!!" : "user"}</h1>)
-                <p>Town : {loca.town}</p>
-                <p>Subdistrict : {loca.subdistrict}</p>
-                <p>County : {loca.county}</p>
-                <p>more: {loca.more ? loca.more : "Don't have more"}</p>
+                (<h1>{loca?.organisation ? "organisation!!!!" : "user"}</h1>)
+                <p>Town : {loca?.town}</p>
+                <p>Subdistrict : {loca?.subdistrict}</p>
+                <p>County : {loca?.county}</p>
+                <p>more: {loca?.more ? loca.more : "Don't have more"}</p>
+                <button
+                        type="button"
+                        onClick={onDonateClicked}
+                    >
+                        Donate to this person
+                    </button>
                 <button
                         type="button"
                         onClick={ondeletePostClicked}

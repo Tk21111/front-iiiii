@@ -57,6 +57,15 @@ export const locaApislice = apiSlice.injectEndpoints({
                 { type: 'Loca', id: "LIST" }
             ]
         }),
+        donateloca : builder.mutation({
+            query: (data) => ({
+                 //same
+                url: '/location/donate',
+                method: 'POST',
+                credential : 'include',
+                body : {...data},
+            })
+        }),
         updateloca : builder.mutation({
             query: (data) => ({ //same
                 url: '/location/update',
@@ -84,7 +93,7 @@ export const locaApislice = apiSlice.injectEndpoints({
     })
 });
 
-export const { useCreatelocaMutation, useDeletelocaMutation , useGetAlllocaQuery , useGetAllUserlocaQuery } = locaApislice;
+export const { useCreatelocaMutation, useDeletelocaMutation , useGetAlllocaQuery , useGetAllUserlocaQuery , useDonatelocaMutation} = locaApislice;
 // returns the query result object
 export const selectLocasResult = locaApislice.endpoints.getAllloca.select()
 

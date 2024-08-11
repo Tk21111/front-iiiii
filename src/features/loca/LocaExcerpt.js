@@ -55,7 +55,6 @@ const LocasExcerpt = ({ i }) => {
     }
 
     const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
-    console.log(imagePath)
 
     return (
         <article>

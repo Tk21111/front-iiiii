@@ -11,6 +11,7 @@ import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
 
+import GetUser from './features/users/GetUser'
 import ProfileUpdateForm from './features/users/UserPr'
 import SpeechToText from './features/users/record'
 import User from './features/users/User'
@@ -45,6 +46,7 @@ function App() {
               <Route path="welcome" element={<Welcome />} />
 
               <Route path='record' element={<SpeechToText/>}/>
+              <Route path='getuser/:userId' element={<GetUser/>}/>
 
               {/* user && note */}
               <Route path="user">

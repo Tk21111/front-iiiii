@@ -12,7 +12,7 @@ const Welcome = () => {
 
     const welcome = user? `Welcome ${user} aka ${aka}` : 'Welcome!'
 
-    const imagePath = `http://localhost:3500/${image.toString().replace(/\\/g, '/')}`;
+    const imagePath = `http://localhost:3500/${image?.toString().replace(/\\/g, '/')}`;
 
     const content = (
         <section className="welcome">
