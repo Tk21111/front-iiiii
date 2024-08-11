@@ -59,18 +59,22 @@ const LocasExcerpt = ({ i }) => {
 
     return (
         <article>
-            <h2>{text}</h2>
-            <p>{loca.town}</p>
-            <p>{loca.aka}</p>
-            {imagePath.map((path, i) => (
-                <img
-                    key={i}
-                    src={path}
-                    alt={`note image ${i}`}
-                    style={{ flexGrow: 1, maxWidth: '20%', maxHeight: '20%' }}
-                />
-            ))}
-            <p style={{color: 'red'}}>{loca.organisation ? "organisation" : "user"}</p>
+            <div>
+                <h2>{text}</h2>
+                <p>{loca.town}</p>
+                <p>{loca.aka}</p>
+            </div>
+            <div>
+                {imagePath.map((path, i) => (
+                    <img
+                        key={i}
+                        src={path}
+                        alt={`note image ${i}`}
+                        style={{ flexGrow: 1, maxWidth: '20%', maxHeight: '20%' }}
+                    />
+                ))}
+                <p style={{color: 'red'}}>{loca.organisation ? "organisation" : "user"}</p>
+            </div>
             <p className="postCredit">
                 <Link to={`/location/${loca.id}`}>View Post</Link>
             </p>
