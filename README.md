@@ -1,1 +1,1 @@
-btw change the localhost in every single page
+btw change the localhost ito proper api in singleNotePage , singleLocaPage ,welcome maybe these is all
