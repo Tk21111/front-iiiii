@@ -122,7 +122,7 @@ const SingleLocaPage = () => {
                         type="button"
                         onClick={onDonateClicked}
                     >
-                        Donate to this person
+                        Get from this person
                     </button>
                 <button
                         type="button"
