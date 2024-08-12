@@ -32,6 +32,7 @@ const GetAlluserLoca = () => {
     
     let content;
 
+
     if (loading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {

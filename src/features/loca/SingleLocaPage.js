@@ -67,7 +67,7 @@ const SingleLocaPage = () => {
         }
     }
 
-
+    //go to that person
     const onDonateClicked = async (e) => {
         e.preventDefault();
         if (locaId.noteId) {

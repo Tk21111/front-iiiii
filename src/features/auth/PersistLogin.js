@@ -36,7 +36,7 @@ const PersistLogin = () => {
                     const decoded = jwtDecode(accessToken);
                     
                     //have to dispatch anyway
-                    dispatch(setCredentials({user : decoded.userinfo.username, accessToken , image : response.image , aka : response.aka}))
+                    dispatch(setCredentials({user : decoded.userinfo.username, accessToken , image : response.data.image , aka : response.data.aka}))
                     
                     setTrueSuccess(true)
                     

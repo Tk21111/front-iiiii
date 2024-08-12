@@ -308,7 +308,7 @@ const CreatePost = () => {
               id={`postTag-${index}`}
               name={`postTag-${index}`}
               value={note.tag}
-              onChange={(e) => handleInputChange(index, "tag", e.target.value)}
+              onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
             />
             <label htmlFor={`postDone-${index}`}>Exp?:</label>
             <input
