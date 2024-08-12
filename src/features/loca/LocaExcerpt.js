@@ -63,7 +63,7 @@ const LocasExcerpt = ({ i }) => {
                 <p>{loca.town}</p>
                 <p>{loca.aka}</p>
                 <p>{loca.getP || 'not allowed to see'}</p>
-                <Link to={`/getuser/${loca.getPId}`}>that person</Link>
+                {loca.getPId? <p>no data</p> : <Link to={`/getuser/${loca.getPId}`}>that person</Link>}
             </div>
             <div>
                 {imagePath.map((path, i) => (
