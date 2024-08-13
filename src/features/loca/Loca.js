@@ -89,8 +89,11 @@ const GetAllLoca = () => {
                     <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                         <option value="text">Text</option>
                         <option value="town">Town</option>
-                        <option value="subdistrict ">Subdistrict </option>
-                        <option value="county ">County </option>
+                        <option value="subdistrict">Subdistrict </option>
+                        <option value="county">County </option>
+                        <option value="tag">tag </option>
+                        <option value="count">count </option>
+                        <option value="exp">exp </option>
                     </select>
                 </label>
             </div>
