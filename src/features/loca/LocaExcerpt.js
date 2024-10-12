@@ -61,7 +61,7 @@ const LocasExcerpt = ({ i }) => {
             <div>
                 <h2>{text}</h2>
                 <p>{loca.town}</p>
-                <p>{"Have : " + loca.count}</p>
+                <p>{"Have : " + loca.num}</p>
                 <p>{"Exp date : " + loca.exp}</p>
                 <p>{loca.aka}</p>
                 <p>{"Getter name : " + loca.getP || 'not allowed to see'}</p>

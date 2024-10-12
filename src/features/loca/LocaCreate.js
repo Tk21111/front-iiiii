@@ -18,6 +18,7 @@ const CreatePost = () => {
     const [more, setMore] = useState('')
     const [images, setImages] = useState([])  // Array to hold multiple images
     const [imagePreviews, setImagePreviews] = useState([]);  // Array to hold image preview URLs
+    const [count , setCount] = useState();
 
     if (isLoading) return <p>Loading...</p>
 
@@ -25,6 +26,7 @@ const CreatePost = () => {
     const onSubdistrictChange = e => setSubdistrict(e.target.value)
     const onCountyChange = e => setCounty(e.target.value)
     const onMoreChange = e => setMore(e.target.value)
+    const onCountChange = e => setCount(e.target.value)
     
     const onImageChange = e => {
         const files = Array.from(e.target.files);
@@ -40,7 +42,7 @@ const CreatePost = () => {
         setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
     }
 
-    const canSave = [town, subdistrict, county, noteId].every(Boolean)
+    const canSave = [town, subdistrict, county, noteId , count].every(Boolean)
 
     const onSavePostClicked = async () => {
         if (canSave) {
@@ -53,6 +55,7 @@ const CreatePost = () => {
                 formData.append("subdistrict", subdistrict)
                 formData.append("county", county)
                 formData.append("more", more)
+                formData.append("num", count)
                 
                 images.forEach((image, index) => {
                     formData.append(`images`, image)
@@ -78,6 +81,14 @@ const CreatePost = () => {
             <p><Link to="/welcome">Home</Link></p>
             <h2>Create Post</h2>
             <form>
+                <label htmlFor="locaCount">จำนวน:</label>
+                <input
+                    type="number"
+                    id="locaCount"
+                    name="locaCount"
+                    value={count}
+                    onChange={onCountChange}
+                />
                 <label htmlFor="locaTown">Town:</label>
                 <input
                     type="text"
