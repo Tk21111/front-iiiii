@@ -16,6 +16,7 @@
 body {
   min-height: 100vh;
   font-size: 1.5rem;
+  flex : auto;
 }
 
 input, button {
@@ -104,6 +105,62 @@ nav a:hover, nav a:focus {
   list-style-type: none;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* This spreads items */
+  align-items: center;
+  background-color: #fff4ac;
+  padding: 10px 20px;
+  color: white;
+}
+
+.headerComp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.smalllogo {
+  width: 80px;   /* Add 'px' to indicate pixels */
+  height: 80px;  /* Add 'px' to indicate pixels */
+  margin-left: 5%;
+  margin-right: 5% ;
+}
+
+
+.content {
+  display: flex;
+  width: min(100%);
+  flex-direction: row;
+  align-items: center; /*vertical */
+  justify-content: center;
+  align-self: flex-start; 
+}
+.overcontent {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  align-self: auto;
+}
+
+
+
+.logo {
+  align-self: center;
+}
+
+.mainimage {
+  border: 1px solid black;
+  padding: 5px;
+  padding-left: 100px; 
+  padding-right: 100px;
+  border-radius: 5dvi;
+  align-self: center;
+  margin: 1%;
+  width: auto;   /* Add 'px' to indicate pixels */
+  height: auto;
+}
 form {
   display: flex;
   flex-direction: column;
