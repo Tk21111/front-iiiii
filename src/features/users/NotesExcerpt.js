@@ -34,21 +34,31 @@ const PostsExcerpt = ({ i }) => {
         fetchData();
     }, [getAllNoteUser , note]);
 
-    
+    const imagePath = `http://localhost:3500/${i?.images?.toString().replace(/\\/g, '/')}`;
 
     if (!note) {
         return <p>Loading...</p>;
     }
     return (
-        <article>
-            <h2>{i.text}</h2>
-            <p>{i.timeOut}</p>
-            <p className="postCredit">
-                <Link to={`note/${i.id}`}>View Post</Link>
-                <Link to={`/location/create/${i.id}`}> Create sharing location with this food</Link>
+        <div class="food-waste-item">
+            
+            <div className='food-waste-front'>
+                <div class="food-waste-date-badge">{i.timeOut.split("T")[0].replace(/-/gi,"/")}</div>
+                <img src={imagePath} alt="meat icon" className='smalllogolist' />
+            </div>
+                <div class="food-waste-content">
+                        <div class="food-waste-details">
+                            <ul>
+                                <li><p>{i.text}</p></li>
+                            </ul>
+                            <p className="postCredit">
+                                <Link to={`note/${i.id}`}>View Post</Link>
+                                <Link to={`/location/create/${i.id}`}> location</Link>
                 
-            </p>
-        </article>
+                             </p>
+                        </div>
+                </div> 
+            </div>               
     );
 };
 

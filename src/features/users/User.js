@@ -5,9 +5,15 @@ import { selectCurrentUser } from "../auth/authSlice";
 import PostsExcerpt from "./NotesExcerpt";
 import filterEntitiesByTag from "./Search";
 
-import { Link } from "react-router-dom";
+import ReactDom from 'react-dom';
+
+import { Link, useParams } from "react-router-dom";
+import Header from "../../components/Header";
+import Overay from "../../components/Overlay";
 
 const GetAllNoteUser = () => {
+
+
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
         pollingInterval: 15000,
@@ -75,39 +81,46 @@ const GetAllNoteUser = () => {
         );
     }
 
-    return (
-        <div>
-            <p>
-                <Link to="/welcome"> Home </Link>
-            </p>
-            <p>
-                <Link to={`note/create`}> Create </Link>
-            </p>
-            
-                <Link to={`update`}> update Profile </Link>
+    
+    
+
+    
+        return (
             <div>
-                <label>
-                    Search Query:
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Search Type:
-                    <select
-                        value={searchType}
-                        onChange={(e) => setSearchType(e.target.value)}
-                    >
-                        <option value="text">Text</option>
-                        <option value="tag">Tag</option>
-                    </select>
-                </label>
+                <Header />
+                <Overay link="user/note/create" />
+                <div className='content'>
+                    <img src='./image copy 3.png' alt="noti" className="smalllogo" />
+                    <p style={{ marginRight: 'auto' }}>
+                        <Link to="/recommend" style={{ color: "pink", fontWeight: 'bold', fontSize: '40px' }}>
+                            for recommendation
+                        </Link>
+                    </p>
+                </div>
+                <div className="food-waste-list">
+                    <label>
+                        Search Query:
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </label>
+                    <label>
+                        Search Type:
+                        <select
+                            value={searchType}
+                            onChange={(e) => setSearchType(e.target.value)}
+                        >
+                            <option value="text">Text</option>
+                            <option value="tag">Tag</option>
+                        </select>
+                    </label>
+                </div>
+                {content}
             </div>
-            {content}
-        </div>
-    );
+        );
+   
 };
 
 export default GetAllNoteUser;

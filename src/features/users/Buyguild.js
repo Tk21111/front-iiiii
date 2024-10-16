@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
+import { Chart } from "react-google-charts";
+
 import BuyExcerpt from "./BuyExcerpt";
 import filterEntitiesByTag from "./Search";
 
 import { Link } from "react-router-dom";
+import Header from "../../components/Header";
+
 
 const Buyrecommend = () => {
     const user = { username: useSelector(selectCurrentUser) };
@@ -90,10 +94,8 @@ const Buyrecommend = () => {
 
     return (
         <div>
-            <p>
-                <Link to="/welcome"> Home </Link>
-            </p>
-            <div>
+            <Header/>
+          <div>
                 <label>
                     Search Query:
                     <input

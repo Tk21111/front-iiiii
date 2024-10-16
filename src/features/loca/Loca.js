@@ -6,6 +6,8 @@ import LocasExcerpt from './LocaExcerpt';
 import filterEntitiesByTag from '../users/Search';
 
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header';
+import Overay from '../../components/Overlay';
 
 const GetAllLoca = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetAlllocaQuery(('locaUser', {
@@ -73,6 +75,8 @@ const GetAllLoca = () => {
 
     return (
         <div>
+            <Header/>
+            <Overay link={"/user/note/create"}/>
             <p><Link to="/welcome"> Home </Link></p>
             <Link to={`/user/note/create`}>Create</Link>
             <div>

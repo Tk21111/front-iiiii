@@ -6,6 +6,8 @@ import { selectCurrentUser } from "../auth/authSlice";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
+import Header from "../../components/Header";
+
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const mic = new SpeechRecognition();
@@ -247,120 +249,123 @@ const CreatePost = () => {
   };
 
   return (
-    <section>
-      <p>
-        <Link to="/user">Food List</Link>
-      </p>
-      <p>
-        <Link to="/welcome">Home</Link>
-      </p>
-      <h2>Create Note</h2>
-      <h1>{spc || "speech to text "}</h1>
-      <form>
-        {notes.map((note, index) => (
-          <div key={index}>
-            <label htmlFor={`postTitle-${index}`}>Food name:</label>
-            <input
-              type="text"
-              id={`postTitle-${index}`}
-              name={`postTitle-${index}`}
-              value={note.title}
-              onChange={(e) => handleInputChange(index, "title", e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={() => toggleListening(index)}
-            >
-              {note.isListening ? "Stop Listening": "Start Listening"}
-              {(console.log(note.isListening))}
-            </button>
-            <label htmlFor={`postExpTime-${index}`}>ExpTime:</label>
-            <input
-              type="date"
-              id={`postExpTime-${index}`}
-              name={`postExpTime-${index}`}
-              value={note.expTime}
-              onChange={(e) => handleInputChange(index, "expTime", e.target.value)}
-            />
-            <label htmlFor={`postCount-${index}`}>Count:</label>
-            <input
-              type="number"
-              id={`postCount-${index}`}
-              name={`postCount-${index}`}
-              value={note.count}
-              onChange={(e) => handleInputChange(index, "count", Number(e.target.value))}
-              max="999"
-              min="0"
-            />
-            <label htmlFor={`postCountExp-${index}`}>CountExp:</label>
-            <input
-              type="number"
-              id={`postCountExp-${index}`}
-              name={`postCountExp-${index}`}
-              value={note.countExp}
-              onChange={(e) => handleInputChange(index, "countExp", Number(e.target.value))}
-              max="999"
-              min="0"
-            />
-            <label htmlFor={`postTag-${index}`}>Tag:</label>
-            <input
-              type="text"
-              id={`postTag-${index}`}
-              name={`postTag-${index}`}
-              value={note.tag}
-              onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
-            />
-            <label htmlFor={`postDone-${index}`}>Exp?:</label>
-            <input
-              type="checkbox"
-              id={`postDone-${index}`}
-              name={`postDone-${index}`}
-              checked={note.done}
-              onChange={(e) => handleInputChange(index, "done", e.target.checked)}
-            />
-            <label htmlFor={`postFiles-${index}`}>Upload Images:</label>
-            <input
-              type="file"
-              id={`postFiles-${index}`}
-              name={`postFiles-${index}`}
-              multiple
-              onChange={(e) => handleFileChange(index, e.target.files)}
-            />
-            <div>
-              {note?.preview?.map((src, fileIndex) => (
-                <img
-                  key={fileIndex}
-                  src={src}
-                  alt={`preview-${fileIndex}`}
-                  style={{
-                    flexGrow: 1,
-                    maxWidth: 200,
-                    maxHeight: 200,
-                    borderBlockWidth: 1,
-                    borderRadius: 25,
-                  }}
-                />
-              )) || "no image"}
-            </div>
-            
-            {index > 0 && (
-              <button type="button" onClick={() => handleRemoveNote(index)}>
-                Remove
+    <div>
+      <Header/>
+      <section>
+        <p>
+          <Link to="/user">Food List</Link>
+        </p>
+        <p>
+          <Link to="/welcome">Home</Link>
+        </p>
+        <h2>Create Note</h2>
+        <h1>{spc || "speech to text "}</h1>
+        <form>
+          {notes.map((note, index) => (
+            <div key={index}>
+              <label htmlFor={`postTitle-${index}`}>Food name:</label>
+              <input
+                type="text"
+                id={`postTitle-${index}`}
+                name={`postTitle-${index}`}
+                value={note.title}
+                onChange={(e) => handleInputChange(index, "title", e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => toggleListening(index)}
+              >
+                {note.isListening ? "Stop Listening": "Start Listening"}
+                {(console.log(note.isListening))}
               </button>
-            )}
-            <button type="button" onClick={() => handleRemoveImage(index)}>
-              Remove Image
-            </button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddNote}>
-          Add Another Note
-        </button>
-        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
-          Save Post
-        </button>
-      </form>
-    </section>
+              <label htmlFor={`postExpTime-${index}`}>ExpTime:</label>
+              <input
+                type="date"
+                id={`postExpTime-${index}`}
+                name={`postExpTime-${index}`}
+                value={note.expTime}
+                onChange={(e) => handleInputChange(index, "expTime", e.target.value)}
+              />
+              <label htmlFor={`postCount-${index}`}>Count:</label>
+              <input
+                type="number"
+                id={`postCount-${index}`}
+                name={`postCount-${index}`}
+                value={note.count}
+                onChange={(e) => handleInputChange(index, "count", Number(e.target.value))}
+                max="999"
+                min="0"
+              />
+              <label htmlFor={`postCountExp-${index}`}>CountExp:</label>
+              <input
+                type="number"
+                id={`postCountExp-${index}`}
+                name={`postCountExp-${index}`}
+                value={note.countExp}
+                onChange={(e) => handleInputChange(index, "countExp", Number(e.target.value))}
+                max="999"
+                min="0"
+              />
+              <label htmlFor={`postTag-${index}`}>Tag:</label>
+              <input
+                type="text"
+                id={`postTag-${index}`}
+                name={`postTag-${index}`}
+                value={note.tag}
+                onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
+              />
+              <label htmlFor={`postDone-${index}`}>Exp?:</label>
+              <input
+                type="checkbox"
+                id={`postDone-${index}`}
+                name={`postDone-${index}`}
+                checked={note.done}
+                onChange={(e) => handleInputChange(index, "done", e.target.checked)}
+              />
+              <label htmlFor={`postFiles-${index}`}>Upload Images:</label>
+              <input
+                type="file"
+                id={`postFiles-${index}`}
+                name={`postFiles-${index}`}
+                multiple
+                onChange={(e) => handleFileChange(index, e.target.files)}
+              />
+              <div>
+                {note?.preview?.map((src, fileIndex) => (
+                  <img
+                    key={fileIndex}
+                    src={src}
+                    alt={`preview-${fileIndex}`}
+                    style={{
+                      flexGrow: 1,
+                      maxWidth: 200,
+                      maxHeight: 200,
+                      borderBlockWidth: 1,
+                      borderRadius: 25,
+                    }}
+                  />
+                )) || "no image"}
+              </div>
+              
+              {index > 0 && (
+                <button type="button" onClick={() => handleRemoveNote(index)}>
+                  Remove
+                </button>
+              )}
+              <button type="button" onClick={() => handleRemoveImage(index)}>
+                Remove Image
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddNote}>
+            Add Another Note
+          </button>
+          <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
+            Save Post
+          </button>
+        </form>
+      </section>
+    </div>
   );
 };
 

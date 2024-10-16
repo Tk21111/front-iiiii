@@ -28,6 +28,7 @@ import GetAllLoca from './features/loca/Loca'
 
 
 import Buyrecommend from './features/users/Buyguild'
+import GetAllNoteUserExp from './features/users/UserExp'
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               {/* user && note */}
               <Route path="user">
                 <Route index element={<User />} />
+                <Route path="exp" element={<GetAllNoteUserExp/>}/>
                 <Route path="update" element={<ProfileUpdateForm/>} />
                 <Route path="note">
                   <Route path="create" element={<CreatePost />} />

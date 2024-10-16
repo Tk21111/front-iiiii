@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
-import { useGetAlllocaQuery , useDeletelocaMutation } from './LocaApiSlice';
+import { useGetAlllocaQuery , useDeletelocaMutation, useDonatelocaMutation } from './LocaApiSlice';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
+import OverayCenter from '../../components/OverlayControl';
 
 
 const LocasExcerpt = ({ i }) => {
@@ -15,8 +16,14 @@ const LocasExcerpt = ({ i }) => {
     const [loca, setLoca] = useState(null);
     const [text, setText] = useState('');
     const [set , setSet] =useState(false)
+    const [donateC , setDonateC] = useState(false)
 
     const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
+
+    
+
+
+    const [ portal , setPortal] = useState(false);
 
     useEffect (()=> {
         try {
@@ -54,11 +61,38 @@ const LocasExcerpt = ({ i }) => {
         return <p>Location not found</p>;
     }
 
+    console.log(portal)
     const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
 
     return (
-        <article>
-            <div>
+        
+        
+            
+            <div onClickCapture={() => { setPortal(true); }} class="food-waste-item">
+                <OverayCenter open={portal} data={loca} dataFood={i} onClose={() => { setPortal(false);}} />
+                <div className='food-waste-front'>
+                    <img src='./home.png' alt="meat icon" className='smalllogolist' />
+                </div>
+                    <div class="food-waste-content">
+                            <div class="food-waste-details">
+                                <p>{i.text + ' ' + i.num}</p>
+                                <ul>
+                                    <li><p>{loca.town}</p></li>
+                                </ul>
+                            </div>
+                            
+                    </div> 
+            </div>
+            
+            
+        
+        
+    );
+};
+
+export default LocasExcerpt;
+
+/*<div>
                 <h2>{text}</h2>
                 <p>{loca.town}</p>
                 <p>{"Have : " + loca.num}</p>
@@ -81,8 +115,4 @@ const LocasExcerpt = ({ i }) => {
             <p className="postCredit">
                 <Link to={`/location/${loca.id}`}>View Post</Link>
             </p>
-        </article>
-    );
-};
-
-export default LocasExcerpt;
+            */

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
+import { BarChart } from '@mui/x-charts';
+import Chart from 'react-google-charts';
 
 const BuyExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -34,30 +36,29 @@ const BuyExcerpt = ({ i }) => {
     }
     
     let content = {};
-    let countEn = 0;
-    let countExpEn = 0;
+    let list = [];
     let suggestion = 0;
+    let amoutAll = 0
+    let amoutExpAll = 0
+    
+
 
     if ( key.length >= 1){
         //get entities of _id
-        //get all of count and countExp
-        
+        //get all of count and countExp        
         for (let f of key){
             try {
                 let entities = note[f]
-                let objCC = {}
-
-                countEn += entities.count ? entities.count : 0;
-                objCC['count'] = entities.count ? entities.count : 0;
-                countExpEn += entities.countExp ? entities.countExp : 0;
-                objCC['countExp'] = entities.countExp ? entities.countExp : 0;
-                
-                content[entities.text] = objCC
+                list.push([entities.text , entities?.count , entities?.countExp]);
+                amoutAll += entities?.count;
+                amoutExpAll += entities?.countExp;
             } catch (err){
                 console.log(err)
             }
             
         }
+
+    
 
     //obj {key : count , countExp}
     
@@ -66,29 +67,93 @@ const BuyExcerpt = ({ i }) => {
         //setCountExp(countExpEn)
 
         //logic something
-        if (countEn > countExpEn*999){
+        
+    } 
+
+    if (!note) {
+        return <p>Loading...</p>;
+    }
+
+    if (amoutAll > amoutExpAll*999){
+        suggestion = 'as much as you want'
+    } else if (amoutAll > amoutExpAll){
+        suggestion = "Maybe think again"
+    } else if (amoutAll === amoutExpAll){
+        suggestion = "I don't think u need this as much"
+    } 
+
+    
+    
+    const options = {
+        chart: {
+          title: "Graph",
+          subtitle: "i have to write this for sake of not crashing hope u understand",
+        },
+      };
+
+    const data=[
+        ["Year", "Buying Amount", "Expired Amount"],
+        ...list
+    ];
+
+
+    return (
+
+        <article style={{justifyContent : 'center' , textAlign : 'center'}}>
+            <h2>{tag}</h2>
+            <Chart
+                chartType="Bar"
+                data={data}
+                width="100%"
+                height="400px"
+                options={options}
+            />;
+            <article style={{alignItems : 'center' , marginLeft: '25%' , marginRight: '25%'}}>
+                <p style={{textAlign: 'start'}}>{"ที่ซื้อ" + ":" + "ที่เหลือ" }</p>
+                <p style={{textAlign: 'center' , fontWeight : 'bold'}}>{amoutAll + ":" + amoutExpAll}</p>
+            </article>
+            <article style={{alignItems : 'center' , marginLeft: '25%' , marginRight: '25%'}}>
+                <p style={{textAlign: 'start' , marginBottom: "10%"}}>{"คำแนะนำ" }</p>
+                <p>{suggestion}</p>
+            </article>
+            
+            
+        </article>
+    );
+};
+
+export default BuyExcerpt;
+
+/*<article>
+            <h2>{tag}</h2>
+            <p>{JSON.stringify(content)}</p>
+            <p>{'Buy ; ' + countEn + '   :   ' + 'Expire ; ' +countExpEn}</p>
+            <p>{suggestion}</p>
+        </article>*/
+
+/*<BarChart
+        xAxis={[
+          {
+            id: 'barCategories',
+            data: ['bar A', 'bar B', 'bar C'],
+            scaleType: 'band', // band scale for categorical data
+          },
+        ]}
+        series={[
+          {
+            data: [2, 5, 3], // values for the bars
+          },
+        ]}
+        width={500}
+        height={300}
+      />*/
+
+      /*
+      if (countEn > countExpEn*999){
             suggestion = 'as much as you want'
         } else if (countEn > countExpEn){
             suggestion = "Maybe think again"
         } else if (countEn === countExpEn){
             suggestion = "I don't think u need this as much"
         } 
-    } else {
-        content = 'Not found'
-    }
-
-
-    if (!note) {
-        return <p>Loading...</p>;
-    }
-    return (
-        <article>
-            <h2>{tag}</h2>
-            <p>{JSON.stringify(content)}</p>
-            <p>{'Buy ; ' + countEn + '   :   ' + 'Expire ; ' +countExpEn}</p>
-            <p>{suggestion}</p>
-        </article>
-    );
-};
-
-export default BuyExcerpt;
+    */

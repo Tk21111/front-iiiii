@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useGetAllNoteUserMutation } from './NoteApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
+import Header from '../../components/Header';
 
 const SinglePostPage = () => {
 
@@ -39,20 +40,23 @@ const SinglePostPage = () => {
     const imagePath = `http://localhost:3500/${note.images.toString().replace(/\\/g, '/')}`;
     console.log(note.images)
     return (
-        <article>
-            <h2>{note.text}</h2>
-            <img src={imagePath} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
-            <p>Exp date : {note.timeOut}</p>
-            <p>In count : {note.count}</p>
-            <p>Exp count : {note.countExp}</p>
-            <p>Is it Exp : {note.done}</p>
-            <p>Tag : {note.tag}</p>
-            <p className="postCredit">
-                <Link to={`/user/note/edit/${noteId.noteId}`}>Edit Post</Link>
-            </p>
-            <p><Link to="/user"> Food List </Link></p>
-            <p><Link to="/welcome"> Home </Link></p>
-        </article>
+        <div style={{width : '100%' , height : '100%'}}>
+            <Header/>
+            <article>
+                <h2>{note.text}</h2>
+                <img src={imagePath} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
+                <p>Exp date : {note.timeOut}</p>
+                <p>In count : {note.count}</p>
+                <p>Exp count : {note.countExp}</p>
+                <p>Is it Exp : {note.done}</p>
+                <p>Tag : {note.tag}</p>
+                <p className="postCredit">
+                    <Link to={`/user/note/edit/${noteId.noteId}`}>Edit Post</Link>
+                </p>
+                <p><Link to="/user"> Food List </Link></p>
+                <p><Link to="/welcome"> Home </Link></p>
+            </article>
+        </div>
     )
 }
 
