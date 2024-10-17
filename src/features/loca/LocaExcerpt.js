@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import OverayCenter from '../../components/OverlayControl';
 
 
-const LocasExcerpt = ({ i }) => {
+const LocasExcerpt = ({ i , own}) => {
 
 
 
@@ -61,23 +61,26 @@ const LocasExcerpt = ({ i }) => {
         return <p>Location not found</p>;
     }
 
-    console.log(portal)
+
+
     const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
 
     return (
         
         
             
-            <div onClickCapture={() => { setPortal(true); }} class="food-waste-item">
-                <OverayCenter open={portal} data={loca} dataFood={i} onClose={() => { setPortal(false);}} />
+            <div onClickCapture={() => { setPortal(true); }} className="food-waste-item">
+                <OverayCenter open={portal} data={loca} dataFood={i} onClose={() => { setPortal(false);}} own={own}/>
                 <div className='food-waste-front'>
-                    <img src='./home.png' alt="meat icon" className='smalllogolist' />
+                    <img src={require('../../components/img/home.png')} alt="meat icon" className='smalllogolist' />
                 </div>
-                    <div class="food-waste-content">
-                            <div class="food-waste-details">
+                    <div className="food-waste-content">
+                            <div className="food-waste-details">
                                 <p>{i.text + ' ' + i.num}</p>
                                 <ul>
                                     <li><p>{loca.town}</p></li>
+                                    <li><p>{"username : " +  loca.getP || null}</p></li>
+                                    <li>{loca.getPId? <Link to={`/getuser/${loca.getPId}`}>that person</Link> : null}</li>
                                 </ul>
                             </div>
                             

@@ -42,21 +42,18 @@ const GetAllLoca = () => {
 
         //this is what u have to modifine
         //user = { ids , entities}
-        console.log(users.ids)
-        console.log(users.entities)
         content = []
         if (users.ids.length !== 0 && !search) {
             
             for (let i of users.ids) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} />);
+                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={false} />);
             }
-            console.log(content)
-            //content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
+            
         } else if (search) {
             for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} />);
+                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={false} />);
             }
-            console.log(content);
+            
         }
     } else if (isError) {
         let msg;
@@ -74,11 +71,9 @@ const GetAllLoca = () => {
     }
 
     return (
-        <div>
+        <div className='page'>
             <Header/>
             <Overay link={"/user/note/create"}/>
-            <p><Link to="/welcome"> Home </Link></p>
-            <Link to={`/user/note/create`}>Create</Link>
             <div>
                 <label>
                     Search Query:

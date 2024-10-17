@@ -249,17 +249,16 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
+    <div className="page">
       <Header/>
       <section>
-        <p>
-          <Link to="/user">Food List</Link>
-        </p>
-        <p>
-          <Link to="/welcome">Home</Link>
-        </p>
-        <h2>Create Note</h2>
-        <h1>{spc || "speech to text "}</h1>
+      <div className='content' >
+         <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+          <p style={{ marginRight : 'auto'}} className='welcomefont'>create note</p>
+        </div>
+        <div className='content' style={{backgroundColor : '#FFE3E3' }} >
+          <p className='welcomefont' style={{color: 'black'}}>{spc || "speech to text "}</p>
+        </div>
         <form>
           {notes.map((note, index) => (
             <div key={index}>

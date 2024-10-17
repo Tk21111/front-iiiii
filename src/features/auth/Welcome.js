@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux'
 import { selectCurrentUser , selectCurrentAka , selectCurrentImage} from './authSlice'
 import { Link } from 'react-router-dom'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import Header from '../../components/Header'
 import { BarChart } from '@mui/x-charts'
@@ -12,9 +12,10 @@ const Welcome = () => {
     const aka = useSelector(selectCurrentAka);
     const image = useSelector(selectCurrentImage);
    
-
+    
 
     const imagePath = `http://localhost:3500/${image?.toString().replace(/\\/g, '/')}`;
+
 
     const content = (
         <div style={{width : '100%' , height :'100%'}}>
@@ -22,61 +23,79 @@ const Welcome = () => {
         <section className="welcome"> 
             <div className='overcontent'>
                 <div className='content' >
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/recommend" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}}> for recommendation </Link></p>
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > for recommendation </Link></p>
                 </div>
 
-                <div className='content' style={{width : '100%'}} >
-                    <a href='/recommend' className='mainimage' style={{ padding : '20%' }} >
-                        <img src='./image copy 4.png' alt="shopping" className='mainimagesingle' />   
-                    </a>
-                </div>
+                <a href={'/recommend'} className='linkcontainersingleimg'>
+                    <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
+                        <img src='./shopping.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
+                    </div>
+                </a>
                     
             </div> 
             <div className='overcontent'>
                 <div className='content' >
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/user" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}} > Add yours food in list </Link></p>
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user"  > Add yours food in list </Link></p>
                 </div >
-                <div className='overcontent'>
-                    <a href='/user' className='content'><img src='./note.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '50%'}}/>
+                <div className='content'>
+                    <a href={'/user/exp'} className='mainimgcontainer'>
+                        <img src='./bin.png' alt="shopping" className='mainimage' />
                     </a>
-                    <a herf='/user/exp' className='content'><img src='./bin.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '50%'}}/>
-                    </a>              
+                    <a href={'/user'} className='mainimgcontainer'>
+                        <img src='./note.png' alt="shopping" className='mainimage' />
+                    </a>
                 </div>
             </div>
             <div className='overcontent'>
                 <div className='content'>
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/buyrecommend" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}}> Static </Link></p>
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > Static </Link></p>
                 </div>
-                <img src='./static.png' alt="shopping" className='mainimage'/>
+                <a href={'/buyrecommend'} className='linkcontainersingleimg'>
+                    <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
+                        <img src='./static.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
+                    </div>
+                </a>
+                
             </div>
             <div className='overcontent'>
                 <div className='content'>
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/buyrecommend" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}}> Food storage Tips </Link></p>
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > Food storage Tips </Link></p>
                 </div>
                 <div className='content'>
-                    <img src='./veg.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '70%'}}/>
-                    <img src='./meat.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '70%'}}/>
+                    <a href={'/?'} className='mainimgcontainer'>
+                        <img src='./veg.png' alt="shopping" className='mainimage' />
+                    </a>
+                    <a href={'/?'} className='mainimgcontainer'>
+                        <img src='./meat.png' alt="shopping" className='mainimage' />
+                    </a>
                 </div>
             </div>
             <div className='overcontent'>
                 <div className='content'>
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/recommend" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}}> Food recommendation </Link></p>
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > Food recommendation </Link></p>
                 </div>
-                <img src='./rama.png' alt="shopping" className='mainimage'/>
+                <a href={'/recommend'} className='linkcontainersingleimg'>
+                    <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
+                        <img src='./rama.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
+                    </div>
+                </a>
             </div>
             <div className='overcontent'>
                 <div className='content' >
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}}><Link to="/location" style={{color : "pink" , fontWeight : 'bold' , fontSize : '40px'}} > Food sharing </Link></p>
-                </div >
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location"  > Food sharing </Link></p>                </div >
                 <div className='content'>
-                    <img src='./loca.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '70%'}}/>
-                    <img src='./lovingHand.png' alt="shopping" className='mainimage' style={{ paddingLeft : '50px' ,  paddingRight : '50px' , width: '40%' , height: '70%'}}/>
+                    <a href={'/location'} className='mainimgcontainer'>
+                        <img src='./loca.png' alt="shopping" className='mainimage' />
+                    </a>
+                    <a href={'/location/ofuser'}className='mainimgcontainer'>
+                        <img src='./lovinghand.png' alt="shopping" className='mainimage' />
+                    </a>
                 </div>
             </div>
         </section>

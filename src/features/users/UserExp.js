@@ -148,7 +148,7 @@ const GetAllNoteUserExp = () => {
                 <Header />
                 
                 <div className='content'>
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo" />
+                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
                     <p style={{ marginRight: 'auto' }}>
                         <Link to="/recommend" style={{ color: "pink", fontWeight: 'bold', fontSize: '40px' }}>
                             for recommendation

@@ -9,14 +9,12 @@ export default function Overay({link}) {
         <>
             <div style={{position: 'fixed',
                             top: '90%',
-                            right: '10%',
+                            right: '15%',
                             transform: 'translate(50%, -50%)',
-                            
-                            
                             padding: '50px',
                             zIndex: 1000}}>
                 <a href={link}>
-                    <img src="./+.png" alt="+"></img>
+                    <img src={require('../components/img/+.png')} alt="+"></img>
                 </a>     
             </div>
         </>,

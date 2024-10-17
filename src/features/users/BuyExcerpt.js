@@ -107,12 +107,12 @@ const BuyExcerpt = ({ i }) => {
                 width="100%"
                 height="400px"
                 options={options}
-            />;
-            <article style={{alignItems : 'center' , marginLeft: '25%' , marginRight: '25%'}}>
+            />
+            <article className='centeredContainer'>
                 <p style={{textAlign: 'start'}}>{"ที่ซื้อ" + ":" + "ที่เหลือ" }</p>
                 <p style={{textAlign: 'center' , fontWeight : 'bold'}}>{amoutAll + ":" + amoutExpAll}</p>
             </article>
-            <article style={{alignItems : 'center' , marginLeft: '25%' , marginRight: '25%'}}>
+            <article className='centeredContainer'>
                 <p style={{textAlign: 'start' , marginBottom: "10%"}}>{"คำแนะนำ" }</p>
                 <p>{suggestion}</p>
             </article>

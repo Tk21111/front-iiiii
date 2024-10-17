@@ -86,36 +86,30 @@ const GetAllNoteUser = () => {
 
     
         return (
-            <div>
+            <div className="page">
                 <Header />
                 <Overay link="user/note/create" />
-                <div className='content'>
-                    <img src='./image copy 3.png' alt="noti" className="smalllogo" />
-                    <p style={{ marginRight: 'auto' }}>
-                        <Link to="/recommend" style={{ color: "pink", fontWeight: 'bold', fontSize: '40px' }}>
-                            for recommendation
-                        </Link>
-                    </p>
+                <div className='content' >
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > for recommendation </Link></p>
                 </div>
                 <div className="food-waste-list">
-                    <label>
-                        Search Query:
-                        <input
-                            type="text"
+                <div className="search">
+                    <img src={require('../../components/img/search.png')} alt="icon" style={{marginLeft : '8px'}}/>
+                    <input type="text"
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        Search Type:
-                        <select
-                            value={searchType}
-                            onChange={(e) => setSearchType(e.target.value)}
-                        >
-                            <option value="text">Text</option>
-                            <option value="tag">Tag</option>
-                        </select>
-                    </label>
+                            onChange={(e) => setSearch(e.target.value)}/>
+                </div>
+                    <select
+                        className="selection"
+                        value={searchType}
+                        onChange={(e) => setSearchType(e.target.value)}
+                        
+                    >   
+                        <option className='fontC' value="text">Select an option</option>
+                        <option className='fontC' value="text">Text</option>
+                        <option className='fontC' value="tag">Tag</option>
+                    </select>
                 </div>
                 {content}
             </div>

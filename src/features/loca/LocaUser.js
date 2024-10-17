@@ -6,6 +6,7 @@ import LocasExcerpt from './LocaExcerpt';
 import filterEntitiesByTag from '../users/Search';
 
 import { Link } from 'react-router-dom';
+import Header from '../../components/Header';
 
 const GetAlluserLoca = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetAllUserlocaQuery(('loca', {
@@ -43,13 +44,13 @@ const GetAlluserLoca = () => {
         if (users.ids.length !== 0 && !search) {
             
             for (let i of users.ids) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} />);
+                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={true}/>);
             }
             console.log(content)
             //content = users.ids.map(postId => <LocasExcerpt key={postId} postId={postId} />)
         } else if (search) {
             for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} />);
+                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={true}/>);
             }
             console.log(content);
         }
@@ -70,7 +71,7 @@ const GetAlluserLoca = () => {
 
     return (
         <div>
-            <p><Link to="/welcome"> Home </Link></p>
+            <Header/>
             <div>
                 <label>
                     Search Query:
