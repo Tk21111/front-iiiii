@@ -40,7 +40,7 @@ function Header() {
         </a>
       </div>
       <nav className='headerComp'>
-        <a href="/">
+        <a href="/notifications">
           <img src={require('../components/img/noti.png')} alt="noti" className="logo" />
         </a>
         <img onClick={toggleDrawer(true)} src={require('../components/img/menu.png')} alt="menu" className="logo"  style={{width : '30%' }} />

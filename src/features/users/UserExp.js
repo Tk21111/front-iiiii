@@ -98,8 +98,8 @@ const GetAllNoteUserExp = () => {
                 // You can now work with each `j` (which is a single `dataSingle` object) to render HTML
                 contentChild.push(
                     <div className="expchild">
-                        <img src={`http://localhost:3500/${j?.images?.toString().replace(/\\/g, '/')}`} alt="pic" className="expimg"></img>
-                        <p>{(j.text.length >= 8 ? j.text.substr(0,8) + "...": j.text)}</p>
+                        <img src={j?.images.length > 0 ?`http://localhost:3500/${j?.images?.toString().replace(/\\/g, '/')}` : require('../../components/img/meal.png')} alt="pic" className="expimg"></img>
+                        <p>{(j.text.length >= 5 ? j.text.substr(0,5) + "...": j.text)}</p>
                     </div>
                 );
             }
@@ -107,7 +107,7 @@ const GetAllNoteUserExp = () => {
             content.push(
                 <div>
                     <div>
-                        <p style={{fontSize : '30px' , marginTop : '2%'}}>{f} days </p>
+                        <h2 style={{fontSize : '30px' , marginTop : '2%'}}>{f <= 2 ? f == 1 ? f + " day!!!" : f + " days!" : f + " days" } </h2>
                     </div>
                     <div className="expcontainer">
                         {contentChild}
@@ -147,13 +147,9 @@ const GetAllNoteUserExp = () => {
             <div style={{width: '100%' , height: '100%'}}>
                 <Header />
                 
-                <div className='content'>
-                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight: 'auto' }}>
-                        <Link to="/recommend" style={{ color: "pink", fontWeight: 'bold', fontSize: '40px' }}>
-                            for recommendation
-                        </Link>
-                    </p>
+                <div className='content' >
+                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user" >Food Waste List</Link></p>
                 </div>
                 {content}
             </div>

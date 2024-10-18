@@ -70,30 +70,38 @@ const GetAlluserLoca = () => {
     }
 
     return (
-        <div>
+        <div className='page'>
             <Header/>
+            <div className='content' >
+                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location/ofuser" >Food - Sharing</Link></p>
+            </div>
+            {/* search comp */}
+            <div className="search">
+                <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
+                <input 
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)} 
+                    placeholder="Search..." 
+                />
+            </div>
             <div>
-                <label>
-                    Search Query:
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Search Type:
-                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                <select
+                        className="selection"
+                        value={searchType}
+                        onChange={(e) => setSearchType(e.target.value)}
+                    >
+                        <option value="text">Text</option>
                         <option value="town">Town</option>
                         <option value="subdistrict">Subdistrict </option>
                         <option value="county">County </option>
                         <option value="tag">tag </option>
-                        <option value="getP"> geter person </option>
-                        <option value="count"> how many </option>
-                        <option value="exp"> exp </option>
+                        <option value="count">count </option>
+                        <option value="exp">exp </option>
                     </select>
-                </label>
             </div>
+            {/* end search comp */}
             {content}
         </div>
     );

@@ -3,7 +3,7 @@ import { useGetAllNoteUserMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import PostsExcerpt from './NotesExcerpt';
-import menu from './menu';
+import {listNew as menu} from './menu';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 
@@ -224,22 +224,39 @@ const GetAllNoteUser = () => {
     }
 
     return (
-        <div>
-            <Header/>
-            <div>
-                <label>
-                    Search Query:
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </label>
+        <div className='page'>
+            <Header />
+            <div className='content' >
+                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" >Menu Recommendation</Link></p>
             </div>
-            {content}
+
+            {/* search comp */}
+            <div className="search">
+                <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
+                <input 
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)} 
+                    placeholder="Search..." 
+                />
+            </div>
+    
+            <select
+                className="selection"
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
+            >   
+                <option value="text">Text</option>
+                <option value="tag">Tag</option>
+            </select>
+            {/* end search comp */}
             
+            {content} {/* Ensure content is defined */}
         </div>
     );
+    
 };
 
 export default GetAllNoteUser;
+

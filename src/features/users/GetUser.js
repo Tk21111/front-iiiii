@@ -1,6 +1,7 @@
 import React , {useState , useEffect} from 'react';
 import { useGetUserMutation } from './NoteApiSlice' ;
 import { useParams } from 'react-router-dom';
+import Header from '../../components/Header';
 
 const GetUser = () => {
 
@@ -31,7 +32,8 @@ const GetUser = () => {
    
 
     return (
-        <div>
+        <div className='page'>
+          <Header/>
           {imagePath && imagePath.length > 0 ? (
             imagePath.map((path, i) => (
               <img

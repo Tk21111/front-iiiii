@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
+import OverayCenterView from '../../components/OverlayView';
 
-const PostsExcerpt = ({ i }) => {
+const NotesExcerptSmall = ({ i , donate , select ,name}) => {
     const username = useSelector(selectCurrentUser);
 
     const [getAllNoteUser] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
     const [set , setSet] =useState(false)
+
     
+    const [overray , setOverray] = useState(false);
     useEffect (()=> {
         if(!note){
             setNote(i);
@@ -44,25 +47,20 @@ const PostsExcerpt = ({ i }) => {
         return <p>Loading...</p>;
     }
     return (
-        <div class="food-waste-item">
-            
+        <div onClickCapture= {() => setOverray(true)}class="food-waste-item-vertical">
+            <OverayCenterView imgPath={imagePath} dataFood={i} open={overray} onClose={() => setOverray(false)} donate={donate} select={select} name={name} />
             <div className='food-waste-front'>
-                <div class="food-waste-date-badge">{i.timeOut.split("T")[0].replace(/-/gi,"/")}</div>
-                <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist' />
+                <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist-vertical' />
             </div>
                 <div class="food-waste-content">
                         <div class="food-waste-details">
                             <ul>
-                                <li><p>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text}</p></li>
-                                {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
+                                <li><p style={{ textAlign: 'left' }}>{i.text.length > 7 ? i.text.substr(0,5) + "..." : i.text}</p></li>
                             </ul>
-                            <p className="postCredit">
-                                <Link to={`note/${i.id}`}>View Post</Link>
-                             </p>
                         </div>
                 </div> 
             </div>               
     );
 };
 
-export default PostsExcerpt;
+export default NotesExcerptSmall;

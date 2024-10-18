@@ -27,8 +27,13 @@ import SingleLocaPage from './features/loca/SingleLocaPage'
 import GetAllLoca from './features/loca/Loca'
 
 
-import Buyrecommend from './features/users/Buyguild'
+import HowStor from './features/users/HowStor'
+import Static from './features/users/Static'
 import GetAllNoteUserExp from './features/users/UserExp'
+import ShoppingList from './features/users/ShoppingList'
+import GetOrg from './features/loca/LocaOrg'
+import GetOrgSingle from './features/loca/LocaOrgSingle'
+import Noti from './features/users/noti'
 
 function App() {
   return (
@@ -53,6 +58,7 @@ function App() {
               {/* user && note */}
               <Route path="user">
                 <Route index element={<User />} />
+                <Route path="shopping/:select/:donate/:name" element={<ShoppingList/>}/>
                 <Route path="exp" element={<GetAllNoteUserExp/>}/>
                 <Route path="update" element={<ProfileUpdateForm/>} />
                 <Route path="note">
@@ -62,14 +68,20 @@ function App() {
                 </Route>
               </Route>
 
-              <Route path="buyrecommend"element={<Buyrecommend/>}/>
+              <Route path="static"element={<Static/>}/>
+              <Route path="notifications"element={<Noti/>}/>
+              <Route path="store/:type"element={<HowStor/>}/>
 
               {/* location */}
               <Route path="location">
                 <Route index element={<GetAllLoca />} />
                 <Route path="ofuser" element={<GetAlluserLoca />} />
+                <Route path="oforg" >
+                  <Route index element={<GetOrg/>}/>
+                  <Route path=":id" element={<GetOrgSingle/>}/>
+                </Route>
                 <Route path=":noteId" element={<SingleLocaPage />}/>
-                <Route path="create/:noteId" element={<LocaCreate />} />
+                <Route path="create/:noteId/:amount" element={<LocaCreate />} />
               </Route>
 
               {/* recommend */}

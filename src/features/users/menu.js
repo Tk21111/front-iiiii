@@ -3,4 +3,11 @@ const listNew = [
     [['ไก่' ,'ข้าว','กระเพรา'], [{name : 'กะเพราไก่'} , {name : 'ไก่กะเพรา'}]],
     [['ปลา' ,'ข้าว','กระเพรา'], [{name : 'ปลาปลา'} , {name : 'ปลา'}]],
     ]
-export default listNew;
+
+const listHowMeat = [
+    ['ไก่', {des : 'wow'}] 
+]
+const listHowVeg = [
+    [ 'ผักบุ่ง', {des : 'wow'}] 
+]
+export {listNew , listHowMeat , listHowVeg};

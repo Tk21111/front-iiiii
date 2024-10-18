@@ -22,12 +22,13 @@ const Welcome = () => {
         <Header/>
         <section className="welcome"> 
             <div className='overcontent'>
+                {/*page cover*/}
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > for recommendation </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > for recommendation </Link></p>
                 </div>
-
-                <a href={'/recommend'} className='linkcontainersingleimg'>
+                {/*--- end ---*/}
+                <a href={'/user/shopping/false/false/null'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
                         <img src='./shopping.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
                     </div>
@@ -51,9 +52,9 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content'>
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > Static </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/static" > Static </Link></p>
                 </div>
-                <a href={'/buyrecommend'} className='linkcontainersingleimg'>
+                <a href={'/static'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
                         <img src='./static.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
                     </div>
@@ -66,10 +67,10 @@ const Welcome = () => {
                     <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > Food storage Tips </Link></p>
                 </div>
                 <div className='content'>
-                    <a href={'/?'} className='mainimgcontainer'>
+                    <a href={'/store/veg'} className='mainimgcontainer'>
                         <img src='./veg.png' alt="shopping" className='mainimage' />
                     </a>
-                    <a href={'/?'} className='mainimgcontainer'>
+                    <a href={'/store/meat'} className='mainimgcontainer'>
                         <img src='./meat.png' alt="shopping" className='mainimage' />
                     </a>
                 </div>
@@ -77,7 +78,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content'>
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > Food recommendation </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > Menu recommendation </Link></p>
                 </div>
                 <a href={'/recommend'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
@@ -94,6 +95,9 @@ const Welcome = () => {
                         <img src='./loca.png' alt="shopping" className='mainimage' />
                     </a>
                     <a href={'/location/ofuser'}className='mainimgcontainer'>
+                        <img src='./lovinghand.png' alt="shopping" className='mainimage' />
+                    </a>
+                    <a href={'/location/oforg'}className='mainimgcontainer'>
                         <img src='./lovinghand.png' alt="shopping" className='mainimage' />
                     </a>
                 </div>

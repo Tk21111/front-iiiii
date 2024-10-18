@@ -8,13 +8,12 @@ import filterEntitiesByTag from '../users/Search';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import Overay from '../../components/Overlay';
+import { useGetOrgQuery } from '../users/NoteApiSlice';
+import LocasExcerptOrg from './LocaExcerptOrg';
 
-const GetAllLoca = () => {
-    const { data: users, isLoading, isSuccess, isError, error } = useGetAlllocaQuery(('locaUser', {
-        pollingInterval: 15000,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true
-    }));
+const GetOrg = () => {
+    const { data: users, isLoading, isSuccess, isError, error } = useGetOrgQuery();
+
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
@@ -40,21 +39,16 @@ const GetAllLoca = () => {
     } else if (isSuccess) {
         //this is what u have to modifine
 
+        console.log(users)
         //this is what u have to modifine
         //user = { ids , entities}
         content = []
-        if (users.ids.length !== 0 && !search) {
+        
+        for (let i of users) {
+            content.push(<LocasExcerptOrg key={i._id} i={i} own={false} />);
+        };
             
-            for (let i of users.ids) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={false} />);
-            }
-            
-        } else if (search) {
-            for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
-                content.push(<LocasExcerpt key={i} i={users.entities[i]} own={false} />);
-            }
-            
-        }
+      
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -73,12 +67,10 @@ const GetAllLoca = () => {
     return (
         <div className='page'>
             <Header />
-            <Overay link={"user/shopping/true/false/null"} />
             <div className='content' >
                 <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location" >Food - Sharing</Link></p>
+                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location/oforg" >Food - Sharing</Link></p>
             </div>
-            
             {/* search comp */}
             <div className="search">
                 <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
@@ -111,7 +103,7 @@ const GetAllLoca = () => {
 }
 
 
-export default GetAllLoca;
+export default GetOrg;
 
 /*<div>
                 <label>

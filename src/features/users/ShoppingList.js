@@ -10,9 +10,12 @@ import ReactDom from 'react-dom';
 import { Link, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Overay from "../../components/Overlay";
+import NotesExcerptSmall from "./NotesExcerptSmall";
 
-const GetAllNoteUser = () => {
 
+const ShoppingList = () => {
+
+    const {select , donate , name} = useParams();
 
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
@@ -54,13 +57,12 @@ const GetAllNoteUser = () => {
         if (users.ids.length !== 0 && !search) {
             
             for (let i of users.ids) {
-                content.push(<PostsExcerpt key={i} i={users.entities[i]} />);
+                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name}/>);
             }
             console.log(content)
-            //content = users.ids.map(postId => <PostsExcerpt key={postId} postId={postId} />)
         } else if (search) {
             for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
-                content.push(<PostsExcerpt key={i} i={users.entities[i]} />);
+                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name} />);
             }
             console.log(content);
         } else {
@@ -88,10 +90,11 @@ const GetAllNoteUser = () => {
         return (
             <div className="page">
                 <Header />
-                <Overay link="user/note/create" />
+                <Overay link="/user/note/create" />
+                
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user" >Food Waste List</Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/shopping/false/false/null" > ShoppingList </Link></p>
                 </div>
                 <div className="food-waste-list">
                 {/* search comp*/}
@@ -112,10 +115,12 @@ const GetAllNoteUser = () => {
                     </select>
                 </div>
                 {/*end search comp*/}
-                {content}
+                <div className="container-shopping">
+                    {content}
+                </div>
             </div>
         );
    
 };
 
-export default GetAllNoteUser;
+export default ShoppingList;

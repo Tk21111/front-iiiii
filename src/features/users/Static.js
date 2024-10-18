@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 
 
-const Buyrecommend = () => {
+const Static = () => {
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
@@ -93,31 +93,37 @@ const Buyrecommend = () => {
     }
 
     return (
-        <div>
+        <div className="page">
             <Header/>
-          <div>
-                <label>
-                    Search Query:
-                    <input
+            <div className='content' >
+                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/static" >Statistics</Link></p>
+            </div>
+            {/* search comp */}
+            <div className="search">
+                    <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
+                    <input 
                         type="text"
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => setSearch(e.target.value)} 
+                        placeholder="Search..." 
                     />
-                </label>
-                <label>
-                    Search Type:
+                </div>
+                <div>
                     <select
-                        value={searchType}
-                        onChange={(e) => setSearchType(e.target.value)}
-                    >
-                        <option value="text">Food</option>
-                        <option value="tag">Tag</option>
-                    </select>
-                </label>
-            </div>
-            {content}
+                            className="selection"
+                            value={searchType}
+                            onChange={(e) => setSearchType(e.target.value)}
+                        >
+                            <option value="food">Food</option>
+                            <option value="tag">tag </option>
+                            
+                        </select>
+                </div>
+                {/* end search comp */}
+                {content}
         </div>
     );
 };
 
-export default Buyrecommend;
+export default Static;

@@ -328,35 +328,38 @@ article {
 }
 
 .food-waste-list {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .expcontainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  display: flex;
-  width: 100%;
-  margin: 2%;
+  display: grid;                  /* Enable CSS Grid */
+  grid-template-columns: repeat(3, 1fr);  /* 3 equal-width columns */
+  grid-gap: 1%;                 /* Space between grid items */
+  justify-items: center;          /* Center items horizontally */
+  align-items: center;            /* Center items vertically */
+  margin: 1%;                   /* Add some margin to the container */
 }
 
 .expchild {
   justify-content: center;
   text-align: center;
-  width: 20%;
-  height: 10%;
+  width: 100px;
+  height: 120px;
   margin-left: 3%;
-  border: 2px solid black;
+  margin: 3%;
+  border: 2px solid rgb(183, 183, 183);
   border-radius: 10px;
 }
 
 .expimg {
-  margin: 10%;
-  width: 150px;
-  height: 150px;
+  margin-top: 10%;
+  width: 65%;
+  height: 55%;
   margin-left: 2%;
   margin-right: 2%;
+}
+.expchild p{
+  padding-bottom: 10%;
 }
 
 .link-container {
@@ -480,7 +483,7 @@ who ever fix this im sorry tk21111 18/10/2024
 }
 
 .search:hover {
-  width: 300px;                 
+  width: 95%;                 
   height: 50px;
   border-radius: 5px;             
   justify-content: left;  
@@ -488,19 +491,84 @@ who ever fix this im sorry tk21111 18/10/2024
 
 .search:hover input {
   visibility: visible;
-  width: 250px;
+  width: 93%;
   opacity: 1;                         
   transition: opacity 50ms;     
 }
 
 .selection {
   background-color: #8ed1fc;
-  width: 200px;
+  width: 80%;
   height: 50px;
+  margin-left: 2%;
   font-size: 80%;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   font-family: 'Fredoka';
 
 }
 
+.selection option {
+  font-family: 'Fredoka';
+  margin-left: 2%;
+}
+
+/*shoppinglist */
+
+.food-waste-item-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2%;
+  padding: 2%;
+  padding-bottom: 10%;
+  width: 85%;
+  height: 85%;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+  border-radius: 10px;
+}
+
+.smalllogolist-vertical {
+  width: 90%;   /* Add 'px' to indicate pixels */
+  padding: 5%; /* Add 'px' to indicate pixels */
+  margin-left: 5%;
+  margin-right: 5% ;
+}
+
+.smalllogo-vertical {
+  width: 160%;   /* Add 'px' to indicate pixels */
+  padding: 5%; /* Add 'px' to indicate pixels */
+}
+
+.smalllogo-vertical-fix {
+  width: 50px;   /* Add 'px' to indicate pixels */
+  padding: 5%; /* Add 'px' to indicate pixels */
+}
+
+
+.container-shopping {
+  display: grid;                  /* Enable CSS Grid */
+  grid-template-columns: repeat(3, 1fr);  /* 3 equal-width columns */
+  grid-gap: 1%;                 /* Space between grid items */
+  justify-items: center;          /* Center items horizontally */
+  align-items: center;            /* Center items vertically */
+  margin: 1%;                   /* Add some margin to the container */
+}
+
+.oforg-button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the right */
+}
+
+.oforg-button {
+  padding: 10px 20px;
+  background-color:#B0E7FF ;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.oforg-button h2 {
+  margin: 0; /* Remove default margins from the h2 */
+}
