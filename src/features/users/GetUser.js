@@ -26,7 +26,6 @@ const GetUser = () => {
         fetchData();
     }, [ hasFetched]);
 
-    console.log(data)
     
     const imagePath = data?.image?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
    
@@ -34,6 +33,7 @@ const GetUser = () => {
     return (
         <div className='page'>
           <Header/>
+          <div className='overcontent'>
           {imagePath && imagePath.length > 0 ? (
             imagePath.map((path, i) => (
               <img
@@ -46,8 +46,10 @@ const GetUser = () => {
           ) : (
             <p>no image</p>
           )}
-          <p>{data?.username}</p>
-          <p>{data?.more}</p>
+          <h2>{"name : " + (data?.username || 'no data')}</h2>
+          <h2>{"aka : "+ (data?.aka || 'no data')}</h2>
+          <p>{"more : " + (data?.more || 'no data')}</p>
+          </div>
         </div>
       );
       

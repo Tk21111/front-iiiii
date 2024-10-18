@@ -10,6 +10,7 @@ export default function OverayCenter({ data, dataFood, open, onClose ,own }) {
         return null;
     }
 
+
     if (!own) {
         return ReactDom.createPortal(
             <>
@@ -21,7 +22,7 @@ export default function OverayCenter({ data, dataFood, open, onClose ,own }) {
                     padding: '50px',
                     zIndex: 900
                 }}> 
-                    <Confirm data={data} open={confirm} onCloseConfirm={() => setConfirm(false)}/>
+                    <Confirm data={data} dataFood={dataFood} open={confirm} onCloseConfirm={() => setConfirm(false)}/>
                     <article style={{ backgroundColor: 'rgba(255, 255, 255, .9)' }}>
                         <img onClick={onClose} src={require('../components/img/back.png')} alt="back" className="smalllogo" style={{ transform: 'translate(-50%)' }} />
                         <div className="food-waste-item" style={{border : '0px'}}>

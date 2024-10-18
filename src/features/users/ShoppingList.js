@@ -94,7 +94,7 @@ const ShoppingList = () => {
                 
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/shopping/false/false/null" > ShoppingList </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > ShoppingList </Link></p>
                 </div>
                 <div className="food-waste-list">
                 {/* search comp*/}

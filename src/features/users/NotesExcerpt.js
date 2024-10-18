@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
+import ConfirmSelection from '../../components/ConfirmSelection';
 
 const PostsExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -10,6 +11,8 @@ const PostsExcerpt = ({ i }) => {
     const [getAllNoteUser] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
     const [set , setSet] =useState(false)
+
+    const [confirm , setConfirm] = useState(false);
     
     useEffect (()=> {
         if(!note){
@@ -45,7 +48,7 @@ const PostsExcerpt = ({ i }) => {
     }
     return (
         <div class="food-waste-item">
-            
+            <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
             <div className='food-waste-front'>
                 <div class="food-waste-date-badge">{i.timeOut.split("T")[0].replace(/-/gi,"/")}</div>
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist' />
@@ -56,6 +59,7 @@ const PostsExcerpt = ({ i }) => {
                                 <li><p>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text}</p></li>
                                 {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
                             </ul>
+                            <p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p>
                             <p className="postCredit">
                                 <Link to={`note/${i.id}`}>View Post</Link>
                              </p>

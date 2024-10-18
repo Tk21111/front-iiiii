@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUpdateUserMutation } from './NoteApiSlice';
+import Header from '../../components/Header';
 
 const ProfileUpdateForm = () => {
     const navigate = useNavigate()
@@ -47,12 +48,12 @@ const ProfileUpdateForm = () => {
         setImagePreviews([]);
         setMore('');
         setUsername('');
-        navigate(`/user`)
+        navigate(`/welcome`)
     };
 
     return (
-        <div>
-            <Link to="/user">Home</Link>
+        <div className='page'>
+            <Header/>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div style={{ display: 'flex', flexDirection: 'column', height: 200 }}>
                     <label>Username:</label>
