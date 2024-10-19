@@ -18,6 +18,8 @@ const LocasExcerpt = ({ i , own}) => {
     const [set , setSet] =useState(false)
     const [donateC , setDonateC] = useState(false)
 
+    const user = useSelector(selectCurrentUser);
+
     const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
 
     
@@ -65,6 +67,8 @@ const LocasExcerpt = ({ i , own}) => {
 
     const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
 
+    console.log(loca.getPId && own)
+    console.log(loca.user)
     return (
         
         
@@ -74,17 +78,20 @@ const LocasExcerpt = ({ i , own}) => {
                 <div className='food-waste-front'>
                     <img src={require('../../components/img/home.png')} alt="meat icon" className='smalllogolist' />
                 </div>
+                <div className='overcontent'>
                     <div className="food-waste-content">
                             <div className="food-waste-details">
                                 <p>{i.text + ' ' + i.num}</p>
                                 <ul>
                                     <li><p>{loca.town}</p></li>
-                                    <li><p>{"username : " +  loca.getP || null}</p></li>
-                                    <li>{loca.getPId? <Link to={`/getuser/${loca.getPId}`}>that person</Link> : null}</li>
+                                    <li><p>{"username : " +  loca.userName || null}</p></li>
+                                    {(loca?.user && !own)? <li><Link to={`/getuser/${loca.user}`}>that person</Link></li> : null}
+                                    {(loca?.getPId && own)? <li><Link to={`/getuser/${loca.getPId}`}>that person</Link></li> : null}
                                 </ul>
                             </div>
                             
-                    </div> 
+                    </div>
+                </div> 
             </div>
             
             

@@ -11,7 +11,6 @@ export default function Confirm({ link, open, onCloseConfirm, data, dataFood }) 
     const name = useSelector(selectCurrentUser);
     const [donate, { isLoading: isDonating, isError: donateErr }] = useDonatelocaMutation();
     const [createNote, { isLoading, isSuccess }] = useCreateNoteMutation();
-    const [deleteLoca, { isSuccess: delOK }] = useDeletelocaMutation();
 
     const onDonateClicked = async (e) => {
         const onSent = async (data, dataFood, name) => {
@@ -25,8 +24,8 @@ export default function Confirm({ link, open, onCloseConfirm, data, dataFood }) 
                 formData.append(`notes[0][tag]`, dataFood.tag);
                 formData.append(`notes[0][donate]`, true);
 
-                await createNote({ formData }).unwrap();
-                await deleteLoca({ id: dataFood.id, user: dataFood.user }).unwrap();
+                const cN = await createNote({ formData }).unwrap();
+                console.log(cN)
             } catch (err) {
                 console.log(err);
             }

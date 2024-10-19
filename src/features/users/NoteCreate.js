@@ -37,7 +37,7 @@ const CreatePost = () => {
       expTime: formattedDate,
       count: 0,
       countExp: 0,
-      tag: "",
+      tag: [],
       done: false,
       files: [],
       isListening: false, // Added state to handle voice recognition
@@ -228,7 +228,7 @@ const CreatePost = () => {
             expTime: formattedDate,
             count: 0,
             countExp: 0,
-            tag: "",
+            tag: [],
             done: false,
             files: [],
             isListening: false,
