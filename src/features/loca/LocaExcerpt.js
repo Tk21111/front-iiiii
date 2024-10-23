@@ -65,7 +65,7 @@ const LocasExcerpt = ({ i , own}) => {
 
 
 
-    const imagePath = loca?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = loca?.imageUser?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
 
     console.log(loca.getPId && own)
     console.log(loca.user)

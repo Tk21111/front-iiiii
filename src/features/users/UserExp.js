@@ -98,7 +98,7 @@ const GetAllNoteUserExp = () => {
                 // You can now work with each `j` (which is a single `dataSingle` object) to render HTML
                 contentChild.push(
                     <div className="expchild">
-                        <img src={j?.images.length > 0 ?`http://localhost:3500/${j?.images?.toString().replace(/\\/g, '/')}` : require('../../components/img/meal.png')} alt="pic" className="expimg"></img>
+                        <img src={j?.images.length > 0 ?`${process.env.WEB_ENV}/${j?.images?.toString().replace(/\\/g, '/')}` : require('../../components/img/meal.png')} alt="pic" className="expimg"></img>
                         <p>{(j.text.length >= 5 ? j.text.substr(0,5) + "...": j.text)}</p>
                     </div>
                 );

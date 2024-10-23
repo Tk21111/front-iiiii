@@ -40,7 +40,7 @@ const NotesExcerptSmall = ({ i , donate , select ,name}) => {
     let imagePath = null;
 
     if(i?.images?.length){
-        imagePath = `http://localhost:3500/${i?.images?.toString().replace(/\\/g, '/')}`;
+        imagePath = `${process.env.WEB_ENV}/${i?.images?.toString().replace(/\\/g, '/')}`;
     }
 
     if (!note) {

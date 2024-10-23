@@ -11,7 +11,7 @@ const SinglePostPage = () => {
     const noteId = useParams()
 
 
-    const URL = 'http://localhost:3500/'
+    const URL = '${process.env.WEB_ENV}/'
     const username = useSelector(selectCurrentUser);
     const [getAllNoteUser , { isLoading }] = useGetAllNoteUserMutation();
     const [note, setNote] = useState(null);
@@ -37,7 +37,7 @@ const SinglePostPage = () => {
         )
     }
 
-    const imagePath = `http://localhost:3500/${note.images.toString().replace(/\\/g, '/')}`;
+    const imagePath = `${process.env.WEB_ENV}/${note.images.toString().replace(/\\/g, '/')}`;
     console.log(note.images)
     return (
         <div style={{width : '100%' , height : '100%'}}>

@@ -96,7 +96,7 @@ const SingleLocaPage = () => {
     
 
     
-    const imagePath = loca?.images?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = loca?.images?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
     
    
 

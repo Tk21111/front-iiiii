@@ -63,7 +63,7 @@ const LocasExcerptOrg = ({ i , own}) => {
 
 
 
-    const imagePath = i?.imageUser?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = i?.imageUser?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
 
     return (
         

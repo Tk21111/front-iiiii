@@ -14,7 +14,7 @@ const Welcome = () => {
    
     
 
-    const imagePath = `http://localhost:3500/${image?.toString().replace(/\\/g, '/')}`;
+    const imagePath = `${process.env.WEB_ENV}/${image?.toString().replace(/\\/g, '/')}`;
 
 
     const content = (

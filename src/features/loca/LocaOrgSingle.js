@@ -53,7 +53,7 @@ const GetOrgSingle = () => {
     }
 
     console.log(user)
-    const imagePath = user?.image?.map(p => { return `http://localhost:3500/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = user?.image?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
 
     return (
         <div className='page'>
