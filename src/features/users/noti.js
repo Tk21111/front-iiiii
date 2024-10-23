@@ -93,7 +93,7 @@ const Noti = () => {
     return (
       <div className="food-waste-item">
         <div className="noti-content">
-          <p>{notiObject.text}</p>
+          <h2>{notiObject.text}</h2>
           {notiObject.status === "expiring" ? (
             <p>{`You have ${notiObject.count}, and only ${notiObject.countExp} will expire soon.`}</p>
           ) : (
