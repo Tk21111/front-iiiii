@@ -89,16 +89,17 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location"  > Food sharing </Link></p>                </div >
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location"  > Food sharing </Link></p>
+                </div >
                 <div className='content'>
                     <a href={'/location'} className='mainimgcontainer'>
-                        <img src='./loca.png' alt="shopping" className='mainimage' />
+                        <img src={require('../../components/img/loca.png')} alt="shopping" className='mainimage' />
                     </a>
                     <a href={'/location/ofuser'}className='mainimgcontainer'>
-                        <img src='./lovinghand.png' alt="shopping" className='mainimage' />
+                        <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
                     </a>
                     <a href={'/location/oforg'}className='mainimgcontainer'>
-                        <img src='./lovinghand.png' alt="shopping" className='mainimage' />
+                        <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
                     </a>
                 </div>
             </div>

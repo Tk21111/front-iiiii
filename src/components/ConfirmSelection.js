@@ -89,6 +89,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 position: 'fixed',
                 top: '50%',
                 right: '50%',
+                width: '100%',
                 transform: 'translate(50%, -50%)',
                 padding: '50px',
                 zIndex: 901,
@@ -96,12 +97,12 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 <article style={{ backgroundColor: 'rgba(255, 255, 255, 1)', width: '90%' }}>
                     <img onClick={onCloseConfirm} src={require('../components/img/back.png')} alt="back" className="smalllogo" style={{ transform: 'translate(-50%)' }} />
                     
-                    <div className="food-waste-item" style={{ border: '0px' }}>
-                        <div>
+                    <div className="food-waste-item-sub" style={{ border: '0px' }}>
+                        <div className="food-waste-details-confirm-selection">
                             <img src={imgPath || require('../components/img/meal.png')} className="smalllogo-vertical-fix" alt="home" />
                         </div>
-                        <div className="food-waste-details">
-                            <p>Amount</p>
+                        <div className="food-waste-details-confirm-selection" style={{marginLeft : '10px'}}>
+                            <h2>Amount</h2>
                             <input
                                 style={{ width: '95%' }}
                                 value={amount}
@@ -111,7 +112,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                         </div>
                     </div>
 
-                    <div className="food-waste-item" style={{ border: '0px', textAlign: 'left' }}>
+                    <div className="food-waste-item-sub" style={{ border: '0px'}}>
                         <div className="food-waste-details" style={{ textAlign: 'left', width: '20%', marginLeft: '-5%', marginRight: '50%' }}>
                             <p>{dataFood.text.substr(0, 10) + '\n' + ': ' + dataFood.count}</p>
                         </div>
@@ -124,7 +125,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                                 width: '50px',
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                alignItems: 'center',
                             }}>
                                 <img src={require('../components/img/checkT.png')} alt="YES" style={{
                                     maxWidth: '100%',

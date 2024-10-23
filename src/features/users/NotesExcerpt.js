@@ -56,13 +56,14 @@ const PostsExcerpt = ({ i }) => {
                 <div class="food-waste-content">
                         <div class="food-waste-details">
                             <ul>
-                                <li><p>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text}</p></li>
+                                <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text}</h2></li>
                                 {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
+                                <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p></li>
+                                <li><p className="postCredit">
+                                    <Link to={`note/${i.id}`}>View Post</Link>
+                                </p></li>
                             </ul>
-                            <p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p>
-                            <p className="postCredit">
-                                <Link to={`note/${i.id}`}>View Post</Link>
-                             </p>
+                            
                         </div>
                 </div> 
             </div>               

@@ -61,46 +61,48 @@ const Login = () => {
     const handleToggle = () => setPersist(prev => !prev)
 
     const content = isLoading ? <h1>Loading...</h1> : (
-        <section className="login">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
+        <div className='page'>
+            <section className="login">
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
 
-            <h1>Login</h1>
+                <h1>Login</h1>
 
-            <form onSubmit={handleSubmit}> 
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    value={user}
-                    onChange={handleUserInput}
-                    autoComplete="off"
-                    required
-                />
-
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password" //doesn't show it 
-                    id="password"
-                    onChange={handlePwdInput}
-                    value={pwd}
-                    required
-                />
-                <button>log In</button>
-
-                <label htmlFor="persist" className="form__persist">
+                <form onSubmit={handleSubmit}> 
+                    <label htmlFor="username">Username:</label>
                     <input
-                        type="checkbox"
-                        className="form__checkbox"
-                        id="persist"
-                        onChange={handleToggle}
-                        checked={persist}
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        value={user}
+                        onChange={handleUserInput}
+                        autoComplete="off"
+                        required
                     />
-                    Trust this device
-                </label>
-            </form>
-            <p><Link to="/registor"> sign in </Link></p>
-        </section>
+
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password" //doesn't show it 
+                        id="password"
+                        onChange={handlePwdInput}
+                        value={pwd}
+                        required
+                    />
+                    <button>log In</button>
+
+                    <label htmlFor="persist" className="form__persist">
+                        <input
+                            type="checkbox"
+                            className="form__checkbox"
+                            id="persist"
+                            onChange={handleToggle}
+                            checked={persist}
+                        />
+                        Trust this device
+                    </label>
+                </form>
+                <p><Link to="/registor"> sign in </Link></p>
+            </section>
+        </div>
     )
 
     return content

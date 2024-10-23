@@ -3,7 +3,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate, useParams } from 'react-router-dom'; 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectCurrentAka, selectCurrentImage } from '../features/auth/authSlice';
@@ -11,6 +11,7 @@ import { selectCurrentUser, selectCurrentAka, selectCurrentImage } from '../feat
 
 function Header() {
   const navigate = useNavigate();
+  const p = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [logoAppSrc, setLogoAppSrc] = useState(null);
   const [menuSrc, setMenuSrc] = useState(null);
@@ -40,6 +41,9 @@ function Header() {
         </a>
       </div>
       <nav className='headerComp'>
+        {p['*'] === '' ? <a href="/login">
+          <h2 style={{textAlign : 'center' , fontSize : '60%' , marginRight: '20px', color: 'black'}}>login</h2>
+        </a> : null}
         <a href="/notifications">
           <img src={require('../components/img/noti.png')} alt="noti" className="logo" />
         </a>

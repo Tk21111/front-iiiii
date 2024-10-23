@@ -1,31 +1,127 @@
-import React from 'react'
-import Header from '../../components/Header'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import Header from '../../components/Header';
+import { Link } from 'react-router-dom';
+import { useGetAllNoteUserMutation, useGetNotiQuery, useSetNotiMutation } from './NoteApiSlice';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../auth/authSlice';
 
 const Noti = () => {
-  return (
-    <div className='page'>
-        <Header/>
-        <div className='overcontent'>
-            <div className='content' >
-                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > Notifications </Link></p>
-                
-            </div>
-            <h2> No one home...</h2>
-            <h2> No api for this</h2>
-            <h2> so it me</h2>
-            <h2> here to complain</h2>
-            <h2> i </h2>
-            <h2> want</h2>
-            <h2> to</h2>
-            <h2> sleep</h2>
-            <h2> it's</h2>
-            <h2> 3 AM</h2>
-            <h2> TT</h2>
-        </div>
-    </div>
-  )
-}
+  const user = { username: useSelector(selectCurrentUser) };
 
-export default Noti
+  const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  }));
+
+  const [setNoti] = useSetNotiMutation();
+  const { data: notiData, isLoading: loading } = useGetNotiQuery();
+
+  const [hasFetched, setHasFetched] = useState(false);
+  const [newNoti, setNewNoti] = useState(null);
+  const [content, setContent] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (!hasFetched) {
+          await getAllNoteUser(user);
+          setHasFetched(true);
+          console.log('fetched');
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [hasFetched]);
+
+  useEffect(() => {
+    // Function to generate a random note and create notification object
+    const generateNote = () => {
+      if (users) {
+        let canInSult = false;
+        let i = 0;
+        let noteObj = null;
+
+        while (!canInSult && i < 5) {
+          i++;
+          noteObj = users.entities[users.ids[Math.floor(Math.random() * users.ids.length)]];
+          if (noteObj.count < noteObj.countExp) {
+            canInSult = true;
+          }
+        }
+
+        const notiObject = {
+          text: noteObj?.text || "No text available",
+          count: noteObj?.count || 0,
+          countExp: noteObj?.countExp || 0,
+          status: canInSult ? "expiring" : "good"
+        };
+
+        setNewNoti(notiObject);
+
+        return notiObject;
+      }
+      return null;
+    };
+
+    if (users) {
+      generateNote();
+    }
+  }, [users]);
+
+  useEffect(() => {
+    const fetchNoti = async (notiToSet) => {
+      if (notiToSet) {
+        try {
+          await setNoti({ noti: notiToSet });
+          console.log('Notification sent.');
+        } catch (err) {
+          console.error("Error sending notification:", err);
+        }
+      }
+    };
+
+    if (newNoti) {
+      fetchNoti(newNoti);
+    }
+  }, [newNoti, setNoti]);
+
+  const renderNotification = (notiObject) => {
+    return (
+      <div className="food-waste-item">
+        <div className="noti-content">
+          <p>{notiObject.text}</p>
+          {notiObject.status === "expiring" ? (
+            <p>{`You have ${notiObject.count}, and only ${notiObject.countExp} will expire soon.`}</p>
+          ) : (
+            <p>You're good!</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  console.log(notiData)
+  return (
+    <div className="page">
+      <Header />
+      <div className="overcontent">
+        <div className="content">
+          <img src={require('../../components/img/star.png')} alt="star" className="smalllogo" />
+          <p style={{ marginRight: 'auto' }} className="welcomefont">
+            <Link to="/user/shopping/false/false/null">Notifications</Link>
+          </p>
+        </div>
+        {newNoti && renderNotification(newNoti)}
+        {notiData?.length > 0 && notiData?.map((item, index) => (
+          <React.Fragment key={index}>{renderNotification(item)}</React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Noti;
