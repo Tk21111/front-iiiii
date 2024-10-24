@@ -104,7 +104,7 @@ const Noti = () => {
     );
   };
 
-  console.log(notiData)
+
   return (
     <div className="page">
       <Header />

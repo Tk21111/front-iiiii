@@ -40,7 +40,7 @@ const PostsExcerpt = ({ i }) => {
     let imagePath = null;
 
     if(i?.images?.length){
-        imagePath = `${process.env.WEB_ENV}/${i?.images?.toString().replace(/\\/g, '/')}`;
+        imagePath = `${process.env.REACT_APP_API}/${i?.images?.toString().replace(/\\/g, '/')}`;
     }
 
     if (!note) {

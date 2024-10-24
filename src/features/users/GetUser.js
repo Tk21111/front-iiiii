@@ -27,11 +27,8 @@ const GetUser = () => {
     }, [ hasFetched]);
 
     
-    const imagePath = data?.image?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = data?.image?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
    
-    console.log(process.env.NODE_ENV)
-    console.log(process.env.WEB_ENV)
-    console.log(imagePath)
     return (
         <div className='page'>
           <Header/>

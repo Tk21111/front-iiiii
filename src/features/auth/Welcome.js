@@ -14,7 +14,7 @@ const Welcome = () => {
    
     
 
-    const imagePath = `${process.env.WEB_ENV}/${image?.toString().replace(/\\/g, '/')}`;
+    const imagePath = `${process.env.REACT_APP_API}/${image?.toString().replace(/\\/g, '/')}`;
 
 
     const content = (

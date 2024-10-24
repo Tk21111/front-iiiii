@@ -21,7 +21,7 @@ function Header() {
   const aka = useSelector(selectCurrentAka);
   const image = useSelector(selectCurrentImage);
   
-  const imagePath = `${process.env.WEB_ENV}/${image?.toString().replace(/\\/g, '/')}`;
+  const imagePath = `${process.env.REACT_APP_API}/${image?.toString().replace(/\\/g, '/')}`;
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

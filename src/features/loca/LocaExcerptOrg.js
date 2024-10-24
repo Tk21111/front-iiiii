@@ -63,7 +63,7 @@ const LocasExcerptOrg = ({ i , own}) => {
 
 
 
-    const imagePath = i?.imageUser?.map(p => { return `${process.env.WEB_ENV}/${p.replace(/\\/g, '/')}`}) || [];
+    const imagePath = i?.imageUser?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
 
     return (
         
