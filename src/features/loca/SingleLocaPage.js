@@ -18,7 +18,7 @@ const SingleLocaPage = () => {
             if (scriptLoaded.current) return; // Check if the script has already been loaded
 
             const script = document.createElement('script');
-            script.src = 'https://api.longdo.com/map/?key=adc1eb3709942261fff256fec52bbe56'; // Replace with your API key
+            script.src = 'https://api.longdo.com/map/?key=' + process.env.API_KEY; // Replace with your API key
             script.async = true;
             script.onload = () => {
                 scriptLoaded.current = true; // Mark script as loaded
