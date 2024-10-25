@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 
 import Header from '../../components/Header'
-import { BarChart } from '@mui/x-charts'
+
 
 const Welcome = () => {
     const user = useSelector(selectCurrentUser)
