@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import { BarChart } from '@mui/x-charts';
+
 import Chart from 'react-google-charts';
 
 const BuyExcerpt = ({ i }) => {
