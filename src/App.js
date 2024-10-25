@@ -34,6 +34,7 @@ import ShoppingList from './features/users/ShoppingList'
 import GetOrg from './features/loca/LocaOrg'
 import GetOrgSingle from './features/loca/LocaOrgSingle'
 import Noti from './features/users/noti'
+import AddressFormWithMap from './features/loca/testLoca'
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
                   <Route path=":id" element={<GetOrgSingle/>}/>
                 </Route>
                 <Route path=":noteId" element={<SingleLocaPage />}/>
+                <Route path='test' element={<AddressFormWithMap/>} />
                 <Route path="create/:noteId/:amount" element={<LocaCreate />} />
               </Route>
 

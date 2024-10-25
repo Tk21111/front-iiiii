@@ -1,140 +1,91 @@
-import { useParams , useNavigate} from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useEffect, useState , useRef} from 'react';
-import { useGetAlllocaQuery , useDeletelocaMutation, useDonatelocaMutation} from './LocaApiSlice';
-import {useSelector} from 'react-redux'
-import { selectCurrentUser } from '../auth/authSlice';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { useGetAlllocaQuery } from './LocaApiSlice';
+import Header from '../../components/Header';
 
 const SingleLocaPage = () => {
-    //obj 
     const locaId = useParams();
     const navigate = useNavigate();
-
-    const { data , isLoading, isSuccess, isError, error } = useGetAlllocaQuery();
-    const [ deleteLoca , {isLoading : isDeleting , isError : deleteErr}] = useDeletelocaMutation();
-    const [donate , {isLoading : isDonating , isError : donateErr}] = useDonatelocaMutation();
-    const [loading, setLoading] = useState(true);
-    const [refresh, setRefresh] = useState(0);
-    const [errMsg , setErrMsg] = useState('');
-    const errRef = useRef();
-
-    const [loca , setLoca] = useState('');
+    const { data, isLoading, isError } = useGetAlllocaQuery();
+    
+    const [loca, setLoca] = useState('');
     const [text, setText] = useState('');
+    const mapRef = useRef(null);
+    const scriptLoaded = useRef(false); // Ref to check if the script has been loaded
 
     useEffect(() => {
-        if (!isLoading) {
-            setLoading(false);
-        }
-    }, [isLoading]);
+        const loadScripts = () => {
+            if (scriptLoaded.current) return; // Check if the script has already been loaded
+
+            const script = document.createElement('script');
+            script.src = 'https://api.longdo.com/map/?key=adc1eb3709942261fff256fec52bbe56'; // Replace with your API key
+            script.async = true;
+            script.onload = () => {
+                scriptLoaded.current = true; // Mark script as loaded
+                console.log('Longdo API loaded:', window.longdo);
+                initializeMap();
+            };
+            document.body.appendChild(script);
+
+            return () => {
+                document.body.removeChild(script);
+            };
+        };
+
+        const initializeMap = () => {
+            if (mapRef.current) {
+                const map = new window.longdo.Map({
+                    placeholder: mapRef.current,
+                });
+                addMarker(map);
+            }
+        };
+
+        const addMarker = (map) => {
+            console.log(loca.longitude)
+            if (loca.latitude && loca.longitude) {
+                const marker = new window.longdo.Marker({
+                    lon: loca.longitude,
+                    lat: loca.latitude,
+                });
+                map.Overlays.add(marker);
+            } else {
+                console.error('Latitude and longitude are not defined for the marker.');
+            }
+        };
+
+        loadScripts();
+    }, [loca]); // Run when `loca` updates
 
     useEffect(() => {
         if (data && data.entities) {
-            const loca = data.entities[locaId.noteId];
-                setLoca(loca)
-            if (loca) {
-                setText(loca.text);
-            } else {
-                setText('Have been deleted');
-            }
+            const locaData = data.entities[locaId.noteId];
+            setLoca(locaData || {}); // Safely set loca to an empty object if undefined
+            setText(locaData ? locaData.text : 'Have been deleted');
         }
     }, [data, locaId]);
 
-    const handleRefresh = () => {
-        setLoading(true);
-        setRefresh(prev => prev + 1); // This will trigger a re-fetch
-    };
-    if (isLoading) return <p>Loading...</p>
-    if (isError) return <p>Can't find location sharing post</p>
-    
-    if (!data) {
-        return (
-            <section>
-                <h2>loca not found!</h2>
-            </section>
-        )
-    }
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Can't find location sharing post</p>;
 
-    const ondeletePostClicked = async(e) => {
-        e.preventDefault();
-        if(locaId.noteId){
-            try {
-                await deleteLoca({ id : locaId.noteId}).unwrap();
-            navigate('/location')
-            } catch (err) {
-                console.log(err)
-            }
-            
-        }
-    }
-
-    //go to that person
-    const onDonateClicked = async (e) => {
-        e.preventDefault();
-        if (locaId.noteId) {
-            try {
-                const response = await donate({ id: locaId.noteId }).unwrap();
+    const imagePath = loca?.images?.map(p => `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`) || [];
     
-                // Assuming response was successful, navigate to '/location'
-                navigate(`/getuser/${loca.user}`);
-    
-            } catch (err) {
-                console.error(err);
-    
-                // Check the original status code from the error
-                if (err.originalStatus === 401) {
-                    setErrMsg("401 Unauthorized: Cannot delete location that isn't yours");
-                } else if (err.originalStatus === 500) {
-                    setErrMsg("500 Internal Server Error");
-                } else {
-                    setErrMsg("An unexpected error occurred");
-                }
-            }
-        } else {
-            setErrMsg("Note ID is missing");
-        }
-    };
-    
-
-    
-    const imagePath = loca?.images?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
-    
-   
-
     return (
-        <article>
-            <h2 ref={errRef} className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</h2>
+        <div className='page'>
+            <Header/>
+            <div id="map" ref={mapRef} className='map'></div>
+            <h2>{text}</h2>
+            <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
+            <p>District: {loca?.district}</p>
+            <p>Subdistrict: {loca?.subdistrict}</p>
+            <p>Country: {loca?.country}</p>
+            <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
+            {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
             {imagePath.map((path, i) => (
-                <img
-                    key={i}
-                    src={path}
-                    alt={`note image ${i}`}
-                    style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
-                />
+                <img key={i} src={path} alt={`note image ${i}`} style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
             ))}
-            <div style={{margin: '2%'}}>
-                <h2>{text}</h2>
-                (<h1>{loca?.organisation ? "organisation!!!!" : "user"}</h1>)
-                <p>Town : {loca?.town}</p>
-                <p>Subdistrict : {loca?.subdistrict}</p>
-                <p>County : {loca?.county}</p>
-                <p>more: {loca?.more ? loca.more : "Don't have more"}</p>
-                <button
-                        type="button"
-                        onClick={onDonateClicked}
-                    >
-                        Get from this person
-                    </button>
-                <button
-                        type="button"
-                        onClick={ondeletePostClicked}
-                    >
-                        Delete Post
-                    </button>
-                <p><Link to="/location"> Location List </Link></p>
-                <p><Link to="/welcome"> Home </Link></p>
-            </div>
-        </article>
-    )
-}
+        </div>
+    );
+};
 
-export default SingleLocaPage
+export default SingleLocaPage;

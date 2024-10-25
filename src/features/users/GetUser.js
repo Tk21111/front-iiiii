@@ -29,6 +29,7 @@ const GetUser = () => {
     
     const imagePath = data?.image?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
    
+    console.log(imagePath)
     return (
         <div className='page'>
           <Header/>

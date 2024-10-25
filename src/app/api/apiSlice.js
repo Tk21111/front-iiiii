@@ -2,7 +2,7 @@ import { createApi , fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import { setCredentials , logOut } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl : 'https://iiiii-is-backend.onrender.com'//'https://iiiii-is-backend.onrender.com' // 'http://localhost:3500/'
+    baseUrl : 'http://localhost:3500/' //'https://iiiii-is-backend.onrender.com' // 'http://localhost:3500/'
     ,credentials : 'include', //set back http-only secure cookie every time
     prepareHeaders : (headers , {getState}) =>{
         const token = getState().auth.token

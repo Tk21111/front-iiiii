@@ -67,8 +67,7 @@ const LocasExcerpt = ({ i , own}) => {
 
     const imagePath = loca?.imageUser?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
 
-    console.log(loca.getPId && own)
-    console.log(loca.user)
+    console.log(loca)
     return (
         
         
@@ -83,8 +82,9 @@ const LocasExcerpt = ({ i , own}) => {
                             <div className="food-waste-details">
                                 <p>{i.text + ' ' + i.num}</p>
                                 <ul>
-                                    <li><p>{loca.town}</p></li>
+                                    <li><p>{loca.province}</p></li>
                                     <li><p>{"username : " +  loca.userName || null}</p></li>
+                                    {(loca?._id )? <li><Link to={`/location/${loca._id}`}>single page</Link></li> : null}
                                     {(loca?.user && !own)? <li><Link to={`/getuser/${loca.user}`}>that person</Link></li> : null}
                                     {(loca?.getPId && own)? <li><Link to={`/getuser/${loca.getPId}`}>that person</Link></li> : null}
                                 </ul>

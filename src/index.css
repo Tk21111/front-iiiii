@@ -591,3 +591,9 @@ who ever fix this im sorry tk21111 18/10/2024
 .noti-content {
   flex-direction: row;
 }
+
+.map {
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+}
