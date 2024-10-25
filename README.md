@@ -1,1 +1,1 @@
-btw change the localhost ito proper api in singleNotePage , singleLocaPage ,welcome maybe these is all
+change api url in env

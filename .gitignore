@@ -2,6 +2,8 @@
 .env
 
 src/app/api/apiSlice.js
+frontend/src/app/api/apiSlice.js
+
 # dependencies
 /node_modules
 node_modules
