@@ -1,12 +1,14 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
-import { useGetAlllocaQuery } from './LocaApiSlice';
+import { useDeletelocaMutation, useGetAlllocaQuery } from './LocaApiSlice';
 import Header from '../../components/Header';
 
 const SingleLocaPage = () => {
     const locaId = useParams();
     const navigate = useNavigate();
     const { data, isLoading, isError } = useGetAlllocaQuery();
+
+    const [ deleteLoca , {isLoading : isDeleting , isError : deleteErr}] = useDeletelocaMutation();
     
     const [loca, setLoca] = useState('');
     const [text, setText] = useState('');
@@ -65,6 +67,19 @@ const SingleLocaPage = () => {
         }
     }, [data, locaId]);
 
+    const ondeletePostClicked = async(e) => {
+        e.preventDefault();
+        if(locaId.noteId){
+            try {
+                await deleteLoca({ id : locaId.noteId}).unwrap();
+                navigate('/location')
+            } catch (err) {
+                console.log(err)
+            }
+            
+        }
+    }
+
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Can't find location sharing post</p>;
 
@@ -74,17 +89,26 @@ const SingleLocaPage = () => {
         <div className='page'>
             <Header/>
             <div id="map" ref={mapRef} className='map'></div>
-            <h2>{text}</h2>
-            <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
-            <p>District: {loca?.district}</p>
-            <p>Subdistrict: {loca?.subdistrict}</p>
-            <p>Country: {loca?.country}</p>
-            <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
-            {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
-            {imagePath.map((path, i) => (
-                <img key={i} src={path} alt={`note image ${i}`} style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
-            ))}
-        </div>
+            <div className='overcontent'>
+                
+                <h2>{text}</h2>
+                <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
+                <p>District: {loca?.district}</p>
+                <p>Subdistrict: {loca?.subdistrict}</p>
+                <p>Country: {loca?.country}</p>
+                <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
+                {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
+                {imagePath.map((path, i) => (
+                    <img key={i} src={path} alt={`note image ${i}`} style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
+                ))}
+                <button
+                            type="button"
+                            onClick={ondeletePostClicked}
+                        >
+                            Delete Post
+                        </button>
+                </div>
+            </div>
     );
 };
 
