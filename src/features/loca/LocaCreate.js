@@ -22,7 +22,7 @@ const CreatePost = () => {
     useEffect(() => {
         const loadScripts = () => {
             const script = document.createElement('script');
-            script.src = 'https://api.longdo.com/map/?key=' + process.env.API_KEY;
+            script.src = 'https://api.longdo.com/map/?key=' + process.env.REACT_APP_API_KEY;
             script.async = true;
             script.onload = () => initializeMap();
             document.body.appendChild(script);
