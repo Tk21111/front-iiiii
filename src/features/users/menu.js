@@ -5,7 +5,7 @@ const listNew = [
     ]
 
 const listHowMeat = [
-    ['ไก่', {des : 'wow'}] 
+    ['ไก่', {des : 'wow'} , ] , ['ปลา' , {des : 'ws'}]
 ]
 const listHowVeg = [
     [ 'ผักบุ่ง', {des : 'wow'}] 

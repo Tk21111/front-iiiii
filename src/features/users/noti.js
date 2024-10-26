@@ -53,11 +53,18 @@ const Noti = () => {
           }
         }
 
+        const currentDate = new Date
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth()).padStart(2, "0");
+        const day = String(currentDate.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+
         const notiObject = {
           text: noteObj?.text || "No text available",
           count: noteObj?.count || 0,
           countExp: noteObj?.countExp || 0,
-          status: canInSult ? "expiring" : "good"
+          status: canInSult ? "expiring" : "good",
+          date : formattedDate
         };
 
         setNewNoti(notiObject);
@@ -92,15 +99,28 @@ const Noti = () => {
   const renderNotification = (notiObject) => {
     return (
       <div className="food-waste-item">
-        <div className="noti-content">
-          <h2>{notiObject.text}</h2>
-          {notiObject.status === "expiring" ? (
-            <p>{`You have ${notiObject.count}, and only ${notiObject.countExp} will expire soon.`}</p>
-          ) : (
-            <p>You're good!</p>
-          )}
-        </div>
+        
+         <div className='food-waste-front'>
+            <img src={require('../../components/img/broccoli.png')} alt="meat icon" className='smalllogolist' />
+          </div>
+          <div className='overcontent'>
+            <div className="food-waste-content">
+              <div className="food-waste-details">
+                <h2>{notiObject.text}</h2>
+                  {notiObject.status === "expiring" ? (
+                    <p>{`You have ${notiObject.count}, and only ${notiObject.countExp} will expire soon.`}</p>
+                        ) : (
+                    <p>You're good!</p>
+                    
+                  )}
+                  
+              </div>
+                            
+            </div>
+         </div> 
+         <p style={{fontSize : '50%' , justifyContent: 'start'}}>{notiObject?.date}</p>
       </div>
+      
     );
   };
 

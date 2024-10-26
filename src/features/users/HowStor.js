@@ -19,6 +19,7 @@ const HowStor = () => {
         content = []; // Handle unexpected type
     }
 
+   
     // Filter content based on search input
     if (search) {
         content = content.filter(item => item[0].toLowerCase().includes(search.toLowerCase()));
