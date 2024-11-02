@@ -45,7 +45,9 @@ const CreatePost = () => {
   ]);
 
   function findInStr (transcript, index) {
+    //set bare str to obj element 
     let arrindexkey = {}
+    //set {key}
     for ( let i of ['title' , 'count' , 'countExp','tag']){
       if(transcript.toLocaleLowerCase().includes(i)){
         arrindexkey[i] = transcript.indexOf(i)
@@ -53,10 +55,12 @@ const CreatePost = () => {
     }
     console.log(arrindexkey)
     const keyI = Object.keys(arrindexkey)
+    //in case of more than 1 key //ok fine idk what is this
     if (keyI.length >= 1 ){
       for(let n = 1  ; n<= keyI.length; n++){
         console.log(transcript.substring(arrindexkey[keyI[n-1]]+ (keyI[n-1]?.length) || 0,arrindexkey[keyI[n]] ));
         console.log(keyI[n-1]?.length)
+        //
         handleInputChange(index, keyI[n-1] , transcript.substring(arrindexkey[keyI[n-1]]+ (keyI[n-1]?.length) || 0,arrindexkey[keyI[n]] ));
       };
       

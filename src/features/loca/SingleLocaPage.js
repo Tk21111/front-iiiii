@@ -12,13 +12,17 @@ const SingleLocaPage = () => {
     
     const [loca, setLoca] = useState('');
     const [text, setText] = useState('');
+    const [succes , setSuccess] = useState(false);
+    const [succesMap , setSuccessMap] = useState(false);
     const mapRef = useRef(null);
     const scriptLoaded = useRef(false); // Ref to check if the script has been loaded
 
     useEffect(() => {
         const loadScripts = () => {
-            if (scriptLoaded.current) return; // Check if the script has already been loaded
+            //if loca isn't here just wait
+            if (scriptLoaded.current || succesMap || !loca) return; // Check if the script has already been loaded
 
+            setSuccessMap(true)
             const script = document.createElement('script');
             script.src = 'https://api.longdo.com/map/?key=' + process.env.REACT_APP_API_KEY; // Replace with your API key
             script.async = true;
@@ -44,8 +48,11 @@ const SingleLocaPage = () => {
         };
 
         const addMarker = (map) => {
+            console.log(loca)
+            console.log(data)
             console.log(loca.longitude)
-            if (loca.latitude && loca.longitude) {
+            if (loca.latitude && loca.longitude && !succes) {
+                setSuccess(true)
                 const marker = new window.longdo.Marker({
                     lon: loca.longitude,
                     lat: loca.latitude,
@@ -57,7 +64,7 @@ const SingleLocaPage = () => {
         };
 
         loadScripts();
-    }, [loca]); // Run when `loca` updates
+    }, [loca ]); // Run when `loca` updates
 
     useEffect(() => {
         if (data && data.entities) {

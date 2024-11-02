@@ -6,9 +6,10 @@ import PostsExcerpt from './NotesExcerpt';
 import {listNew as menu} from './menu';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
+import Overay from '../../components/Overlay';
 
 
-const GetAllNoteUser = () => {
+const Recommend = () => {
     const username = useSelector(selectCurrentUser);
     const user = { username };
     const [getAllNoteUser, { isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
@@ -30,7 +31,7 @@ const GetAllNoteUser = () => {
                     let tagList =[];
                     for (let i of ids){
                         //get entities tag
-                        console.log(entities[i])
+                       
                         if(entities[i]?.tag){
                             if(entities[i]?.tag?.length >0){
                                 tagList.push(...entities[i].tag);
@@ -251,6 +252,8 @@ const GetAllNoteUser = () => {
                 <option value="tag">Tag</option>
             </select>
             {/* end search comp */}
+
+            <Overay link={'recommend/create'}/>
             
             {content} {/* Ensure content is defined */}
         </div>
@@ -258,5 +261,5 @@ const GetAllNoteUser = () => {
     
 };
 
-export default GetAllNoteUser;
+export default Recommend;
 

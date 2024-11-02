@@ -35,6 +35,7 @@ import GetOrg from './features/loca/LocaOrg'
 import GetOrgSingle from './features/loca/LocaOrgSingle'
 import Noti from './features/users/noti'
 import AddressFormWithMap from './features/loca/testLoca'
+import RecommendationCreate from './features/users/RecommendationCreate'
 
 function App() {
   return (
@@ -87,7 +88,11 @@ function App() {
               </Route>
 
               {/* recommend */}
-              <Route path="recommend" element={<Recommend />} />
+              <Route path="recommend">
+                <Route index element={<Recommend/>} />
+                <Route path='create' element={<RecommendationCreate/>} />
+              </Route>
+
               <Route path="logout" element={<LogOut />} />
             </Route>
           </Route>

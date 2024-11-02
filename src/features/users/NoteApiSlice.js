@@ -1,3 +1,4 @@
+
 import { apiSlice } from "../../app/api/apiSlice";
 import { createEntityAdapter ,createSelector} from "@reduxjs/toolkit";
 
@@ -130,11 +131,38 @@ export const noteApislice = apiSlice.injectEndpoints({
                 { type: 'Note', id: arg.id }
             ]
          }),
-        
+         getHow : builder.query({
+            query : () => ({
+                url : '/how',
+                method : 'GET',
+            })
+         }),
+         setHow : builder.mutation({
+            query : (data) => ({
+                url : '/how/create',
+                method : 'POST',
+                credential : 'includes',
+                body : data.formData,
+
+            })
+         }),
+         updateHow : builder.mutation({
+            query : (data) => ({
+                url : '/how/update',
+                method : 'PATCH',
+                credential : 'includes',
+                body : {
+                    ...data
+                },
+            })
+
+         })
+            
     })
 });
 
-export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation} = noteApislice;
+
+export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation} = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
 
@@ -145,6 +173,7 @@ const selectNotesData = createSelector(
 )
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
+// not working for some reason
 export const {
     selectAll: selectAllNotes,
     selectById: selectNoteById,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetAllNoteUserMutation } from "./NoteApiSlice";
+import { selectAllNotes, selectNoteById, useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
 import PostsExcerpt from "./NotesExcerpt";
@@ -13,7 +13,7 @@ import Overay from "../../components/Overlay";
 
 const GetAllNoteUser = () => {
 
-
+    
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
         pollingInterval: 15000,
@@ -81,9 +81,7 @@ const GetAllNoteUser = () => {
         );
     }
 
-    
-    
-
+    console.log(useSelector(selectNoteById))
 
         return (
             <div className="page">
