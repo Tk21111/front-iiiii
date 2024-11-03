@@ -8,20 +8,24 @@ const RecommendationCreate = () => {
     const navigate = useNavigate()
     const [setHow, { data, isLoading, isError, error }] = useSetHowMutation();
     const [des, setDes] = useState('');
+    const [food, setFood] = useState('');
     const [tag, setTag] = useState('');
     const [pubilc, setPublic] = useState(false);
+    const [ingredent, setIngredent] = useState([{"0" :'' , "1" : null}]);
     const [imagePath, setImagePath] = useState(null); // Assuming single image upload
     const [imagePreviews, setImagePreviews] = useState([]);
 
     const submit = async (e) => {
         e.preventDefault(); // Prevent default form submission
 
-        if (!des || !tag) return; // Ensure description and tag are provided
+        if (!des || !tag ||!food) return; // Ensure description and tag are provided
 
         const formData = new FormData;
+        formData.append('food', food);
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
+        formData.append('ingredent', ingredent);
         if (imagePath) {
             formData.append('image', imagePath);
         }
@@ -53,11 +57,30 @@ const RecommendationCreate = () => {
         setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
     };
 
+
+    //[{"0" : name , "1" : amount}]
+    const handleInputChange = (index, indexList, value) => {
+        const updatedNotes = ingredent.map((note, i) =>
+          i === index ? {...note , [indexList] : value} : note
+        );
+        setIngredent(updatedNotes);
+      };
+
+    console.log(ingredent)
     return (
         <div className='page'>
             <Header/>
             <h2>Create Recommendation</h2>
             <form onSubmit={submit}>
+                <div>
+                    <label>Food:</label>
+                    <input
+                        type="text"
+                        value={food}
+                        onChange={(e) => setFood(e.target.value)}
+                        required
+                    />
+                </div>
                 <div>
                     <label>Description:</label>
                     <input
@@ -76,6 +99,25 @@ const RecommendationCreate = () => {
                         required
                     />
                 </div>
+                {ingredent.map((_, index) => 
+                    
+                    <div>
+                    <label>Ingredent:</label>
+                    <input
+                        type="text"
+                        value={ingredent[index]['0']}
+                        onChange={(e) => handleInputChange(index , '0' , e.target.value)}
+                        required
+                    />
+                    <input
+                        type="number"
+                        value={ingredent[index]['1']}
+                        onChange={(e) => handleInputChange(index , '1' , e.target.value)}
+                        required
+                    />
+                </div>)}
+                <button onClick={()=> setIngredent([...ingredent , {'0' : '', }])}> add</button>
+                
                 <div>
                     <label>Public:</label>
                     <input

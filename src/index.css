@@ -127,6 +127,8 @@ nav a:hover, nav a:focus {
 
 .header {
   display: flex;
+  
+  width: 100%;
   flex-direction: row;
   justify-content: space-between; /* This spreads items */
   align-items: center;
@@ -465,6 +467,7 @@ who ever fix this im sorry tk21111 18/10/2024
 }
 
 .linkcontainersingleimg {
+  max-width: 1000px;
   padding: 3%;         /* Padding inside the container */
   margin-left: 6%;     /* Space on the left */
   width: 90%;          /* Width of the container */

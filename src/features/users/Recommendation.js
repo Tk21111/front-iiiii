@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAllNoteUserMutation } from './NoteApiSlice';
+import { useGetAllNoteUserMutation, useGetHowQuery } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import PostsExcerpt from './NotesExcerpt';
@@ -12,15 +12,33 @@ import Overay from '../../components/Overlay';
 const Recommend = () => {
     const username = useSelector(selectCurrentUser);
     const user = { username };
+    const  { data , isLoading : Loading , isSuccess: done} = useGetHowQuery();
     const [getAllNoteUser, { isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
     const [listSorted, setListSorted] = useState([]);
+    const [dataFliter, setDataFliter] = useState(null);
     const [search , setSearch] = useState('');
     const [searchType , setSearchType] = useState('name')
 
+    
     useEffect(() => {
+        const howtoData = async () => {
+          
+            const Tmp = data?.filter(val => val.public ).map(obj => [obj.tag , [{name : obj.food, id : obj._id}]])
+            console.log(Tmp)
+            setDataFliter(Tmp)
+            
+        };
+
+        howtoData();
+    }, [data, Loading])
+    
+    useEffect(() => {
+
+        
         const fetchData = async () => {
-            if (!hasFetched) {
+        
+            if (!hasFetched && done &&dataFliter) {
                 try {
                     
                     const dataApi = await getAllNoteUser(user);
@@ -44,8 +62,17 @@ const Recommend = () => {
                     tagList = new Set(tagList);
                     tagList = new Array(...tagList);
                     
+                    //add user custome menu
+                    
+                    let menuAll = menu;
+                    //concat didn't work
+                    if(dataFliter){
+                        menuAll = [...menu , ...dataFliter]
+                        
+                    }
+                    
                     let Tmp = [];
-                        for (let mena of menu){
+                        for (let mena of menuAll){
                             const m = mena[0].map((tagMenu) => tagList.includes(tagMenu))
                             const haveTag = m.map(( tagTF ,index) => tagTF ? mena[0][index] : null).filter(item => item !== null);;
                             const notHaveTag = m.map(( tagTF ,index) => !tagTF ? mena[0][index] : null).filter(item => item !== null);;
@@ -59,9 +86,10 @@ const Recommend = () => {
                 
             }
         };
-
+        
+       
         fetchData();
-    }, [getAllNoteUser, hasFetched]);
+    }, [ hasFetched , data, getAllNoteUser, dataFliter]);
 
     let content = [];
 
@@ -82,7 +110,7 @@ const Recommend = () => {
                     if(search){
                         if('name' === searchType){
                             oo = o[1].filter((name) => name.name.includes(search)).map((_, index) => 
-                                <a className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' }}>
+                                <a href={`/recommend/${o[1][index]?.id}`} className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
                                     <div className='food-waste-front'>
                                         <img src='./home.png' alt="meat icon" className='smalllogolist' />
                                     </div>
@@ -108,7 +136,6 @@ const Recommend = () => {
                                                 textAlign : 'start',
                                                 fontSize: '20px'  // Set a fixed width to control where ellipsis applies
                                             }}> 
-                                                
                                             </div>
                                             
                                         </div>
@@ -117,10 +144,12 @@ const Recommend = () => {
                         );
                         } else if ('tag' === searchType){
                             if(o[2].some(val => val.includes(search)) ||o[3].some(val => val.includes(search))){
+                                
                                 if(o[0].length >0){
                                     oo = []
-                                    o[0].forEach(index => {
-                                        oo.push(<a className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' }}>
+                                    o[0].forEach((_ ,index) => {
+                                       
+                                        oo.push(<a className="food-waste-item" href={`/recommend/${o[1][index]?.id}`}style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none'  }}>
                                     <div className='food-waste-front'>
                                         <img src='./home.png' alt="meat icon" className='smalllogolist' />
                                     </div>
@@ -160,8 +189,9 @@ const Recommend = () => {
                         }
                     } else {
                         //[name, o[1][index] , o[2] , o[3] , o[4]] 
+                        console.log(o)
                         oo = o[0].map((_ ,index) =>  
-                            <a className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' }}>
+                            <a className="food-waste-item" href={`/recommend/${o[1][index]?.id}`} style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
                         <div className='food-waste-front'>
                             <img src='./home.png' alt="meat icon" className='smalllogolist' />
                         </div>

@@ -36,6 +36,7 @@ import GetOrgSingle from './features/loca/LocaOrgSingle'
 import Noti from './features/users/noti'
 import AddressFormWithMap from './features/loca/testLoca'
 import RecommendationCreate from './features/users/RecommendationCreate'
+import RecommendationSingle from './features/users/RecommendationSingle'
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
               <Route path="recommend">
                 <Route index element={<Recommend/>} />
                 <Route path='create' element={<RecommendationCreate/>} />
+                <Route path=':id' element={<RecommendationSingle/>} />
               </Route>
 
               <Route path="logout" element={<LogOut />} />
