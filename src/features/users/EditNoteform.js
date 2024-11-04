@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useGetAllNoteUserMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
+import Header from '../../components/Header';
 
 const EditPostForm = () => {
 
@@ -89,78 +90,79 @@ const EditPostForm = () => {
     };
 
     return (
-        <section>
-            <p><Link to="/user"> Food List </Link></p>
-            <p><Link to="/welcome"> Home </Link></p>
-            <h2>Edit Post</h2>
-            <form>
-                <label htmlFor="postTitle">Post Title:</label>
-                <input
-                    type="text"
-                    id="postTitle"
-                    name="postTitle"
-                    value={title}
-                    onChange={onTitleChanged}
-                />
-                <label htmlFor="postExpTime">ExpTime:</label>
-                <input
-                    type="date"
-                    id="postExpTime"
-                    name="postExpTime"
-                    value={expTime}
-                    onChange={onExpTimeChanged}
-                />
-                <label htmlFor="postCount">Count:</label>
-                <input
-                    type="number"
-                    id="postCount"
-                    name="postCount"
-                    value={count}
-                    onChange={onCountChanged}
-                    max="999"
-                    min="0"
-                />
-                <label htmlFor="postCountExp">CountExp:</label>
-                <input
-                    type="number"
-                    id="postCountExp"
-                    name="postCountExp"
-                    value={countExp}
-                    onChange={onCountExpChanged}
-                    max="999"
-                    min="0"
-                />
-                <label htmlFor="postTag">Tag:</label>
-                <input
-                    type="text"
-                    id="postTag"
-                    name="postTag"
-                    value={tag}
-                    onChange={onTagChanged}
-                />
-                <label htmlFor="postDone">Done (True / False):</label>
-                <input
-                    type="checkbox"
-                    id="postDone"
-                    name="postDone"
-                    checked={done}
-                    onChange={onDoneChanged}
-                />
-                <button
-                    type="button"
-                    onClick={onSavePostClicked}
-                    disabled={!canSave}
-                >
-                    Save Post
-                </button>
-                <button className="deleteButton"
-                    type="button"
-                    onClick={onDeletePostClicked}
-                >
-                    Delete Post
-                </button>
-            </form>
-        </section>
+        <div className='page'>
+            <Header/>
+            <section>
+                <h2>Edit Post</h2>
+                <form>
+                    <label htmlFor="postTitle">Post Title:</label>
+                    <input
+                        type="text"
+                        id="postTitle"
+                        name="postTitle"
+                        value={title}
+                        onChange={onTitleChanged}
+                    />
+                    <label htmlFor="postExpTime">ExpTime:</label>
+                    <input
+                        type="date"
+                        id="postExpTime"
+                        name="postExpTime"
+                        value={expTime}
+                        onChange={onExpTimeChanged}
+                    />
+                    <label htmlFor="postCount">Count:</label>
+                    <input
+                        type="number"
+                        id="postCount"
+                        name="postCount"
+                        value={count}
+                        onChange={onCountChanged}
+                        max="999"
+                        min="0"
+                    />
+                    <label htmlFor="postCountExp">CountExp:</label>
+                    <input
+                        type="number"
+                        id="postCountExp"
+                        name="postCountExp"
+                        value={countExp}
+                        onChange={onCountExpChanged}
+                        max="999"
+                        min="0"
+                    />
+                    <label htmlFor="postTag">Tag:</label>
+                    <input
+                        type="text"
+                        id="postTag"
+                        name="postTag"
+                        value={tag}
+                        onChange={onTagChanged}
+                    />
+                    <label htmlFor="postDone">Done (True / False):</label>
+                    <input
+                        type="checkbox"
+                        id="postDone"
+                        name="postDone"
+                        checked={done}
+                        onChange={onDoneChanged}
+                    />
+                    <button
+                        type="button"
+                        onClick={onSavePostClicked}
+                        disabled={!canSave}
+                    >
+                        Save Post
+                    </button>
+                    <button className="deleteButton"
+                        type="button"
+                        onClick={onDeletePostClicked}
+                    >
+                        Delete Post
+                    </button>
+                </form>
+            </section>
+        </div>
     );
 };
 
