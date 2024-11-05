@@ -37,6 +37,7 @@ import Noti from './features/users/noti'
 import AddressFormWithMap from './features/loca/testLoca'
 import RecommendationCreate from './features/users/RecommendationCreate'
 import RecommendationSingle from './features/users/RecommendationSingle'
+import Post from './features/post/post'
 
 function App() {
   return (
@@ -86,6 +87,10 @@ function App() {
                 <Route path=":noteId" element={<SingleLocaPage />}/>
                 <Route path='test' element={<AddressFormWithMap/>} />
                 <Route path="create/:noteId/:amount" element={<LocaCreate />} />
+              </Route>
+
+              <Route path='post'>
+                <Route index element={<Post/>} />
               </Route>
 
               {/* recommend */}
