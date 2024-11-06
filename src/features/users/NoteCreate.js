@@ -16,7 +16,7 @@ mic.continuous = true;
 mic.interimResults = true;
 mic.lang = "en-US";
 
-const CreatePost = () => {
+const CreateNote = () => {
   const navigate = useNavigate();
   const username = useSelector(selectCurrentUser);
 
@@ -372,4 +372,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default CreateNote;

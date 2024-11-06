@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const RecommendationCreate = () => {
     const navigate = useNavigate();
     const [setHow, { data, isLoading, isError, error }] = useSetHowMutation();
+    
     const [des, setDes] = useState('');
     const [food, setFood] = useState('');
     const [tag, setTag] = useState('');
@@ -24,7 +25,7 @@ const RecommendationCreate = () => {
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
-        formData.append('ingredent', JSON.stringify(ingredent)); // Convert array to string for server
+        formData.append('ingredent', (ingredent)); // Convert array to string for server
     
         // Append all selected images to FormData
         imagePaths.forEach((file) => {

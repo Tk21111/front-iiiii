@@ -47,7 +47,6 @@ export const locaApislice = apiSlice.injectEndpoints({
         }),
         createloca : builder.mutation({
             query: (data) => ({
-                 //same
                 url: '/location/create',
                 method: 'POST',
                 credential : 'include',

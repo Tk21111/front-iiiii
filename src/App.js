@@ -18,7 +18,6 @@ import User from './features/users/User'
 import Recommend from './features/users/Recommendation'
 import SinglePostPage from './features/users/SingleNotePage'
 import EditPostForm from './features/users/EditNoteform'
-import CreatePost from './features/users/NoteCreate'
 
 
 import GetAlluserLoca from './features/loca/LocaUser'
@@ -38,6 +37,8 @@ import AddressFormWithMap from './features/loca/testLoca'
 import RecommendationCreate from './features/users/RecommendationCreate'
 import RecommendationSingle from './features/users/RecommendationSingle'
 import Post from './features/post/post'
+import PostCreate from './features/post/postCreate'
+import CreateNote from './features/users/NoteCreate'
 
 function App() {
   return (
@@ -66,7 +67,7 @@ function App() {
                 <Route path="exp" element={<GetAllNoteUserExp/>}/>
                 <Route path="update" element={<ProfileUpdateForm/>} />
                 <Route path="note">
-                  <Route path="create" element={<CreatePost />} />
+                  <Route path="create" element={<CreateNote />} />
                   <Route path=":noteId" element={<SinglePostPage />} />
                   <Route path="edit/:noteId" element={<EditPostForm />} />
                 </Route>
@@ -91,6 +92,7 @@ function App() {
 
               <Route path='post'>
                 <Route index element={<Post/>} />
+                <Route path='create' element={<PostCreate/>} />
               </Route>
 
               {/* recommend */}
