@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGetPostQuery } from './PostApiSlice';
 import Header from '../../components/Header';
+import PostsExcerpt from './postExcerpt';
 
 const Post = () => {
   const { data, isLoading, isSuccess } = useGetPostQuery();
@@ -24,14 +25,7 @@ const Post = () => {
 
       const imagePath = postItem?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
       return (
-        <article key={val}> {/* Add a unique key for each item */}
-          {imagePath?.map(val => 
-            <img src={val} >
-            </img>
-          )}
-          <p>{postItem?.content}</p>
-          <p>{postItem?.image}</p>
-        </article>
+        <PostsExcerpt key={val} i={postItem} />
       );
     });
   } else {
