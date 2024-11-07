@@ -39,7 +39,7 @@ import RecommendationSingle from './features/users/RecommendationSingle'
 import Post from './features/post/post'
 import PostCreate from './features/post/postCreate'
 import CreateNote from './features/users/NoteCreate'
-
+import PostSingle from './features/post/postSingle'
 function App() {
   return (
     
@@ -93,6 +93,7 @@ function App() {
               <Route path='post'>
                 <Route index element={<Post/>} />
                 <Route path='create' element={<PostCreate/>} />
+                <Route path=':id' element={<PostSingle/>}/>
               </Route>
 
               {/* recommend */}

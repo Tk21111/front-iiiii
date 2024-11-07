@@ -54,6 +54,14 @@ export const postApislice = apiSlice.injectEndpoints({
         body: data.formData,
       }),
     }),
+
+    setLike : builder.mutation({
+        query : (data) =>  ({
+           url : '/post/like',
+           method : 'POST',
+           body : data          
+        })
+    })
   }),
 });
 
@@ -61,7 +69,8 @@ export const {
   useCreateCommentMutation,
   useCreatePostMutation,
   useGetCommentMutation,
-  useGetPostQuery
+  useGetPostQuery, 
+  useSetLikeMutation,
 } = postApislice;
 // returns the query result object
 export const selectpostsResult = postApislice.endpoints.getPost.select();

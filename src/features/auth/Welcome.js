@@ -101,6 +101,9 @@ const Welcome = () => {
                     <a href={'/location/oforg'}className='mainimgcontainer'>
                         <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
                     </a>
+                    <a href={'/post'}className='mainimgcontainer'>
+                        <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
+                    </a>
                 </div>
             </div>
         </section>

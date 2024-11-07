@@ -15,9 +15,11 @@ const Post = () => {
 
   let content;
 
+  
+
   if (isLoading) {
     content = <p>Loading...</p>;
-  } else if (isSuccess && post) {
+  } else if (post) {
 
     console.log(post)
     content = post.ids.map((val) => {
