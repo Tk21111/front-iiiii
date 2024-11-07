@@ -57,8 +57,8 @@ export const postApislice = apiSlice.injectEndpoints({
 
     setLike : builder.mutation({
         query : (data) =>  ({
-           url : '/post/like',
-           method : 'POST',
+           url : '/post',
+           method : 'PATCH',
            body : data          
         })
     })

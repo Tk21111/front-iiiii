@@ -36,10 +36,12 @@ import Noti from './features/users/noti'
 import AddressFormWithMap from './features/loca/testLoca'
 import RecommendationCreate from './features/users/RecommendationCreate'
 import RecommendationSingle from './features/users/RecommendationSingle'
+
+
 import Post from './features/post/post'
-import PostCreate from './features/post/postCreate'
+import PostCreate from './features/post/PostCreate'
 import CreateNote from './features/users/NoteCreate'
-import PostSingle from './features/post/postSingle'
+import PostSingle from './features/post/PostSingle'
 function App() {
   return (
     

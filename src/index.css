@@ -614,3 +614,31 @@ who ever fix this im sorry tk21111 18/10/2024
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/*post page*/
+
+.post-single-like-comp {
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  height: 5%;
+}
+
+.post-single-like-comp-child {
+  margin: 10%;
+}
+.post-single-img {
+  width: 400px;
+  height: 100%;
+}
+
+.post-single-content {
+  justify-items: center;
+  align-content: center;
+}
+
+.post-single-comment-parent {
+  border: black solid 1px;
+  border-radius: 2%;
+}
