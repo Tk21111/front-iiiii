@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetAllNoteUserMutation } from "./NoteApiSlice";
+import { useGetAllNoteUserMutation, useGetHowQuery } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
 import PostsExcerpt from "./NotesExcerpt";
@@ -11,11 +11,12 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Overay from "../../components/Overlay";
 import NotesExcerptSmall from "./NotesExcerptSmall";
+import HowExcerpt from "./how/HowExcerpt";
 
 
 const ShoppingList = () => {
 
-    const {select , donate , name} = useParams();
+    const {select , donate , name ,  post} = useParams();
 
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
@@ -23,6 +24,8 @@ const ShoppingList = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     }));
+
+    const {data : how , isSuccess : howSucess , isLoading : howLoading } = useGetHowQuery()
     const [hasFetched, setHasFetched] = useState(false);
 
     const [search, setSearch] = useState("");
@@ -32,8 +35,10 @@ const ShoppingList = () => {
         const fetchData = async () => {
             try {
                 if (!hasFetched) {
-                    await getAllNoteUser(user);
-                    setHasFetched(true);
+                    if(post.split("=")[0] === 'food'){
+                        await getAllNoteUser(user);
+                        setHasFetched(true);
+                    } 
                     console.log('f')
                 }
             } catch (error) {
@@ -46,23 +51,32 @@ const ShoppingList = () => {
 
     let content;
 
-    if (isLoading) {
+
+    if (isLoading || howLoading) {
         content = <p>Loading...</p>;
-    } else if (isSuccess) {
-        //this is what u have to modifine
+    } else if (isSuccess || howSucess) {
+       
+        content = []
+        console.log(post.split("=")[0] == 'how')
+        if(post.split("=")[0] == 'how'){
+
+            console.log(how.map(val => <HowExcerpt key={val._id} i={val} donate={false} select={false} name={null} post={post} />))
+            content = how.map(val => <HowExcerpt key={val._id} i={val} donate={false} select={false} name={null} post={post} />)
+
+        }
+         //this is what u have to modifine
         //user = { ids , entities}
         //content is list because str didn't work
-        content = []
-
-        if (users.ids.length !== 0 && !search) {
+        
+        else if  (users.ids.length !== 0 && !search) {
             
             for (let i of users.ids) {
-                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name}/>);
+                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name} post={post}/>);
             }
             console.log(content)
         } else if (search) {
             for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
-                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name} />);
+                content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name} post={post} />);
             }
             console.log(content);
         } else {
@@ -82,9 +96,6 @@ const ShoppingList = () => {
             </section>
         );
     }
-
-    
-    
 
 
         return (

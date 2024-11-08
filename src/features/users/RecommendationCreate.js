@@ -25,7 +25,7 @@ const RecommendationCreate = () => {
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
-        formData.append('ingredent', (ingredent)); // Convert array to string for server
+        formData.append('ingredent', (ingredent)); 
     
         // Append all selected images to FormData
         imagePaths.forEach((file) => {

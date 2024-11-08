@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useCreatePostMutation } from './PostApiSlice';
 
 
@@ -8,27 +8,35 @@ const PostCreate = () => {
     const navigate = useNavigate();
     const [createPost, { data, isLoading, isError, error }] = useCreatePostMutation();
     const [content, setContent] = useState('');
+    const [title, setTitle] = useState('');
     const [imagePaths, setImagePaths] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
+    const { id } = useParams();
+
     const submit = async (e) => {
         e.preventDefault();
-    
-        if (!content) return;
-    
-        const formData = new FormData();
-        formData.append("content", content);
-        formData.append("wtf", "content");
-    
+
+        if (!content || !title) return; // Check if required fields are empty
+
+        const formDataPost = new FormData();
+        formDataPost.append("content", content);
+        formDataPost.append("title", title);
+
+        if (id.startsWith('food=')) {
+            formDataPost.append("food", id.split("=")[1]);
+        } else if (id.startsWith('how=')){
+            formDataPost.append("how", id.split("=")[1]);
+        }
+
         imagePaths.forEach((file) => {
-            formData.append('images', file);
+            formDataPost.append('images', file);
         });
-    
-        console.log("FormData submitted:", formData);
-    
+
         try {
-            await createPost({ formData }).unwrap();
+            await createPost({ formDataPost }).unwrap();
             setContent('');
+            setTitle('');
             setImagePaths([]);
             setImagePreviews([]);
             navigate('/post');
@@ -37,7 +45,6 @@ const PostCreate = () => {
             alert('Error: Unable to create post. Please try again.');
         }
     };
-    
 
     const onImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -57,6 +64,15 @@ const PostCreate = () => {
         });
     };
 
+    const handleLinkWithFood = (e) => {
+        e.preventDefault();
+        navigate('/user/shopping/false/false/null/food=true');
+    };
+    const handleLinkWithHow = (e) => {
+        e.preventDefault();
+        navigate('/user/shopping/false/false/null/how=true');
+    };
+
     useEffect(() => {
         return () => {
             imagePreviews.forEach(URL.revokeObjectURL); // Cleanup object URLs when component unmounts
@@ -68,6 +84,15 @@ const PostCreate = () => {
             <Header />
             <h2>Create Recommendation</h2>
             <form onSubmit={submit}>
+                <div>
+                    <label>Title:</label>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
                 <div>
                     <label>Content:</label>
                     <input
@@ -87,6 +112,14 @@ const PostCreate = () => {
                         onChange={onImageChange}
                     />
                 </div>
+                <button type="button" onClick={handleLinkWithFood} disabled={isLoading}>
+                    <h2>LINK WITH FOOD</h2>
+                </button>
+                <button type="button" onClick={handleLinkWithHow} disabled={isLoading}>
+                    <h2>LINK WITH RECOMMEND</h2>
+                </button>
+                {id?.startsWith("food=") && <h2>Food Linked</h2>}
+                {id?.startsWith("how=") && <h2>RECOMMEND Linked</h2>}
 
                 <div>
                     {imagePreviews.map((preview, index) => (
@@ -125,3 +158,4 @@ const PostCreate = () => {
 };
 
 export default PostCreate;
+

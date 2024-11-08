@@ -5,7 +5,7 @@ import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverayCenterView from '../../components/OverlayView';
 
-const NotesExcerptSmall = ({ i , donate , select ,name}) => {
+const NotesExcerptSmall = ({ i , donate , select ,name , post}) => {
     const username = useSelector(selectCurrentUser);
 
     const [getAllNoteUser] = useGetAllNoteUserMutation();
@@ -48,7 +48,7 @@ const NotesExcerptSmall = ({ i , donate , select ,name}) => {
     }
     return (
         <div onClickCapture= {() => setOverray(true)}class="food-waste-item-vertical">
-            <OverayCenterView imgPath={imagePath} dataFood={i} open={overray} onClose={() => setOverray(false)} donate={donate} select={select} name={name} />
+            <OverayCenterView imgPath={imagePath} dataFood={i} open={overray} onClose={() => setOverray(false)} donate={donate} select={select} name={name} post={post}/>
             <div className='food-waste-front'>
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist-vertical' />
             </div>

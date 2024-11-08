@@ -28,7 +28,7 @@ const Welcome = () => {
                     <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > for recommendation </Link></p>
                 </div>
                 {/*--- end ---*/}
-                <a href={'/user/shopping/false/false/null'} className='linkcontainersingleimg'>
+                <a href={'/user/shopping/false/false/null/null'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
                         <img src='./shopping.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
                     </div>
@@ -101,7 +101,7 @@ const Welcome = () => {
                     <a href={'/location/oforg'}className='mainimgcontainer'>
                         <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
                     </a>
-                    <a href={'/post'}className='mainimgcontainer'>
+                    <a href={'/post/false'}className='mainimgcontainer'>
                         <img src={require('../../components/img/lovingHand.png')} alt="shopping" className='mainimage' />
                     </a>
                 </div>

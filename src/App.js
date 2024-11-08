@@ -65,7 +65,7 @@ function App() {
               {/* user && note */}
               <Route path="user">
                 <Route index element={<User />} />
-                <Route path="shopping/:select/:donate/:name" element={<ShoppingList/>}/>
+                <Route path="shopping/:select/:donate/:name/:post" element={<ShoppingList/>}/>
                 <Route path="exp" element={<GetAllNoteUserExp/>}/>
                 <Route path="update" element={<ProfileUpdateForm/>} />
                 <Route path="note">
@@ -92,9 +92,10 @@ function App() {
                 <Route path="create/:noteId/:amount" element={<LocaCreate />} />
               </Route>
 
-              <Route path='post'>
+              {/* post */}
+              <Route path='post/:user'>
                 <Route index element={<Post/>} />
-                <Route path='create' element={<PostCreate/>} />
+                <Route path='create/:id' element={<PostCreate/>} />
                 <Route path=':id' element={<PostSingle/>}/>
               </Route>
 

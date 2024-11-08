@@ -69,7 +69,7 @@ const GetOrgSingle = () => {
                 <h2>{"Details : " + user?.more}</h2>
             </div>
             <div className="oforg-button-container">
-                <button onClickCapture={() => {navigate(`/user/shopping/true/true/${user?.username}`)}} className="oforg-button">
+                <button onClickCapture={() => {navigate(`/user/shopping/true/true/${user?.username}/null`)}} className="oforg-button">
                     <h2>Donate</h2>
                 </button>
             </div>

@@ -36,14 +36,18 @@ export const postApislice = apiSlice.injectEndpoints({
       }),
     }),
     createPost: builder.mutation({
-      query: (data) => ({
-        url: "/post",
-        method: "POST",
-        credentials: "include", // Note: it should be 'credentials' instead of 'credential'
-        body: data.formData, // Use data directly if it’s a FormData object
-      }),
+      query: (data) => {
+        console.log(data); // Logging data outside the return object
+        return {
+          url: "/post",
+          method: "POST",
+          credentials: "include", // Correcting 'credentials' spelling
+          body: data.formDataPost, // Using data directly if it’s a FormData object
+        };
+      },
       invalidatesTags: [{ type: "Post", id: "LIST" }],
     }),
+    
 
     createComment: builder.mutation({
       query: (data) => ({

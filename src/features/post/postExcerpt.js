@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link , useNavigate, useParams } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import OverayCenter from '../../components/OverlayControl';
+import OverayCenter from '../../components/OverlayCenter';
+import filterEntitiesByTag from '../users/Search';
 
 
 const PostsExcerpt = ({i}) => {
 
-
-
     const navigate = useNavigate();
+    const username = useSelector(selectCurrentUser);
+    const {user} = useParams()
 
-    const user = useSelector(selectCurrentUser);
+    //for private conversation
+    if(i?.userlist?.length > 0  ){
+        if(!(i?.userlist.find(val => val === username))){
+            return null
+        };
 
-    console.log(i)
+    } 
+    if((i?.userlist?.length === 0) && user === 'true' ){
+        return null
+    }
+
     if (!i) {
         return <p>Location not found</p>;
     }
@@ -33,9 +42,10 @@ const PostsExcerpt = ({i}) => {
                     <div className="food-waste-content">
                             <div className="food-waste-details">
                                 
-                                    <h2>{i?.content}</h2>
+                                    <h2>{i?.title}</h2>
+                                    <p>{i?.content}</p>
                                     <h2>{i?.like?.length || 0 - i?.unlike?.length || 0}</h2>
-                                    <Link style={{color : 'black'}} to={`/post/${i?.id}`}>to single </Link>
+                                    <Link style={{color : 'black'}} to={`/post/false/${i?.id}`}>to single </Link>
                                
                             </div>
                             

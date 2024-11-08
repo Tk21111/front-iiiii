@@ -73,7 +73,7 @@ const GetAllLoca = () => {
     return (
         <div className='page'>
             <Header />
-            <Overay link={"user/shopping/true/false/null"} />
+            <Overay link={"user/shopping/true/false/null/food"} />
             <div className='content' >
                 <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
                 <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location" >Food - Sharing</Link></p>

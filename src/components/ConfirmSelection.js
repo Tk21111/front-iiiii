@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../features/auth/authSlice";
 import { useCreateNoteMutation, useUpdateNoteMutation } from "../features/users/NoteApiSlice";
+import { useCreatePostMutation } from "../features/post/PostApiSlice";
 
 export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood, imgPath , donate , name}) {
     const [amount, setAmount] = useState('');
@@ -11,18 +12,22 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
 
     const [createNote , {data , isLoading , isSuccess}] = useCreateNoteMutation();
     const [updateNote , {data: update , isSuccess : userEndSuccess}] = useUpdateNoteMutation();
+    
+
     if (!open) {
         return null;
     }
 
     const sent = (dataFood, amount) => {
 
-        console.log(dataFood)
+        
 
         const onSent = async (dataFood) => {
+
+
             try {
                 const formData = new FormData();
-                //backend require this cause it support multinote at once
+                //backend and apiSlice require this cause it support multinote at once
                 formData.append(`notes[0][username]`, name);
                 formData.append(`notes[0][text]`, dataFood.text);
                 formData.append(`notes[0][date]`, dataFood.timeOut);
@@ -34,12 +39,15 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 await createNote({
                   formData,
                 }).unwrap();
+
+                
                 
                 const amountLeft = dataFood.count - amount
 
                 await updateNote({id : dataFood.id , count : amountLeft }).unwrap()
+                
 
-                navigate(`/`)
+                navigate(`/post`)
 
               } catch (err) {
                 console.error("Failed to save the post", err);
