@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSetHowMutation } from './NoteApiSlice';
-import Header from '../../components/Header';
+import { useSetHowMutation } from '../NoteApiSlice';
+import Header from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
 
 const RecommendationCreate = () => {

@@ -3,7 +3,7 @@ import { Link , useNavigate, useParams } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverayCenter from '../../components/OverlayCenter';
-import filterEntitiesByTag from '../users/Search';
+import filterEntitiesByTag from '../users/comp/Search';
 
 
 const PostsExcerpt = ({i}) => {

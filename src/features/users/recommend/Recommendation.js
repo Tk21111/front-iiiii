@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useGetAllNoteUserMutation, useGetHowQuery } from './NoteApiSlice';
+import { useGetAllNoteUserMutation, useGetHowQuery } from '../NoteApiSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../auth/authSlice';
-import PostsExcerpt from './NotesExcerpt';
-import {listNew as menu} from './menu';
+import { selectCurrentUser } from '../../auth/authSlice';
+import PostsExcerpt from '../NotesExcerpt';
+import {listNew as menu} from '../comp/menu';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header';
-import Overay from '../../components/Overlay';
+import Header from '../../../components/Header';
+import Overay from '../../../components/Overlay';
 
 
 const Recommend = () => {
@@ -258,13 +258,13 @@ const Recommend = () => {
         <div className='page'>
             <Header />
             <div className='content' >
-                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                <img src={require('../../../components/img/star.png')} alt="star" className="smalllogo"/>
                 <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" >Menu Recommendation</Link></p>
             </div>
 
             {/* search comp */}
             <div className="search">
-                <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
+                <img src={require('../../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
                 <input 
                     type="text"
                     value={search}

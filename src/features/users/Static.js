@@ -5,7 +5,7 @@ import { selectCurrentUser } from "../auth/authSlice";
 import { Chart } from "react-google-charts";
 
 import BuyExcerpt from "./BuyExcerpt";
-import filterEntitiesByTag from "./Search";
+import filterEntitiesByTag from "./comp/Search";
 
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";

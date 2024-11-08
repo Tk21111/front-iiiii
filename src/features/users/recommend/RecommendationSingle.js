@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useGetHowQuery } from './NoteApiSlice';
+import { useGetHowQuery } from '../NoteApiSlice';
 import { useParams } from 'react-router-dom';
-import Header from '../../components/Header';
+import Header from '../../../components/Header';
 
 const RecommendationSingle = () => {
   const { id } = useParams();

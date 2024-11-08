@@ -3,7 +3,7 @@ import { useGetPostQuery } from './PostApiSlice';
 import Header from '../../components/Header';
 import PostsExcerpt from './PostExcerpt';
 import Overay from '../../components/Overlay';
-import filterEntitiesByTag from '../users/Search';
+import filterEntitiesByTag from '../users/comp/Search';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 

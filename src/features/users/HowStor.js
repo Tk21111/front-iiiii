@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { listHowVeg, listHowMeat } from './menu';
+import { listHowVeg, listHowMeat } from './comp/menu';
 import Header from '../../components/Header';
 
 const HowStor = () => {

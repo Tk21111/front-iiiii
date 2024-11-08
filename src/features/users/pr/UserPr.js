@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUpdateUserMutation } from './NoteApiSlice';
-import Header from '../../components/Header';
+import { useUpdateUserMutation } from '../NoteApiSlice';
+import Header from '../../../components/Header';
 
 const ProfileUpdateForm = () => {
     const navigate = useNavigate()

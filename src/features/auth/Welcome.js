@@ -25,10 +25,10 @@ const Welcome = () => {
                 {/*page cover*/}
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > for recommendation </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null/food" > for recommendation </Link></p>
                 </div>
                 {/*--- end ---*/}
-                <a href={'/user/shopping/false/false/null/null'} className='linkcontainersingleimg'>
+                <a href={'/user/shopping/false/false/null/food'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
                         <img src='./shopping.png' alt="shopping" className='mainimageSinglet' style={{ border : '0px'}}/>
                     </div>

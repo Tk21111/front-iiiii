@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from 'react';
-import { useGetUserMutation } from './NoteApiSlice' ;
+import { useGetUserMutation } from '../NoteApiSlice' ;
 import { useParams } from 'react-router-dom';
-import Header from '../../components/Header';
+import Header from '../../../components/Header';
 
 const GetUser = () => {
 

@@ -3,7 +3,7 @@ import { selectAllNotes, selectNoteById, useGetAllNoteUserMutation } from "./Not
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
 import PostsExcerpt from "./NotesExcerpt";
-import filterEntitiesByTag from "./Search";
+import filterEntitiesByTag from "./comp/Search";
 
 import ReactDom from 'react-dom';
 

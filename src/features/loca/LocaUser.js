@@ -3,7 +3,7 @@ import { useGetAllUserlocaQuery } from './LocaApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice'
 import LocasExcerpt from './LocaExcerpt';
-import filterEntitiesByTag from '../users/Search';
+import filterEntitiesByTag from '../users/comp/Search';
 
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';

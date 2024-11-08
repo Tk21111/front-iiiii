@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { useGetAllNoteUserMutation, useGetHowQuery } from "./NoteApiSlice";
+import { useGetAllNoteUserMutation, useGetHowQuery } from "../NoteApiSlice";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../auth/authSlice";
-import PostsExcerpt from "./NotesExcerpt";
+import { selectCurrentUser } from "../../auth/authSlice";
+import PostsExcerpt from "../NotesExcerpt";
 import filterEntitiesByTag from "./Search";
 
 import ReactDom from 'react-dom';
 
 import { Link, useParams } from "react-router-dom";
-import Header from "../../components/Header";
-import Overay from "../../components/Overlay";
-import NotesExcerptSmall from "./NotesExcerptSmall";
-import HowExcerpt from "./how/HowExcerpt";
+import Header from "../../../components/Header";
+import Overay from "../../../components/Overlay";
+import NotesExcerptSmall from "../NotesExcerptSmall";
+import HowExcerpt from "../how/HowExcerpt";
 
 
 const ShoppingList = () => {
@@ -70,7 +70,7 @@ const ShoppingList = () => {
         
         else if  (users.ids.length !== 0 && !search) {
             
-            for (let i of users.ids) {
+            for (let i of users?.ids) {
                 content.push(<NotesExcerptSmall key={i} i={users.entities[i]} donate={donate} select={select} name={name} post={post}/>);
             }
             console.log(content)
@@ -104,13 +104,13 @@ const ShoppingList = () => {
                 <Overay link="/user/note/create" />
                 
                 <div className='content' >
-                    <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
+                    <img src={require('../../../components/img/star.png')} alt="star" className="smalllogo"/>
                     <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null" > ShoppingList </Link></p>
                 </div>
                 <div className="food-waste-list">
                 {/* search comp*/}
                 <div className="search">
-                    <img src={require('../../components/img/search.png')} alt="icon" style={{marginLeft : '8px'}}/>
+                    <img src={require('../../../components/img/search.png')} alt="icon" style={{marginLeft : '8px'}}/>
                     <input type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}/>
@@ -126,7 +126,7 @@ const ShoppingList = () => {
                     </select>
                 </div>
                 {/*end search comp*/}
-                <div className="container-shopping">
+                <div className="expcontainer">
                     {content}
                 </div>
             </div>

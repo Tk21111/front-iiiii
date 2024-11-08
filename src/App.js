@@ -11,11 +11,12 @@ import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
 
-import GetUser from './features/users/GetUser'
-import ProfileUpdateForm from './features/users/UserPr'
+import GetUser from './features/users/pr/GetUser'
+import ProfileUpdateForm from './features/users/pr/UserPr'
+
 import SpeechToText from './features/users/record'
 import User from './features/users/User'
-import Recommend from './features/users/Recommendation'
+
 import SinglePostPage from './features/users/SingleNotePage'
 import EditPostForm from './features/users/EditNoteform'
 
@@ -29,13 +30,17 @@ import GetAllLoca from './features/loca/Loca'
 import HowStor from './features/users/HowStor'
 import Static from './features/users/Static'
 import GetAllNoteUserExp from './features/users/UserExp'
-import ShoppingList from './features/users/ShoppingList'
+
+import ShoppingList from './features/users/comp/ShoppingList'
+
 import GetOrg from './features/loca/LocaOrg'
 import GetOrgSingle from './features/loca/LocaOrgSingle'
 import Noti from './features/users/noti'
 import AddressFormWithMap from './features/loca/testLoca'
-import RecommendationCreate from './features/users/RecommendationCreate'
-import RecommendationSingle from './features/users/RecommendationSingle'
+
+import Recommend from './features/users/recommend/Recommendation'
+import RecommendationCreate from './features/users/recommend/RecommendationCreate'
+import RecommendationSingle from './features/users/recommend/RecommendationSingle'
 
 
 import Post from './features/post/post'

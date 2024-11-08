@@ -3,7 +3,7 @@ import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
 import PostsExcerpt from "./NotesExcerpt";
-import filterEntitiesByTag from "./Search";
+import filterEntitiesByTag from "./comp/Search";
 
 import ReactDom from 'react-dom';
 
@@ -71,9 +71,7 @@ const GetAllNoteUserExp = () => {
         
             // Calculate the difference in days
             const diff = Math.floor(
-                (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
-                  Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
-                  (1000 * 60 * 60 * 24)
+                ((Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) - Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate())) / (1000 * 60 * 60 * 24)
             );
         
             // Initialize an array for each difference value if not already present
