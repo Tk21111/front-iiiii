@@ -4,6 +4,7 @@ import { useGetAlllocaQuery , useDeletelocaMutation, useDonatelocaMutation } fro
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverayCenter from '../../components/OverlayCenter';
+import {QRCodeSVG} from 'qrcode.react';
 
 
 const LocasExcerpt = ({ i , own}) => {
@@ -80,7 +81,7 @@ const LocasExcerpt = ({ i , own}) => {
                 <div className='overcontent'>
                     <div className="food-waste-content">
                             <div className="food-waste-details">
-                                <p>{loca.food.text + ' ' + i.num}</p>
+                                <p>{loca?.food?.text + ' ' + i?.num}</p>
                                 <ul>
                                     <li><p>{loca.province}</p></li>
                                     {(loca?.getPId && own)?<li><p>{"username : " +  loca.getP || null}</p></li> : null }
@@ -93,6 +94,9 @@ const LocasExcerpt = ({ i , own}) => {
                             
                     </div>
                 </div> 
+                <div>
+                    <QRCodeSVG  value={`${process.env.REACT_APP_HOSTING}/location/${loca._id}`  } size={50} />
+                </div>
             </div>
             
             

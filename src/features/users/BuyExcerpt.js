@@ -42,21 +42,24 @@ const BuyExcerpt = ({ i }) => {
     let amoutExpAll = 0
     
 
-
     if ( key.length >= 1){
         //get entities of _id
         //get all of count and countExp        
         for (let f of key){
             try {
                 let entities = note[f]
-                list.push([entities.text , entities?.count , entities?.countExp]);
+                const TmpExp = entities?.countExp
+                for (i = 0 ; i <= entities?.countExp?.length -1 ; i++){
+                    list.push([entities?.text + "(" + i + ")" , entities?.count , entities?.countExp[i]]);
+                }
                 amoutAll += entities?.count;
-                amoutExpAll += entities?.countExp;
+                amoutExpAll += entities?.countExp?.reduce((x,y) => {return x+y});
             } catch (err){
                 console.log(err)
             }
             
         }
+
 
     
 
@@ -84,12 +87,6 @@ const BuyExcerpt = ({ i }) => {
 
     
     
-    const options = {
-        chart: {
-          title: "Graph",
-          subtitle: "i have to write this for sake of not crashing hope u understand",
-        },
-      };
 
     const data=[
         ["Year", "Buying Amount", "Expired Amount"],
@@ -106,7 +103,8 @@ const BuyExcerpt = ({ i }) => {
                 data={data}
                 width="100%"
                 height="400px"
-                options={options}
+                options={{isStacked: true}}
+                
             />
             <article className='centeredContainer'>
                 <p style={{textAlign: 'start'}}>{"ที่ซื้อ" + ":" + "ที่เหลือ" }</p>
