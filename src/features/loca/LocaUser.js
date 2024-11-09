@@ -102,7 +102,7 @@ const GetAlluserLoca = () => {
                     </select>
             </div>
             {/* end search comp */}
-            {content}
+            <div className='user-list-parent'>{content}</div>
         </div>
     );
 };

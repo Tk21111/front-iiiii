@@ -1,6 +1,7 @@
 import '../index.css';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
+import ReactDom from 'react-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { Link, useNavigate, useParams } from 'react-router-dom'; 
@@ -30,8 +31,8 @@ function Header() {
     setIsOpen(open);
   };
 
-  return (
-    <header className="header">
+  return ReactDom.createPortal(
+    <header className="header" style={{zIndex : 909}}> 
       <div className='headerComp'>
         <img onClick={() => { navigate(-1); }} src={require('../components/img/back.png')} alt="back" className="logo" />
       </div>
@@ -68,7 +69,8 @@ function Header() {
           </ListItem>
         </List>
       </Drawer>
-    </header>
+    </header>, document.body
+   
   );
 }
 

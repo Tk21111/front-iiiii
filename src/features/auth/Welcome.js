@@ -20,7 +20,7 @@ const Welcome = () => {
     const content = (
         <div style={{width : '100%' , height :'100%'}}>
         <Header/>
-        <section className="welcome"> 
+        <section className="welcome-main"> 
             <div className='overcontent'>
                 {/*page cover*/}
                 <div className='content' >

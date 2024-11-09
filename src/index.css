@@ -22,6 +22,7 @@
 /* || GENERAL STYLES */
 
 body {
+  margin-top: 80px;
   min-height: 100vh;
   font-size: 1.5rem;
   flex : auto;
@@ -90,6 +91,8 @@ a {
   gap: 1rem;
 }
 
+
+
 .public main {
   flex-grow: 1;
   border-top: 2px solid #fff;
@@ -125,17 +128,7 @@ nav a:hover, nav a:focus {
   list-style-type: none;
 }
 
-.header {
-  display: flex;
-  
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between; /* This spreads items */
-  align-items: center;
-  background-color: #fff4ac;
-  padding: 10px 20px;
-  color: white;
-}
+
 
 .headerComp {
   display: flex;
@@ -287,6 +280,7 @@ article {
   border: 1px solid #ccc;
   margin-bottom: 5px;
   border-radius: 10px;
+  width: 90%;
 }
 .food-waste-item-sub {
   display: flex;
@@ -356,6 +350,109 @@ article {
   align-items: center;            /* Center items vertically */
   margin: 1%;                   /* Add some margin to the container */
 }
+
+@media (min-width : 1000px) and (max-width : 2000px) {
+  .welcome-main {
+    display: grid;                  /* Enable CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    grid-gap: .1%;                 /* Space between grid items */
+    justify-items: center;          /* Center items horizontally */
+    align-items: center;            /* Center items vertically */
+    margin: 1%;                   /* Add some margin to the container */
+  }
+  .header {
+    display: flex;
+    position: fixed;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between; /* This spreads items */
+    align-items: center;
+    background-color: #fff4ac;
+    padding: 10px 20px;
+    color: white;
+    top: 50px;
+    right: 50%;
+    transform: translate(48%, -40%);
+  }
+  .user-list-parent {
+    display: grid;                  /* Enable CSS Grid */
+    grid-template-columns: repeat(3, 1fr);  /* 3 equal-width columns */
+    grid-gap: 1px;                 /* Space between grid items */
+    justify-items: center;          /* Center items horizontally */
+    align-items: center;            /* Center items vertically */
+    margin: 1%;  
+  }
+}
+@media (min-width : 600px) and (max-width : 1000px) {
+  .welcome-main {
+    display: grid;                  /* Enable CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+    grid-gap: .1%;                 /* Space between grid items */
+    justify-items: center;          /* Center items horizontally */
+    align-items: center;            /* Center items vertically */
+    margin: 1%;                   /* Add some margin to the container */
+  }
+  .header {
+    display: flex;
+    position: fixed;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between; /* This spreads items */
+    align-items: center;
+    background-color: #fff4ac;
+    padding: 10px 20px;
+    color: white;
+    top: 50px;
+    right: 50%;
+    transform: translate(48%, -40%);
+  }
+  
+}
+@media (min-width : 2000px) {
+  .welcome-main {
+    display: grid;                  /* Enable CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    grid-gap: 1%;                 /* Space between grid items */
+    justify-items: center;          /* Center items horizontally */
+    align-items: center;            /* Center items vertically */
+    margin: 1%;                   /* Add some margin to the container */
+  }
+  .header {
+    display: flex;
+    position: fixed;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between; /* This spreads items */
+    align-items: center;
+    background-color: #fff4ac;
+    padding: 10px 20px;
+    color: white;
+    top: 50px;
+    right: 50%;
+    transform: translate(48.5%, -30%);
+  }
+}
+@media (max-width : 600px) {
+  .welcome-main {
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    display: flex;
+    position: fixed;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between; /* This spreads items */
+    align-items: center;
+    background-color: #fff4ac;
+    padding: 10px 20px;
+    color: white;
+    top: 50px;
+    right: 50%;
+    transform: translate(47.5%, -40%);
+  }
+}
+
 
 .expchild {
   justify-content: center;
@@ -642,3 +739,4 @@ who ever fix this im sorry tk21111 18/10/2024
   border: black solid 1px;
   border-radius: 2%;
 }
+

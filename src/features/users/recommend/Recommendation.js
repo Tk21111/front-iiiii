@@ -285,7 +285,7 @@ const Recommend = () => {
 
             <Overay link={'recommend/create'}/>
             
-            {content} {/* Ensure content is defined */}
+            <div className='user-list-parent'>{content}</div> {/* Ensure content is defined */}
         </div>
     );
     

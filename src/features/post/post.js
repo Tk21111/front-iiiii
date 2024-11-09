@@ -45,7 +45,7 @@ const Post = () => {
     <div className='page'>
       <Header />
       <Overay link={'/post/false/create/null'} />
-      {content}
+      <div className='user-list-parent'>{content}</div>
     </div>
   );
 };

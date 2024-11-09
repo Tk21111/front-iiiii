@@ -105,7 +105,7 @@ const GetAllLoca = () => {
                     </select>
             </div>
             {/* end search comp */}
-            {content} 
+            <div className='user-list-parent'>{content}</div> 
         </div>
     );
 }
