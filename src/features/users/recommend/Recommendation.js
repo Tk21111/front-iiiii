@@ -24,7 +24,7 @@ const Recommend = () => {
     useEffect(() => {
         const howtoData = async () => {
           
-            const Tmp = data?.filter(val => val.public ).map(obj => [obj.tag , [{name : obj.food, id : obj._id}]])
+            const Tmp = data?.map(obj => [obj.tag , [{name : obj.food, id : obj._id}]])
             console.log(Tmp)
             setDataFliter(Tmp)
             

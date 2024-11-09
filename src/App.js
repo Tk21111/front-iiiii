@@ -44,9 +44,10 @@ import RecommendationSingle from './features/users/recommend/RecommendationSingl
 
 
 import Post from './features/post/post'
-import PostCreate from './features/post/PostCreate'
+import PostCreate from './features/post/posCreate'
 import CreateNote from './features/users/NoteCreate'
-import PostSingle from './features/post/PostSingle'
+import PostSingle from './features/post/posSingle'
+import Notification from './components/Noti'
 function App() {
   return (
     
@@ -63,6 +64,8 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route element={<Prefetch />}>
               <Route path="welcome" element={<Welcome />} />
+
+              {/*<Route path="notifications" element={<Notification />} /> */}
 
               <Route path='record' element={<SpeechToText/>}/>
               <Route path='getuser/:userId' element={<GetUser/>}/>

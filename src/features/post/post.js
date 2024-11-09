@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGetPostQuery } from './PostApiSlice';
 import Header from '../../components/Header';
-import PostsExcerpt from './PostExcerpt';
+import PostsExcerpt from './posExcerpt';
 import Overay from '../../components/Overlay';
 import filterEntitiesByTag from '../users/comp/Search';
 import { useSelector } from 'react-redux';
