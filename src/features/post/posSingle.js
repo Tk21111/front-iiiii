@@ -22,6 +22,7 @@ const PostSingle = () => {
   const [likeWhat , setLikeWhat] = useState(0)
   const [comments, setComments] = useState([]);
   const [newComment , setNewComment] = useState('');
+  const [sendNewComment , SetSendNewcommnet] = useState(true)
   const [newImage , setnewImage] = useState([]);
 
   useEffect(() => {
@@ -40,10 +41,11 @@ const PostSingle = () => {
   //get comment
   useEffect(() => {
     const fetchComments = async () => {
-      if (postSingle?._id) {
+      if (postSingle?._id && sendNewComment) {
         try {
           const fetchedComments = await getComment({ id: postSingle._id }).unwrap();
           setComments(fetchedComments || []);
+          SetSendNewcommnet(false)
         } catch (error) {
           if(error.originalStatus === 404){
             //alert('comment not found');
@@ -56,12 +58,11 @@ const PostSingle = () => {
     };
 
     if (postSingle) fetchComments();
-  }, [postSingle, getComment]);
+  }, [postSingle, getComment , sendNewComment]);
 
   const handleLike = async (like) => {
     try {
       await setFetchLike({ id: {[postSingle._id] : like} }).unwrap();
-      setLikeCount(prev => prev + (like ? 1 : -1));
     } catch (error) {
       console.error("Failed to update like:", error);
     }
@@ -78,12 +79,12 @@ const PostSingle = () => {
         formData.append(element)
     });
     try {
-
-      console.log(formData.get('id'))
+      SetSendNewcommnet(true)
       await setFetchComment({formData}).unwrap();
 
       setNewComment('');
       setnewImage([]);
+      
     } catch (err) {
       console.log(err + " : sendNewComment")
     }
@@ -91,6 +92,9 @@ const PostSingle = () => {
 
   let content;
   const imagePath = postSingle?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
+
+  console.log(postSingle)
+  console.log(comments)
 
   if (isLoading) {
     content = <p>Loading post...</p>;
@@ -122,9 +126,11 @@ const PostSingle = () => {
           </div>
           <div className='post-single-comment-parent'>
             {comments && comments.length > 0 ? (
-              comments.map(comment => (
+              comments.map(comment => { 
+                
+                return (
                 <PostsExcerpt key={comment._id} i={comment} />
-              ))
+              )})
             ) : (
               <p>No comment</p>
             )}
