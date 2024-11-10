@@ -65,7 +65,33 @@ export const postApislice = apiSlice.injectEndpoints({
            method : 'PATCH',
            body : data          
         })
-    })
+    }),
+
+    savePost : builder.mutation({
+      query : (data) =>({
+        url : '/post/save',
+        method : 'PATCH',
+        body : data
+      })
+    }),
+    getSavePost: builder.query({
+      query: () => "/post/save"
+
+    }),
+
+    deletePost : builder.mutation({
+      query: (data) => ({ //same
+          url: '/post',
+          method: 'DELETE',
+          credential : 'include',
+          body : {
+              ...data
+          }
+      }),
+      invalidatesTags: (result, error, arg) => [
+          { type: 'Post', id: arg.id }
+      ]
+   }),
   }),
 });
 
@@ -75,6 +101,9 @@ export const {
   useGetCommentMutation,
   useGetPostQuery, 
   useSetLikeMutation,
+  useSavePostMutation,
+  useDeletePostMutation,
+  useGetSavePostQuery,
 } = postApislice;
 // returns the query result object
 export const selectpostsResult = postApislice.endpoints.getPost.select();

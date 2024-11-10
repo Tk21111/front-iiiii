@@ -28,7 +28,7 @@ import GetAllLoca from './features/loca/Loca'
 
 
 import HowStor from './features/users/HowStor'
-import Static from './features/users/Static'
+import Static from './features/users/static/Static'
 import GetAllNoteUserExp from './features/users/UserExp'
 
 import ShoppingList from './features/users/comp/ShoppingList'
@@ -48,6 +48,7 @@ import PostCreate from './features/post/posCreate'
 import CreateNote from './features/users/NoteCreate'
 import PostSingle from './features/post/posSingle'
 import Notification from './components/Noti'
+import SavePost from './features/post/postSave'
 function App() {
   return (
     
@@ -101,6 +102,8 @@ function App() {
               </Route>
 
               {/* post */}
+              <Route path='/save' element={<SavePost/>} />
+              
               <Route path='post/:user'>
                 <Route index element={<Post/>} />
                 <Route path='create/:id' element={<PostCreate/>} />

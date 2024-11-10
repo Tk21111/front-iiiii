@@ -39,7 +39,7 @@ const PostCreate = () => {
             setTitle('');
             setImagePaths([]);
             setImagePreviews([]);
-            navigate('/post/true');
+            navigate('/post/false');
         } catch (err) {
             console.error(err);
             alert('Error: Unable to create post. Please try again.');

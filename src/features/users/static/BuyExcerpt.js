@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllNoteUserMutation } from "./NoteApiSlice";
-import { selectCurrentUser } from '../auth/authSlice';
+import { useGetAllNoteUserMutation } from "../NoteApiSlice";
+import { selectCurrentUser } from '../../auth/authSlice';
 import { useSelector } from 'react-redux';
 
 import Chart from 'react-google-charts';
@@ -98,6 +98,7 @@ const BuyExcerpt = ({ i }) => {
 
         <article style={{justifyContent : 'center' , textAlign : 'center'}}>
             <h2>{tag}</h2>
+            
             <Chart
                 chartType="Bar"
                 data={data}

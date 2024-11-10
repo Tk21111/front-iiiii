@@ -58,6 +58,9 @@ function Header() {
           <ListItem button component={Link} to="/user/update" onClick={toggleDrawer(false)}>
             Change information
           </ListItem>
+          <ListItem button component={Link} to="/save" onClick={toggleDrawer(false)}>
+            Saved Post
+          </ListItem>
           <img src={imagePath} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
         </List>
         <List>

@@ -157,12 +157,22 @@ export const noteApislice = apiSlice.injectEndpoints({
             })
 
          }),
+         deleteHow : builder.mutation({
+            query: (data) => ({ //same
+                url: '/how',
+                method: 'DELETE',
+                credential : 'include',
+                body : {
+                    ...data
+                }
+            }),
+         }),
             
     })
 });
 
 
-export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation} = noteApislice;
+export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
 

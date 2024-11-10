@@ -4,7 +4,9 @@ import {
   useGetPostQuery, 
   useSetLikeMutation, 
   useCreateCommentMutation, 
-  useGetCommentMutation 
+  useGetCommentMutation,
+  useDeletePostMutation, 
+  useSavePostMutation
 } from './PostApiSlice';
 import PostsExcerpt from './postExcerpt';
 import Header from '../../components/Header';
@@ -16,6 +18,8 @@ const PostSingle = () => {
   const [setFetchLike] = useSetLikeMutation();
   const [setFetchComment, {data : setComment}] = useCreateCommentMutation();
   const [getComment, { data: commentsData }] = useGetCommentMutation();
+  const [deletePost] = useDeletePostMutation();
+  const [savePost , {isSucess : saved}] = useSavePostMutation();
 
   const [postSingle, setPostSingle] = useState(null);
   const [likeCount, setLikeCount] = useState(0);
@@ -41,7 +45,7 @@ const PostSingle = () => {
   //get comment
   useEffect(() => {
     const fetchComments = async () => {
-      if (postSingle?._id && sendNewComment) {
+      if (postSingle?._id) {
         try {
           const fetchedComments = await getComment({ id: postSingle._id }).unwrap();
           setComments(fetchedComments || []);
@@ -59,6 +63,27 @@ const PostSingle = () => {
 
     if (postSingle) fetchComments();
   }, [postSingle, getComment , sendNewComment]);
+
+  const handleDelete = async () => {
+    try {
+      await deletePost({id : postSingle._id}).unwrap();
+      // Optionally, navigate back to the post list or show a confirmation message
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    }
+  };
+  const handleSave = async () => {
+    try {
+      await savePost({id : postSingle._id}).unwrap();
+      // Optionally, navigate back to the post list or show a confirmation message
+      
+        alert("saved")
+      
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    }
+  };
+
 
   const handleLike = async (like) => {
     try {
@@ -92,9 +117,6 @@ const PostSingle = () => {
 
   let content;
   const imagePath = postSingle?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
-
-  console.log(postSingle)
-  console.log(comments)
 
   if (isLoading) {
     content = <p>Loading post...</p>;
@@ -141,6 +163,8 @@ const PostSingle = () => {
             ></input>
             <button onClick={sentNewComment} > save</button>
           </div>
+          <button onClick={handleDelete}>Delete Post</button>;
+          <button onClick={handleSave}>Save Post</button>;
         </div>
       </div>
     );

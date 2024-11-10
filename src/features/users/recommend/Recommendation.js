@@ -54,7 +54,9 @@ const Recommend = () => {
                             if(entities[i]?.tag?.length >0){
                                 tagList.push(...entities[i].tag);
                             } else {
-                                tagList.push(entities[i].tag)
+                                if((entities[i].count || 0) - (entities[i].countExp || 0) ){
+                                    tagList.push(entities[i].tag)
+                                }                       
                             }
                         }
                     }
@@ -66,6 +68,7 @@ const Recommend = () => {
                     
                     let menuAll = menu;
                     //concat didn't work
+                    //add all menu 
                     if(dataFliter){
                         menuAll = [...menu , ...dataFliter]
                         

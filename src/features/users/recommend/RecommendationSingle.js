@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useGetHowQuery } from '../NoteApiSlice';
+import { useDeleteHowMutation, useGetHowQuery } from '../NoteApiSlice';
 import { useParams } from 'react-router-dom';
 import Header from '../../../components/Header';
 
 const RecommendationSingle = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetHowQuery();
+  const [deleteHow] = useDeleteHowMutation()
   
   const dataFliter = data?.filter(val => val._id === id);
   let imagePath = '';
@@ -22,6 +23,15 @@ const RecommendationSingle = () => {
   if (isError) {
     return <p>Error loading data</p>;
   }
+
+  const handleDelete = async () => {
+    try {
+      await deleteHow({id : id}).unwrap();
+      // Optionally, navigate back to the post list or show a confirmation message
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    }
+  };
 
   return (
     <div className='page'>
@@ -48,6 +58,7 @@ const RecommendationSingle = () => {
           <p>No data found</p>
         )}
       </div>
+      <button onClick={handleDelete}>Delete How to</button>;
     </div>
   );
 }
