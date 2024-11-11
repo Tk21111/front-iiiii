@@ -19,7 +19,7 @@ const Static = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!hasFetched && !users) {
+            if (!hasFetched) {
                 try {
                     await getAllNoteUser(user);
                     setHasFetched(true);
