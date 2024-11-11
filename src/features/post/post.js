@@ -3,19 +3,19 @@ import { useGetPostQuery } from './PostApiSlice';
 import Header from '../../components/Header';
 import PostsExcerpt from './posExcerpt';
 import Overay from '../../components/Overlay';
-import filterEntitiesByTag from '../users/comp/Search';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { Link } from 'react-router-dom';
 
 const Post = () => {
   const { data, isLoading, isSuccess } = useGetPostQuery();
+ 
   const [post, setPost] = useState(null);
 
   const username = useSelector(selectCurrentUser)
 
   useEffect(() => {
-    if (data) {
+    if (data && !post) {
       setPost(data);
     }
   }, [data]);
@@ -49,7 +49,7 @@ const Post = () => {
             <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
             <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/save" >Post</Link></p>
         </div>
-      <Overay link={'/post/false/create/null'} />
+      <Overay link={'/post/false'} />
       <div className='user-list-parent'>{content}</div>
     </div>
   );

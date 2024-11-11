@@ -38,14 +38,16 @@ const SinglePostPage = () => {
     }
 
     const imagePath = `${process.env.REACT_APP_API}/${note.images.toString().replace(/\\/g, '/')}`;
-    console.log(note.images)
     return (
         <div style={{width : '100%' , height : '100%'}}>
             <Header/>
-            <article>
+            <div className='single-parent'>
+                <div>
                 <h2>{note.text}</h2>
-                <img src={imagePath} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
-                <p>Exp date : {note.timeOut}</p>
+                </div>
+                <img src={imagePath?.length > 1 ? imagePath :  require('../../components/img/meal.png')} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
+                <div>
+                <p>Exp date : {note.timeOut.split('t')[0]}</p>
                 <p>In count : {note.count}</p>
                 <p>Exp count : {note.countExp}</p>
                 <p>Is it Exp : {note.done}</p>
@@ -53,9 +55,8 @@ const SinglePostPage = () => {
                 <p className="postCredit">
                     <Link to={`/user/note/edit/${noteId.noteId}`}>Edit Post</Link>
                 </p>
-                <p><Link to="/user"> Food List </Link></p>
-                <p><Link to="/welcome"> Home </Link></p>
-            </article>
+                </div>
+            </div>
         </div>
     )
 }

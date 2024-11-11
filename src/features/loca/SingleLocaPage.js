@@ -95,26 +95,31 @@ const SingleLocaPage = () => {
     return (
         <div className='page'>
             <Header/>
-            <div id="map" ref={mapRef} className='map'></div>
-            <div className='overcontent'>
-                
-                <h2>{text}</h2>
-                <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
-                <p>District: {loca?.district}</p>
-                <p>Subdistrict: {loca?.subdistrict}</p>
-                <p>Country: {loca?.country}</p>
-                <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
-                {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
-                {imagePath.map((path, i) => (
-                    <img key={i} src={path} alt={`note image ${i}`} style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
-                ))}
-                <button
-                            type="button"
-                            onClick={ondeletePostClicked}
-                        >
-                            Delete Post
-                        </button>
-                </div>
+            <div className='single-parent' >
+                <div id="map" ref={mapRef} className='map'></div>
+                <div>
+                    <div className='content'>
+                        {imagePath.map((path, i) => (
+                                <img key={i} src={path} alt={`note image ${i}`} style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
+                            ))}
+                    </div>
+                    <h2>{text}</h2>
+                    <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
+                    <p>District: {loca?.district}</p>
+                    <p>Subdistrict: {loca?.subdistrict}</p>
+                    <p>Country: {loca?.country}</p>
+                    <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
+                    {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
+                    
+                    
+                    </div>
+                    <button
+                                type="button"
+                                onClick={ondeletePostClicked}
+                            >
+                                Delete Post
+                            </button>
+                    </div>
             </div>
     );
 };

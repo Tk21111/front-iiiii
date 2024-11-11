@@ -11,7 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../../../components/Header";
 import Overay from "../../../components/Overlay";
 import NotesExcerptSmall from "../NotesExcerptSmall";
-import HowExcerpt from "../how/HowExcerpt";
+import HowExcerpt from "./ShoppingListHowExcept";
 
 
 const ShoppingList = () => {

@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
-import PostsExcerpt from "./NotesExcerpt";
-import filterEntitiesByTag from "./comp/Search";
 
-import ReactDom from 'react-dom';
 
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
-import Overay from "../../components/Overlay";
+
 
 
 
@@ -95,10 +92,10 @@ const GetAllNoteUserExp = () => {
             for (let j of dateDiff[f]) {
                 // You can now work with each `j` (which is a single `dataSingle` object) to render HTML
                 contentChild.push(
-                    <div className="expchild">
+                    <a href={`/user/note/${j?.id}`} className="expchild" style={{textDecoration : 'none'}}>
                         <img src={j?.images.length > 0 ?`${process.env.REACT_APP_API}/${j?.images?.toString().replace(/\\/g, '/')}` : require('../../components/img/meal.png')} alt="pic" className="expimg"></img>
                         <p>{(j.text.length >= 5 ? j.text.substr(0,5) + "...": j.text)}</p>
-                    </div>
+                    </a>
                 );
             }
 

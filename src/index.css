@@ -22,7 +22,7 @@
 /* || GENERAL STYLES */
 
 body {
-  margin-top: 80px;
+  margin-top: 15vh;
   min-height: 100vh;
   font-size: 1.5rem;
   flex : auto;
@@ -637,7 +637,7 @@ who ever fix this im sorry tk21111 18/10/2024
   margin: 2%;
   padding: 2%;
   padding-bottom: 10%;
-  width: 100%;
+  width: 80%;
   height: 95%;
   border: 1px solid #ccc;
   margin-bottom: 5px;
@@ -645,7 +645,7 @@ who ever fix this im sorry tk21111 18/10/2024
 }
 
 .smalllogolist-vertical {
-  width: 90%;   /* Add 'px' to indicate pixels */
+  width: 80px;   /* Add 'px' to indicate pixels */
   padding: 5%; /* Add 'px' to indicate pixels */
   margin-left: 5%;
   margin-right: 5% ;
@@ -740,3 +740,25 @@ who ever fix this im sorry tk21111 18/10/2024
   border-radius: 2%;
 }
 
+.single-parent {
+  justify-items: center;
+}
+
+.tag-container {
+  border: #000 solid 1.5px;
+  text-align: center;
+  background-color: #B0E7FF;
+  border-radius: 10px;
+}
+
+.pic-single {
+  flex-grow: 1;
+  max-width: 300px;
+  max-height: 300px;
+  margin: 5%;
+}
+
+.user-aka {
+  text-align: center;
+  font-size: 90%;
+}

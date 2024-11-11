@@ -64,15 +64,22 @@ export const postApislice = apiSlice.injectEndpoints({
            url : '/post',
            method : 'PATCH',
            body : data          
-        })
+        }),
+        invalidatesTags: (result, error, arg) => [
+            { type: 'Post', id: arg.id }
+        ]
     }),
+    
 
     savePost : builder.mutation({
       query : (data) =>({
         url : '/post/save',
         method : 'PATCH',
         body : data
-      })
+      }),
+      invalidatesTags: (result, error, arg) => [
+          { type: 'Post', id: arg.id }
+      ]
     }),
     getSavePost: builder.query({
       query: () => "/post/save"

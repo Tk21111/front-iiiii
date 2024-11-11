@@ -21,7 +21,7 @@ const RecommendationCreate = () => {
         if (!des || !tag || !food) return; // Ensure description and tag are provided
     
         const formData = new FormData();
-        formData.append('food', food);
+        formData.append('name', food);
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);

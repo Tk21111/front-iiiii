@@ -33,22 +33,22 @@ const GetUser = () => {
     return (
         <div className='page'>
           <Header/>
-          <div className='overcontent'>
-          {imagePath && imagePath.length > 0 ? (
-            imagePath.map((path, i) => (
-              <img
-                key={i}
-                src={path}
-                alt={`note image ${i}`}
-                style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
-              />
-            ))
-          ) : (
-            <p>no image</p>
-          )}
-          <h2>{"name : " + (data?.username || 'no data')}</h2>
-          <h2>{"aka : "+ (data?.aka || 'no data')}</h2>
-          <p>{"more : " + (data?.more || 'no data')}</p>
+          <div className='single-parent'>
+            {imagePath && imagePath.length > 0 ? (
+              imagePath.map((path, i) => (
+                <img
+                  key={i}
+                  src={path}
+                  alt={`note image ${i}`}
+                  style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
+                />
+              ))
+            ) : (
+              <p>no image</p>
+            )}
+            <h2>{"name : " + (data?.username || 'no data')}</h2>
+            <h2>{"aka : "+ (data?.aka || 'no data')}</h2>
+            <p>{"more : " + (data?.more || 'no data')}</p>
           </div>
         </div>
       );

@@ -23,15 +23,14 @@ const Recommend = () => {
     
     useEffect(() => {
         const howtoData = async () => {
-          
-            const Tmp = data?.map(obj => [obj.tag , [{name : obj.food, id : obj._id}]])
-            console.log(Tmp)
+
+            const Tmp = data?.map(obj => [obj.tag , [{name : obj.name, id : obj._id}]])  
             setDataFliter(Tmp)
             
         };
 
         howtoData();
-    }, [data, Loading])
+    }, [data, Loading ])
     
     useEffect(() => {
 
@@ -51,10 +50,12 @@ const Recommend = () => {
                         //get entities tag
                        
                         if(entities[i]?.tag){
-                            if(entities[i]?.tag?.length >0){
-                                tagList.push(...entities[i].tag);
+                            if((entities[i].count || 0) - (entities[i].countExp || 0) > 0 ){
+                                if(entities[i]?.tag?.length >0){
+                                    tagList.push(...entities[i].tag);
+                                }
                             } else {
-                                if((entities[i].count || 0) - (entities[i].countExp || 0) ){
+                                if((entities[i].count || 0) - (entities[i].countExp || 0) > 0 ){
                                     tagList.push(entities[i].tag)
                                 }                       
                             }
@@ -73,6 +74,9 @@ const Recommend = () => {
                         menuAll = [...menu , ...dataFliter]
                         
                     }
+
+                   
+
                     
                     let Tmp = [];
                         for (let mena of menuAll){
@@ -108,12 +112,15 @@ const Recommend = () => {
 
                 for (let o of filterList){
                     //[[name],["obj"],[have],[nothave],length]
+
+                    const have = o[2]
+                    console.log(o)
                     
                     let oo;
                     if(search){
                         if('name' === searchType){
                             oo = o[1].filter((name) => name.name.includes(search)).map((_, index) => 
-                                <a href={`/recommend/${o[1][index]?.id}`} className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
+                                <a href={`/recommend/${o[1][index]?.id}!!${have}`} className="food-waste-item" style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
                                     <div className='food-waste-front'>
                                         <img src='./home.png' alt="meat icon" className='smalllogolist' />
                                     </div>
@@ -152,7 +159,7 @@ const Recommend = () => {
                                     oo = []
                                     o[0].forEach((_ ,index) => {
                                        
-                                        oo.push(<a className="food-waste-item" href={`/recommend/${o[1][index]?.id}`}style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none'  }}>
+                                        oo.push(<a className="food-waste-item" href={`/recommend/${o[1][index]?.id}!!${have}`}style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none'  }}>
                                     <div className='food-waste-front'>
                                         <img src='./home.png' alt="meat icon" className='smalllogolist' />
                                     </div>
@@ -192,9 +199,9 @@ const Recommend = () => {
                         }
                     } else {
                         //[name, o[1][index] , o[2] , o[3] , o[4]] 
-                        console.log(o)
+                        
                         oo = o[0].map((_ ,index) =>  
-                            <a className="food-waste-item" href={`/recommend/${o[1][index]?.id}`} style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
+                            <a className="food-waste-item" href={`/recommend/${o[1][index]?.id}!!${have}`} style={{ color: 'black', display: 'flex', alignItems: 'center' , textDecoration: 'none' }}>
                         <div className='food-waste-front'>
                             <img src='./home.png' alt="meat icon" className='smalllogolist' />
                         </div>
