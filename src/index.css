@@ -762,3 +762,58 @@ who ever fix this im sorry tk21111 18/10/2024
   text-align: center;
   font-size: 90%;
 }
+
+/*userupdate*/
+.profile-update-form .form-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.user-avatar {
+  justify-self: center;
+  max-width: 300px;
+  max-width: 300px;
+}
+
+.warning-label {
+  color: red;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.image-previews {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.image-preview {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.preview-img {
+  max-height: 100px;
+  max-width: 100px;
+  object-fit: cover;
+}
+
+.remove-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin: 10px 0;
+}

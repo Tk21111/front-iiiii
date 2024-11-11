@@ -49,7 +49,7 @@ const Post = () => {
             <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
             <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/save" >Post</Link></p>
         </div>
-      <Overay link={'/post/false'} />
+      <Overay link={'/post/false/create/null'} />
       <div className='user-list-parent'>{content}</div>
     </div>
   );

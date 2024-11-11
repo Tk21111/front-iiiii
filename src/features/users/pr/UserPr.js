@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUpdateUserMutation } from '../NoteApiSlice';
 import Header from '../../../components/Header';
+import { useSelector } from 'react-redux';
+import { selectCurrentAka, selectCurrentImage, selectCurrentUser } from '../../auth/authSlice';
 
 const ProfileUpdateForm = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [more, setMore] = useState('');
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
-    const [updateUser, { isLoading }] = useUpdateUserMutation();
+    const user = useSelector(selectCurrentUser);
+    const aka = useSelector(selectCurrentAka);
+    const image = useSelector(selectCurrentImage);
+
+    const imagePath = image?.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
+
+    const [updateUser, { isLoading, error }] = useUpdateUserMutation();
 
     const handleImageChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
@@ -41,72 +49,70 @@ const ProfileUpdateForm = () => {
             });
         }
 
-        await updateUser({ formData });
-
-        // Clear form fields after submission
-        setImages([]);
-        setImagePreviews([]);
-        setMore('');
-        setUsername('');
-        navigate(`/welcome`)
+        try {
+            await updateUser({ formData }).unwrap();
+            setImages([]);
+            setImagePreviews([]);
+            setMore('');
+            setUsername('');
+            navigate(`/welcome`);
+        } catch (err) {
+            console.error("Failed to update profile:", err);
+        }
     };
 
     return (
         <div className='page'>
-            <Header/>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <div style={{ display: 'flex', flexDirection: 'column', height: 200 }}>
-                    <label>Username:</label>
-                    <label style={{ color: 'red', fontWeight: 'bold', margin: 10 }}>
+            <Header />
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="profile-update-form">
+                <div className="form-section">
+                    <label htmlFor="aka">Aka:</label>
+                    <h2>{aka}</h2>
+                    {imagePath?.map((val, index) => (
+                        <img key={index} src={val} alt="User Avatar" className="user-avatar" />
+                    ))}
+                    <label className="warning-label">
                         Notice that your username when logging in will not change
                     </label>
                     <input
                         type="text"
+                        id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
 
-                <div>
-                    <label>More Info:</label>
+                <div className="form-section">
+                    <label htmlFor="more">More Info:</label>
                     <textarea
+                        id="more"
                         value={more}
                         onChange={(e) => setMore(e.target.value)}
                     ></textarea>
                 </div>
 
-                <div>
-                    <label>Upload Images:</label>
+                <div className="form-section">
+                    <label htmlFor="images">Upload Images:</label>
                     <input
                         type="file"
+                        id="images"
                         multiple
                         onChange={handleImageChange}
                     />
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
+                <div className="image-previews">
                     {imagePreviews.map((url, index) => (
-                        <div key={index} style={{ marginBottom: '10px', position: 'relative' }}>
+                        <div key={index} className="image-preview">
                             <img
                                 src={url}
                                 alt={`preview ${index}`}
-                                style={{ maxHeight: '100px', maxWidth: '100px', objectFit: 'cover' }}
+                                className="preview-img"
                             />
                             <button
                                 type="button"
                                 onClick={() => handleImageRemove(index)}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                    backgroundColor: 'red',
-                                    color: 'white',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    borderRadius: '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                }}
+                                className="remove-button"
                             >
                                 X
                             </button>
@@ -114,9 +120,11 @@ const ProfileUpdateForm = () => {
                     ))}
                 </div>
 
+                {error && <p className="error-message">Failed to update profile. Please try again.</p>}
+
                 <button 
                     type="submit" 
-                    disabled={isLoading} // Optional: Disable button during loading
+                    disabled={isLoading}
                 >
                     Save
                 </button>

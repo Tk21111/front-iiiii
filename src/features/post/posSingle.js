@@ -124,6 +124,7 @@ const PostSingle = () => {
     content = <p>Error loading post. Please try again.</p>;
   } else {
 
+    //prep postSingleLink
     content = (
       <div className='page'>
         <Header/>

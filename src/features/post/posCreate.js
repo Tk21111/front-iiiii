@@ -93,16 +93,12 @@ const PostCreate = () => {
                         required
                     />
                 </div>
-                <div>
-                    <label>Content:</label>
-                    <input
-                        type="text"
+                    <label htmlFor="more">Content:</label>
+                    <textarea
+                        id="more"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        required
-                    />
-                </div>
-
+                    ></textarea>
                 <div>
                     <label>Images:</label>
                     <input
