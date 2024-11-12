@@ -48,9 +48,7 @@ const SingleLocaPage = () => {
         };
 
         const addMarker = (map) => {
-            console.log(loca)
-            console.log(data)
-            console.log(loca.longitude)
+    
             if (loca.latitude && loca.longitude && !succes) {
                 setSuccess(true)
                 const marker = new window.longdo.Marker({

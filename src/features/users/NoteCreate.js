@@ -29,7 +29,6 @@ const CreateNote = () => {
   const formattedDate = `${year}-${month}-${day}`;
 
   //speech to text save value 
-  const [amount , setAmount] = useState(0)
   const [spc , setSpc] = useState('')
   const [createNote, { isLoading }] = useCreateNoteMutation();
   const [notes, setNotes] = useState([
@@ -207,7 +206,7 @@ const CreateNote = () => {
 
 
   const onSavePostClicked = async () => {
-    while (true){
+ 
       
       if (canSave) {
         try {
@@ -231,7 +230,6 @@ const CreateNote = () => {
             formData,
           }).unwrap();
 
-          setAmount(amount +1)
           /*
           setNotes([
             {
@@ -257,7 +255,7 @@ const CreateNote = () => {
             console.error("Unexpected error: ", err);
           }
         }
-      }
+      
     }
     
   };

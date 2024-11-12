@@ -17,6 +17,9 @@ const GetOrgSingle = () => {
     const {id} = useParams();
     const navigate = useNavigate();
 
+    const [succes , setSuccess] = useState(false);
+    const [succesMap , setSuccessMap] = useState(false);
+
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
     const [data , setData] = useState(null);
@@ -31,6 +34,53 @@ const GetOrgSingle = () => {
         }
         
     }, [isLoading]);
+
+    useEffect(() => {
+        const loadScripts = () => {
+            //if loca isn't here just wait
+            if (scriptLoaded.current || succesMap || !loca) return; // Check if the script has already been loaded
+
+            setSuccessMap(true)
+            const script = document.createElement('script');
+            script.src = 'https://api.longdo.com/map/?key=' + process.env.REACT_APP_API_KEY; // Replace with your API key
+            script.async = true;
+            script.onload = () => {
+                scriptLoaded.current = true; // Mark script as loaded
+                console.log('Longdo API loaded:', window.longdo);
+                initializeMap();
+            };
+            document.body.appendChild(script);
+
+            return () => {
+                document.body.removeChild(script);
+            };
+        };
+
+        const initializeMap = () => {
+            if (mapRef.current) {
+                const map = new window.longdo.Map({
+                    placeholder: mapRef.current,
+                });
+                addMarker(map);
+            }
+        };
+
+        const addMarker = (map) => {
+    
+            if (user.latitude && user.longitude && !succes) {
+                setSuccess(true)
+                const marker = new window.longdo.Marker({
+                    lon: user.longitude,
+                    lat: user.latitude,
+                });
+                map.Overlays.add(marker);
+            } else {
+                console.error('Latitude and longitude are not defined for the marker.');
+            }
+        };
+
+        loadScripts();
+    }, [user ]); // Run when `loca` updates
 
     let content;
 
