@@ -9,7 +9,7 @@ import BuyExcerpt from "./BuyExcerpt";
 import filterEntitiesByTag from "../comp/Search";
 
 const Static = () => {
-    const user = { username: useSelector(selectCurrentUser) };
+    const currentUser = useSelector(selectCurrentUser);
     const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
     const [hasFetched, setHasFetched] = useState(false);
     const [search, setSearch] = useState("");
@@ -21,7 +21,7 @@ const Static = () => {
         const fetchData = async () => {
             if (!hasFetched) {
                 try {
-                    await getAllNoteUser(user);
+                    await getAllNoteUser({ username: currentUser });
                     setHasFetched(true);
                 } catch (error) {
                     console.error("Error fetching data:", error);
@@ -29,48 +29,53 @@ const Static = () => {
             }
         };
         fetchData();
-    }, [getAllNoteUser, user, hasFetched, users]);
+    }, [getAllNoteUser, currentUser, hasFetched]);
 
     useEffect(() => {
         setSearchTypeEnable(renderType !== 'food');
     }, [renderType]);
 
-    let content = [];
+    const renderContent = () => {
+        if (isLoading) return <p>Loading...</p>;
 
-    if (isLoading) {
-        content = <p>Loading...</p>;
-    } else if (isSuccess) {
-        if (renderType === 'food') {
-            content = users?.ids.map((id) => (
-                <BuyExcerptFood key={id} i={users.entities[id]} />
-            ));
-        } else if (renderType === 'tag') {
-            const filteredEntities = search
-                ? filterEntitiesByTag(users.entities, search, searchType, false)
-                : users.entities;
+        if (isError) {
+            const errorMsg = error.status === 403
+                ? "Access denied. Go get a random number first."
+                : JSON.stringify(error);
+            return (
+                <section>
+                    <h1>{errorMsg}</h1>
+                    <Link to="/welcome">Back to Welcome</Link>
+                </section>
+            );
+        }
 
-            const tagEn = {};
-            for (let key in filteredEntities) {
-                const tag = filteredEntities[key].tag;
-                tagEn[tag] = filterEntitiesByTag(filteredEntities, tag, 'tag', true);
-                tagEn[tag]['tag'] = tag;
+        if (isSuccess) {
+            if (renderType === 'food') {
+                return users?.ids.map((id) => (
+                    <BuyExcerptFood key={id} i={users.entities[id]} />
+                ));
             }
 
-            content = Object.keys(tagEn).map((tag) => (
-                <BuyExcerpt key={tag} i={tagEn[tag]} />
-            ));
+            if (renderType === 'tag') {
+                const filteredEntities = search
+                    ? filterEntitiesByTag(users.entities, search, searchType, false)
+                    : users.entities;
+
+                const tagEn = {};
+                for (let key in filteredEntities) {
+                    const tag = filteredEntities[key].tag;
+                    tagEn[tag] = filterEntitiesByTag(filteredEntities, tag, 'tag', true);
+                    tagEn[tag]['tag'] = tag;
+                }
+
+                return Object.keys(tagEn).map((tag) => (
+                    <BuyExcerpt key={tag} i={tagEn[tag]} />
+                ));
+            }
         }
-    } else if (isError) {
-        const msg = error.status === 403
-            ? "Access denied. Go get a random number first."
-            : JSON.stringify(error);
-        content = (
-            <section>
-                <h1>{msg}</h1>
-                <Link to="/welcome">Back to Welcome</Link>
-            </section>
-        );
-    }
+        return null;
+    };
 
     return (
         <div className="page">
@@ -114,7 +119,7 @@ const Static = () => {
                     <option value="food">Food</option>
                 </select>
             </div>
-            {content}
+            {renderContent()}
         </div>
     );
 };
