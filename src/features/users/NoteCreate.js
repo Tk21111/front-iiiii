@@ -29,6 +29,7 @@ const CreateNote = () => {
   const formattedDate = `${year}-${month}-${day}`;
 
   //speech to text save value 
+  const [amount , setAmount] = useState(0)
   const [spc , setSpc] = useState('')
   const [createNote, { isLoading }] = useCreateNoteMutation();
   const [notes, setNotes] = useState([
@@ -202,54 +203,63 @@ const CreateNote = () => {
     setNotes(updatedNotes);
   };
   
+  console.log(amount)
+
 
   const onSavePostClicked = async () => {
-    if (canSave) {
-      try {
-        const formData = new FormData();
-        notes.forEach((note, index) => {
-          formData.append(`notes[${index}][username]`, username);
-          formData.append(`notes[${index}][text]`, note.title);
-          formData.append(`notes[${index}][date]`, note.expTime);
-          formData.append(`notes[${index}][count]`, note.count);
-          formData.append(`notes[${index}][countExp]`, note.countExp);
-          formData.append(`notes[${index}][done]`, note.done);
-          formData.append(`notes[${index}][tag]`, note.tag);
-          note.files.forEach((file) => {
-            formData.append(`notes[${index}][files]`, file);
+    while (true){
+      
+      if (canSave) {
+        try {
+          const formData = new FormData();
+          notes.forEach((note, index) => {
+            formData.append(`notes[${index}][username]`, username);
+            formData.append(`notes[${index}][text]`, note.title);
+            formData.append(`notes[${index}][date]`, note.expTime);
+            formData.append(`notes[${index}][count]`, note.count);
+            formData.append(`notes[${index}][countExp]`, note.countExp);
+            formData.append(`notes[${index}][done]`, note.done);
+            formData.append(`notes[${index}][tag]`, note.tag);
+            note.files.forEach((file) => {
+              formData.append(`notes[${index}][files]`, file);
+            });
           });
-        });
+  
+          
+  
+          await createNote({
+            formData,
+          }).unwrap();
 
-        console.log(notes);
-        console.log(formData);
-
-        await createNote({
-          formData,
-        }).unwrap();
-        setNotes([
-          {
-            title: "",
-            expTime: formattedDate,
-            count: 0,
-            countExp: 0,
-            tag: [],
-            done: false,
-            files: [],
-            isListening: false,
-          },
-        ]);
-        navigate(`/user`);
-      } catch (err) {
-        console.error("Failed to save the post", err);
-        if (err.originalStatus === 409) {
-          navigate(`/user/note/edit/${err.data.noteId}`);
-        } else if (err.name === "TypeError" && err.message === "Failed to fetch") {
-          console.error("Network or CORS error: ", err);
-        } else {
-          console.error("Unexpected error: ", err);
+          setAmount(amount +1)
+          /*
+          setNotes([
+            {
+              title: "",
+              expTime: formattedDate,
+              count: 0,
+              countExp: 0,
+              tag: [],
+              done: false,
+              files: [],
+              isListening: false,
+            },
+          ]);
+          //navigate(`/user`);
+          */
+        } catch (err) {
+          console.error("Failed to save the post", err);
+          if (err.originalStatus === 409) {
+            navigate(`/user/note/edit/${err.data.noteId}`);
+          } else if (err.name === "TypeError" && err.message === "Failed to fetch") {
+            console.error("Network or CORS error: ", err);
+          } else {
+            console.error("Unexpected error: ", err);
+          }
         }
       }
     }
+    
   };
 
   return (

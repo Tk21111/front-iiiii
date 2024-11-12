@@ -13,7 +13,7 @@ import Overay from "../../components/Overlay";
 
 const GetAllNoteUser = () => {
 
-    
+    const [amount , setAmount] = useState(0)
     const user = { username: useSelector(selectCurrentUser) };
     const [getAllNoteUser , { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
         pollingInterval: 15000,
@@ -29,6 +29,7 @@ const GetAllNoteUser = () => {
         const fetchData = async () => {
             try {
                 if (!hasFetched) {
+                    
                     await getAllNoteUser(user);
                     setHasFetched(true);
                     console.log('f')
@@ -39,9 +40,13 @@ const GetAllNoteUser = () => {
         };
 
         fetchData();
+        setAmount(amount +1)
+        setHasFetched(false);
     }, [ hasFetched]);
 
     let content;
+
+    console.log(amount)
 
     if (isLoading) {
         content = <p>Loading...</p>;
