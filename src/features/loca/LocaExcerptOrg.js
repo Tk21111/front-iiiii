@@ -74,7 +74,8 @@ const LocasExcerptOrg = ({ i , own}) => {
                     <div className="food-waste-content">
                             <div className="food-waste-details">
                                 <ul>
-                                    <li><p>{"username : " +  i?.aka || null}</p></li>
+                                    <li><p>{"username : " +  i?.username || null}</p></li>
+                                    <li><p>{"aka : " +  i?.aka || null}</p></li>
                                     <li><p>{"more : " + i?.more || null }</p></li>
                                 </ul>
                             </div>

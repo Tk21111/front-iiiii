@@ -101,7 +101,14 @@ export const noteApislice = apiSlice.injectEndpoints({
             query: () => ({
                 url : '/user/get/org',
                 method : 'GET'
-            })
+            }),
+            transformResponse : responseData => {
+                const loadedNotes = responseData.map(note => {
+                    note.id = note._id
+                    return note
+                });
+                return notesAdapter.setAll(initialState , loadedNotes)
+            },
         }),
         getNoti: builder.query({
             query: () => ({

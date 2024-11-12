@@ -18,7 +18,7 @@ const GetOrg = () => {
     const [refresh, setRefresh] = useState(0);
 
     const [search, setSearch] = useState('');
-    const [searchType, setSearchType] = useState('text');
+    const [searchType, setSearchType] = useState('username');
 
     useEffect(() => {
         if (!isLoading) {
@@ -37,16 +37,23 @@ const GetOrg = () => {
     if (loading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        //this is what u have to modifine
 
-        console.log(users)
         //this is what u have to modifine
         //user = { ids , entities}
         content = []
         
-        for (let i of users) {
-            content.push(<LocasExcerptOrg key={i._id} i={i} own={false} />);
-        };
+        if(search){
+            for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType , false))) {
+                content.push(<LocasExcerptOrg key={i} i={users.entities[i]} own={false} />);
+            }
+            
+
+        } else {
+            for (let i of users.ids) {
+                content.push(<LocasExcerptOrg key={i} i={users.entities[i]} own={false} />);
+            }
+        }
+        
             
       
     } else if (isError) {
@@ -87,13 +94,8 @@ const GetOrg = () => {
                         value={searchType}
                         onChange={(e) => setSearchType(e.target.value)}
                     >
-                        <option value="text">Text</option>
-                        <option value="town">Town</option>
-                        <option value="subdistrict">Subdistrict </option>
-                        <option value="county">County </option>
-                        <option value="tag">tag </option>
-                        <option value="count">count </option>
-                        <option value="exp">exp </option>
+                        <option value="username">username</option>
+                        <option value="aka">aka</option>
                     </select>
             </div>
             {/* end search comp */}

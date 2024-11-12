@@ -19,7 +19,7 @@ const GetAllLoca = () => {
     const [refresh, setRefresh] = useState(0);
 
     const [search, setSearch] = useState('');
-    const [searchType, setSearchType] = useState('text');
+    const [searchType, setSearchType] = useState('food.text');
 
     useEffect(() => {
         if (!isLoading) {
@@ -50,7 +50,7 @@ const GetAllLoca = () => {
             }
             
         } else if (search) {
-            for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType))) {
+            for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType , false))) {
                 content.push(<LocasExcerpt key={i} i={users.entities[i]} own={false} />);
             }
             
@@ -95,13 +95,14 @@ const GetAllLoca = () => {
                         value={searchType}
                         onChange={(e) => setSearchType(e.target.value)}
                     >
-                        <option value="text">Text</option>
-                        <option value="town">Town</option>
+                        <option value="food.text">Text</option>
+                        <option value="district">District</option>
                         <option value="subdistrict">Subdistrict </option>
-                        <option value="county">County </option>
-                        <option value="tag">tag </option>
-                        <option value="count">count </option>
-                        <option value="exp">exp </option>
+                        <option value="province">Province </option>
+                        <option value="food.tag">tag </option>
+                        <option value="num">num </option>
+                        <option value="user.username">username </option>
+                        <option value="user.aka">aka </option>
                     </select>
             </div>
             {/* end search comp */}

@@ -9,19 +9,14 @@ import {QRCodeSVG} from 'qrcode.react';
 
 const LocasExcerpt = ({ i , own}) => {
 
-
-
     const navigate = useNavigate();
 
-    const { data, isLoading } = useGetAlllocaQuery();
     const [loca, setLoca] = useState(null);
     const [text, setText] = useState('');
     const [set , setSet] =useState(false)
-    const [donateC , setDonateC] = useState(false)
 
     const user = useSelector(selectCurrentUser);
 
-    const [ deleteLoca , {isLoading : isDeleting}] = useDeletelocaMutation();
 
     
 
@@ -57,9 +52,6 @@ const LocasExcerpt = ({ i , own}) => {
     }, [data, locaId]);
     */
 
-    if (isDeleting) {
-        return <p> deleting</p>
-    }
     if (!loca) {
         return <p>Location not found</p>;
     }
@@ -68,17 +60,18 @@ const LocasExcerpt = ({ i , own}) => {
 
     const imagePath = loca?.imageUser?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
 
-    console.log(loca)
+
     return (
         
         
             
-            <div onClickCapture={() => { setPortal(true); }} className="food-waste-item">
+            <div onClickCapture={() => { setPortal(true); }} className="food-waste-item" style={{width: '100%'}}>
                 <OverayCenter open={portal} loca={loca} onClose={() => { setPortal(false);}} own={own}/>
                 <div className='food-waste-front'>
                     <img src={require('../../components/img/home.png')} alt="meat icon" className='smalllogolist' />
                 </div>
                 <div className='overcontent'>
+                    
                     <div className="food-waste-content">
                             <div className="food-waste-details">
                                 <p>{loca?.food?.text + ' ' + i?.num}</p>
@@ -90,13 +83,16 @@ const LocasExcerpt = ({ i , own}) => {
                                     {(loca?.user?._id && !own)? <li><Link to={`/getuser/${loca.user._id}`}>that person</Link></li> : null}
                                     {(loca?.getPId?._id && own)? <li><Link to={`/getuser/${loca.getPId._id}`}>that person</Link></li> : null}
                                 </ul>
+                                
                             </div>
+                            
                             
                     </div>
                 </div> 
                 <div>
                     <QRCodeSVG  value={`${process.env.REACT_APP_HOSTING}/location/${loca._id}`  } size={50} />
                 </div>
+                
             </div>
             
             
