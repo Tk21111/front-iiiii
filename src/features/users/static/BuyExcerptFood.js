@@ -14,28 +14,34 @@ const BuyExcerptFood = ({ i }) => {
     let suggestion = 0;
     let amoutAll = 0;
     let amoutExpAll = 0;
+    let suggestionProcess = []
 
     // Push count
-    list.push(['Original', i?.count]);
-    amoutAll = i?.count;
+    list.push(['Original', i?.count[0],i?.countExp[0]]);
+    
 
-    for (let f = 0; f < i.countExp.length ; f++) {
-        list.push(["update" + f.toString(), i?.countExp[f]]);
+    for (let f = 1; f < i.countExp.length ; f++) {
+        //2 : 1 
+        if (i?.count[f] - i?.countExp[f] / 2 >= 1) {suggestionProcess++}
+        list.push(["update" + f.toString(), i?.count[f] , i?.countExp[f]]);
     }
+
+
+    amoutAll = i?.count[0];
     amoutExpAll = i?.countExp[i?.countExp?.length - 1];
 
     // Logic for suggestions
-    if (amoutAll > amoutExpAll * 999) {
+    if (suggestionProcess/list.length === 1  ) {
         suggestion = 'as much as you want';
-    } else if (amoutAll > amoutExpAll) {
+    } else if (suggestionProcess/list.length >0.5) {
         suggestion = "Maybe think again";
-    } else if (amoutAll === amoutExpAll) {
+    } else{
         suggestion = "I don't think u need this as much";
     }
 
     // Prepare data for the chart
     const data = [
-        ["name", "amount"],
+        ["name", "amountHave" , 'amountExp'],
         ...list
     ];
 
