@@ -19,6 +19,7 @@ const Recommend = () => {
     const [dataFliter, setDataFliter] = useState(null);
     const [search , setSearch] = useState('');
     const [searchType , setSearchType] = useState('name')
+    const [page, setPage] = useState(0);
 
     
     useEffect(() => {
@@ -99,6 +100,7 @@ const Recommend = () => {
     }, [ hasFetched , data, getAllNoteUser, dataFliter]);
 
     let content = [];
+    let lContent;
 
     if (isLoading) {
         content = <p>Loading...</p>;
@@ -239,7 +241,9 @@ const Recommend = () => {
                     content.push(oo)
                 }
                 
-               
+            //slice = nomal splice = (amount , lastElement)
+            lContent = content.length / 24
+            content = content?.slice(24 * page, 24 * (page + 1));
            
         } else {
             content = <p>blank (nothing match)</p>
@@ -296,6 +300,14 @@ const Recommend = () => {
             <Overay link={'recommend/create'}/>
             
             <div className='user-list-parent'>{content}</div> {/* Ensure content is defined */}
+            <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
+            </div>
         </div>
     );
     

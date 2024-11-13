@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 const SavePost = () => {
   const { data, isLoading, isSuccess } = useGetSavePostQuery();
   const [post, setPost] = useState(null);
+  const [page, setPage] = useState(0);
 
   const username = useSelector(selectCurrentUser)
 
@@ -21,7 +22,7 @@ const SavePost = () => {
   }, [data]);
 
   let content;
-
+  let lContent;
   
 
   if (isLoading) {
@@ -36,6 +37,10 @@ const SavePost = () => {
         <PostsExcerpt key={i} i={val} />
       );
     });
+
+    lContent = content.length / 24
+    content = content?.slice(24 * page, 24 * (page + 1));
+
   } else {
     content = <p>No posts available</p>;
   }
@@ -49,6 +54,14 @@ const SavePost = () => {
             <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/save" >Saved Post</Link></p>
         </div>
       <div className='user-list-parent'>{content}</div>
+      <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
+            </div>
     </div>
   );
 };

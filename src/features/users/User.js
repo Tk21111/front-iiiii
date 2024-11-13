@@ -52,6 +52,7 @@ const GetAllNoteUser = () => {
     }, [hasFetched]);
 
     let content;
+    let lContent;
 
     if (isLoading) {
         content = <p>Loading...</p>;
@@ -71,11 +72,14 @@ const GetAllNoteUser = () => {
             )) {
                 content.push(<PostsExcerpt key={i} i={users.entities[i]} />);
             }
-            console.log(content);
+
         } else {
             content = <Link to="/user/note/create">Create yours own note</Link>;
         }
-        content = content?.splice(24 * page, 24 * (page + 1));
+        //slice = nomal splice = (amount , lastElement)
+        lContent = content.length / 24
+        content = content?.slice(24 * page, 24 * (page + 1));
+       
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -130,11 +134,13 @@ const GetAllNoteUser = () => {
             </div>
             {/*end search comp*/}
             <div className="user-list-parent">{content}</div>
-            <div className="page-controll">
-                <button onClick={() => setPage(page - 1)} disabled={page === 0}>
-                    Previous
+            <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
                 </button>
-                <button onClick={() => setPage(page + 1)}> next</button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
             </div>
         </div>
     );

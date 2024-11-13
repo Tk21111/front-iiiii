@@ -14,6 +14,7 @@ import LocasExcerptOrg from './LocaExcerptOrg';
 const GetOrg = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetOrgQuery();
 
+    const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
@@ -32,6 +33,7 @@ const GetOrg = () => {
     };
     
     let content;
+    let lContent;
 
        
     if (loading) {
@@ -54,7 +56,8 @@ const GetOrg = () => {
             }
         }
         
-            
+        lContent = content.length / 24
+        content = content?.slice(24 * page, 24 * (page + 1));   
       
     } else if (isError) {
         let msg;
@@ -99,7 +102,15 @@ const GetOrg = () => {
                     </select>
             </div>
             {/* end search comp */}
-            <div className='user-list-parent'>{content}</div> 
+            <div className='user-list-parent'>{content}</div>
+            <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
+            </div>
         </div>
     );
 }

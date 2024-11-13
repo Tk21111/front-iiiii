@@ -4,32 +4,32 @@ import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverlayCenter from '../../components/OverlayCenter';
 import filterEntitiesByTag from '../users/comp/Search';
-import { useSetLikeMutation } from './PostApiSlice';
+import { useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
 
 const PostsExcerpt = ({ i }) => {
-    const navigate = useNavigate();
+
     const username = useSelector(selectCurrentUser);
-    const { user } = useParams();
 
     const [setLike] = useSetLikeMutation();
+    const [savePost , {isSucess : saved}] = useSavePostMutation();
 
     const updateLike = async (like) => {
         await setLike({ id: {[i._id] : like} }).unwrap();
     };
 
-    // Filter out private conversation posts
-    if (i?.userlist?.length > 0) {
-        if (!i?.userlist.includes(username)) {
-            return null;
+    const handleSave = async () => {
+        try {
+          await savePost({id : i._id}).unwrap();
+          // Optionally, navigate back to the post list or show a confirmation message
+          
+            alert("saved")
+          
+        } catch (error) {
+          console.error("Failed to delete post:", error);
         }
-    }
-    if (i?.userlist?.length === 0 && user === 'true') {
-        return null;
-    }
-    // Filter out reply comments
-    if (i?.reply) {
-        return null;
-    }
+      };
+    
+
 
     if (!i) {
         return <p>Location not found</p>;
@@ -57,6 +57,7 @@ const PostsExcerpt = ({ i }) => {
                         <div>
                             <button onClickCapture={() => updateLike(true)}>like</button>
                             <button onClickCapture={() => updateLike(false)}>unlike</button>
+                            <button onClickCapture={() => handleSave()}>save</button>
                         </div>
                         <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>to single</Link>
                     </div>

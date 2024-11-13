@@ -15,6 +15,8 @@ const GetAllLoca = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     }));
+
+    const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
@@ -33,6 +35,7 @@ const GetAllLoca = () => {
     };
     
     let content;
+    let lContent;
 
        
     if (loading) {
@@ -55,6 +58,10 @@ const GetAllLoca = () => {
             }
             
         }
+
+        lContent = content.length / 24
+        content = content?.slice(24 * page, 24 * (page + 1));
+
     } else if (isError) {
         let msg;
         if (error.status === 403) {
@@ -107,6 +114,14 @@ const GetAllLoca = () => {
             </div>
             {/* end search comp */}
             <div className='user-list-parent'>{content}</div> 
+            <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
+            </div>
         </div>
     );
 }
