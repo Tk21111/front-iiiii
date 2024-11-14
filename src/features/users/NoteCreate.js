@@ -202,7 +202,7 @@ const CreateNote = () => {
     setNotes(updatedNotes);
   };
   
-  console.log(amount)
+ 
 
 
   const onSavePostClicked = async () => {
