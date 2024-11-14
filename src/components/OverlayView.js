@@ -36,7 +36,7 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
                                 <img src={imgPath || require('../components/img/meal.png')} className="smalllogo-vertical-fix"alt="home" />
                             </div>
                             {post?.split("=")[0] === 'food' ? (<div className="food-waste-details" style={{ width: '200px' }}>
-                                <p>{(dataFood.text.length > 10 ? dataFood.text.substr(0,10) + '..' : dataFood.text) + '\n' + ': ' + dataFood.count}</p>
+                                <p>{(dataFood.text.length > 10 ? dataFood.text.substr(0,10) + '..' : dataFood.text) + '\n' + ': ' + dataFood.count[dataFood.count.length - 1]}</p>
                                 <p>Created at</p>
                                 <p>{dataFood.createdAt.split('T')[0].replace(/-/g, "/")}</p>
                                 <p>Expire at</p>

@@ -230,7 +230,7 @@ const CreateNote = () => {
             formData,
           }).unwrap();
 
-          /*
+          
           setNotes([
             {
               title: "",
@@ -243,8 +243,8 @@ const CreateNote = () => {
               isListening: false,
             },
           ]);
-          //navigate(`/user`);
-          */
+          navigate(`/user`);
+          
         } catch (err) {
           console.error("Failed to save the post", err);
           if (err.originalStatus === 409) {

@@ -96,6 +96,7 @@ const Login = () => {
                             id="persist"
                             onChange={handleToggle}
                             checked={persist}
+                            required
                         />
                         Trust this device
                     </label>

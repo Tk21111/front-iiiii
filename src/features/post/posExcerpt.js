@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { Link  } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import OverlayCenter from '../../components/OverlayCenter';
-import filterEntitiesByTag from '../users/comp/Search';
 import { useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
 
 const PostsExcerpt = ({ i }) => {

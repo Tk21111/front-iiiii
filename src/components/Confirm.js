@@ -28,7 +28,7 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                 formData.append(`notes[0][donate]`, true);
 
                
-
+                //create note for the recive user
                 const cN = await createNote({ formData }).unwrap();
                 console.log(cN)
             } catch (err) {
@@ -39,6 +39,7 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
         if (loca._id) {
             try {
 
+                //set loca to donated 
                 await donate({ id: loca._id }).unwrap();
                 await onSent(loca , name);
 
@@ -49,6 +50,7 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                 formDataPost.append('loca' , loca._id );
                 formDataPost.append('locaOwner' , loca.user.username );
 
+                //set Conversation
                 await createPost({formDataPost}).unwrap()
                 
                 onCloseConfirm();
@@ -73,7 +75,7 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                     transform: 'translate(50%, -50%)',
                     padding: '50px',
                     zIndex: 901,
-                    backgroundColor: 'rgba(255, 255, 255, .9)',
+                    backgroundColor: 'rgba(255, 255, 255, 1)',
                 }}
             >
                 <article className="confirm">

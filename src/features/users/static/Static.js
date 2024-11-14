@@ -78,7 +78,9 @@ const Static = () => {
         return null;
     };
 
-    let lContent = renderContent()/24;
+    //pretent u don't see this
+    let lContent = renderContent();
+    lContent = lContent?.length / 24
 
     return (
         <div className="page">
@@ -127,7 +129,7 @@ const Static = () => {
                 <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
                    {"<"}
                 </button>
-                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                <button onClick={() => setPage(page + 1)} disabled={(page + 1) > lContent }>
                     {">"}
 
                 </button></div>

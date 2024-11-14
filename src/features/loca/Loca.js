@@ -60,8 +60,7 @@ const GetAllLoca = () => {
         }
 
         lContent = content.length / 24
-        content = content?.slice(24 * page, 24 * (page + 1));
-
+    content = content.length > 0 ? content?.slice(24 * page, 24 * (page + 1)) :  null
     } else if (isError) {
         let msg;
         if (error.status === 403) {

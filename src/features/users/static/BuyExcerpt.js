@@ -50,10 +50,10 @@ const BuyExcerpt = ({ i }) => {
                 let entities = note[f]
                 const TmpExp = entities?.countExp
                 for (i = 0 ; i <= entities?.countExp?.length -1 ; i++){
-                    list.push([entities?.text + "(" + i + ")" , entities?.count , entities?.countExp[i]]);
+                    list.push([entities?.text + "(" + i + ")" , entities?.count[i] , entities?.countExp[i]]);
                 }
-                amoutAll += entities?.count;
-                amoutExpAll += entities?.countExp?.reduce((x,y) => {return x+y});
+                amoutAll += entities?.count[0];
+                amoutExpAll += entities?.countExp[entities?.countExp?.length - 1];
             } catch (err){
                 console.log(err)
             }

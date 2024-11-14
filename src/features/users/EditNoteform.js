@@ -43,8 +43,8 @@ const EditPostForm = () => {
         if (note) {
             setTitle(note.text ?? '');
             setExpTime(note.timeOut ? note.timeOut.split('T')[0] : '');
-            setCount(note.count ?? 0);
-            setCountExp(note.countExp ?? 0);
+            setCount(note.count[note.count.length - 1] ?? 0);
+            setCountExp(note.countExp[note.countExp.length - 1] ?? 0);
             setTag(note.tag ?? '');
             setDone(note.done ?? false);
         }

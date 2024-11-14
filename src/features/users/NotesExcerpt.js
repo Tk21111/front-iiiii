@@ -4,6 +4,7 @@ import { useGetAllNoteUserMutation } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import ConfirmSelection from '../../components/ConfirmSelection';
+import UpdateAmount from '../../components/OverlayNoteAmountUpdate';
 
 const PostsExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -13,6 +14,7 @@ const PostsExcerpt = ({ i }) => {
     const [set , setSet] =useState(false)
 
     const [confirm , setConfirm] = useState(false);
+    const [update , setUpdate] = useState(false);
     
     useEffect (()=> {
         if(!note){
@@ -47,8 +49,9 @@ const PostsExcerpt = ({ i }) => {
         return <p>Loading...</p>;
     }
     return (
-        <div class="food-waste-item" style={{height : '120px'}}>
+        <div class="food-waste-item" style={{height : '150px'}}>
             <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
+            <UpdateAmount note={i} onCloseConfirm={()=> setUpdate(false)} open={update}/>
             <div className='food-waste-front'>
                 <div class="food-waste-date-badge"  style={{height : '35px' , fontSize: '70%' , justifyContent: 'center'}} >{i.timeOut.split("T")[0].replace(/-/gi,"/")}</div>
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist' />
@@ -56,9 +59,10 @@ const PostsExcerpt = ({ i }) => {
                 <div class="food-waste-content">
                         <div class="food-waste-details">
                             <ul>
-                                <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text}</h2></li>
+                                <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>
                                 {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
                                 <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p></li>
+                                <li><p onClickCapture={()=> setUpdate(true)} style={{ textDecoration: 'underline' }}>Update!! </p></li>
                                 <li><p className="postCredit">
                                     <Link to={`note/${i.id}`}>View Post</Link>
                                 </p></li>

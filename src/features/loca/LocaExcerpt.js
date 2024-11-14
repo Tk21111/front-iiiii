@@ -3,7 +3,7 @@ import { Link , useNavigate } from 'react-router-dom';
 import { useGetAlllocaQuery , useDeletelocaMutation, useDonatelocaMutation } from './LocaApiSlice';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import OverayCenter from '../../components/OverlayCenter';
+import OverayCenter from '../../components/OverlayLocaMain';
 import {QRCodeSVG} from 'qrcode.react';
 
 

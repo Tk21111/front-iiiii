@@ -57,7 +57,7 @@ const GetOrg = () => {
         }
         
         lContent = content.length / 24
-        content = content?.slice(24 * page, 24 * (page + 1));   
+        content = content ? content?.slice(24 * page, 24 * (page + 1)) :  null   
       
     } else if (isError) {
         let msg;

@@ -243,8 +243,7 @@ const Recommend = () => {
                 
             //slice = nomal splice = (amount , lastElement)
             lContent = content.length / 24
-            content = content?.slice(24 * page, 24 * (page + 1));
-           
+        content = content.length > 0 ? content?.slice(24 * page, 24 * (page + 1)) :  null           
         } else {
             content = <p>blank (nothing match)</p>
         }
