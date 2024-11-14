@@ -38,7 +38,7 @@ const GetOrgSingle = () => {
     useEffect(() => {
         const loadScripts = () => {
             //if loca isn't here just wait
-            if (scriptLoaded.current || succesMap || !loca) return; // Check if the script has already been loaded
+            if (scriptLoaded.current || succesMap || !user) return; // Check if the script has already been loaded
 
             setSuccessMap(true)
             const script = document.createElement('script');
