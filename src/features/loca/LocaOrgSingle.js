@@ -19,6 +19,8 @@ const GetOrgSingle = () => {
 
     const [succes , setSuccess] = useState(false);
     const [succesMap , setSuccessMap] = useState(false);
+    const mapRef = useRef(null);
+    const scriptLoaded = useRef(false);
 
     const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
