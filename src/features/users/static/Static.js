@@ -16,6 +16,7 @@ const Static = () => {
     const [searchType, setSearchType] = useState("text");
     const [searchTypeEnable, setSearchTypeEnable] = useState(true);
     const [renderType, setRenderType] = useState("tag");
+    const [page ,setPage] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,7 +55,7 @@ const Static = () => {
             if (renderType === 'food') {
                 return users?.ids.map((id) => (
                     <BuyExcerptFood key={id} i={users.entities[id]} />
-                ));
+                )).slice(page*24,(page+1)*24);
             }
 
             if (renderType === 'tag') {
@@ -71,11 +72,13 @@ const Static = () => {
 
                 return Object.keys(tagEn).map((tag) => (
                     <BuyExcerpt key={tag} i={tagEn[tag]} />
-                ));
+                )).slice(page*24,(page+1)*24);
             }
         }
         return null;
     };
+
+    let lContent = renderContent()/24;
 
     return (
         <div className="page">
@@ -116,11 +119,19 @@ const Static = () => {
                     onChange={(e) => setRenderType(e.target.value)}
                 >
                     <option value="tag">Tag</option>
-                    <option value="food">Food</option>
+                    <option value="food">Food</option>:
                 </select>
             </div>
             {renderContent()}
-        </div>
+            <div className="page-control">
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+
+                </button></div>
+            </div>
     );
 };
 
