@@ -66,7 +66,7 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
                         <div className="food-waste-details-confirm-selection" style={{marginLeft : '10px'}}>
                             <h2>Amount</h2>
                             <div className="content">
-                                <button onClick={() => setCount(count + 1)}>Add count</button>
+                                <button onClick={() => (0 <= count - 1) ? setCount(count - 1)  : null} className="button-update-amount">-</button>
                                 <input
                                     style={{ width: '30%' }}
                                     value={count}
@@ -74,19 +74,20 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
                                     placeholder="Amount..."
                                 />
                                 
-                                <button onClick={() => (0 <= count - 1) ? setCount(count - 1)  : null}>Subtact count</button>
+                                
+                                <button onClick={() => setCount(count + 1)} className="button-update-amount">+</button>
                             </div>
                             <h2>Amount Expired</h2>
                             <div className="content">
-                                <button onClick={() => count >= countExp +1 ? setCountExp(countExp + 1) : null}>Add count</button>
+                                
+                                <button onClick={() => 0 <= countExp - 1 ? setCountExp(countExp - 1) : null} className="button-update-amount">-</button>
                                 <input
                                     style={{ width: '30%' }}
                                     value={countExp}
                                     onChange={(e) => setCountExp(e.target.value)}  // Ensure you update the state
                                     placeholder="Amount..."
                                 />
-                                
-                                <button onClick={() => 0 <= countExp - 1 ? setCountExp(countExp - 1) : null}>Subtact count</button>
+                                <button onClick={() => count >= countExp +1 ? setCountExp(countExp + 1) : null} className="button-update-amount">+</button>
                             </div>
                         </div>
                     </div>

@@ -110,7 +110,7 @@ const GetAlluserLoca = () => {
             {/* end search comp */}
             <div className='user-list-parent'>{content}</div>
             <div className="page-control">
-                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0} >
                    {"<"}
                 </button>
                 <button onClick={() => setPage(page + 1)} disabled={page + 1 > lContent }>

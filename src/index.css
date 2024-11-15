@@ -723,7 +723,10 @@ who ever fix this im sorry tk21111 18/10/2024
 }
 
 .post-single-like-comp-child {
-  margin: 10%;
+  margin: 3%;
+  padding: 2%;
+  width: 100px;
+  height: 30px;
 }
 .post-single-img {
   width: 400px;
@@ -744,11 +747,19 @@ who ever fix this im sorry tk21111 18/10/2024
   justify-items: center;
 }
 
-.tag-container {
+.tag-child {
   border: #000 solid 1.5px;
   text-align: center;
   background-color: #B0E7FF;
   border-radius: 10px;
+  padding: 2%;
+}
+
+.tag-container {
+  flex-direction: row;
+  justify-content: space-around;
+  display: flex;
+  margin: 5%;
 }
 
 .pic-single {
@@ -829,4 +840,27 @@ who ever fix this im sorry tk21111 18/10/2024
 .page-control button {
   margin: 2%;
   padding: 10%;
+}
+
+.button-update-amount {
+  width: 20%;
+  align-content: center;
+}
+
+.single-context {
+ 
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  display: flex;
+}
+.single-context p{
+  margin-left: 10%;
+}
+
+.small-button {
+  width: 50px;
+  height: 30px;
+  margin-left: 10%;
 }

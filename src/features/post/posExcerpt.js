@@ -52,10 +52,10 @@ const PostsExcerpt = ({ i }) => {
                         <h2>{i?.title}</h2>
                         <p>{i?.content}</p>
                         <h2>{(i?.like?.length || 0) - (i?.unlike?.length || 0)}</h2>
-                        <div>
-                            <button onClickCapture={() => updateLike(true)}>like</button>
-                            <button onClickCapture={() => updateLike(false)}>unlike</button>
-                            <button onClickCapture={() => handleSave()}>save</button>
+                        <div className='post-single-like-comp'>
+                            <button onClickCapture={() => updateLike(true)} className='post-single-like-comp-child'>like</button>
+                            <button onClickCapture={() => updateLike(false)} className='post-single-like-comp-child'>unlike</button>
+                            <button onClickCapture={() => handleSave()} className='post-single-like-comp-child'>save</button>
                         </div>
                         <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>to single</Link>
                     </div>

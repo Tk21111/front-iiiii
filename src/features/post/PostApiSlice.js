@@ -34,6 +34,7 @@ export const postApislice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { ...data },
       }),
+      
     }),
     createPost: builder.mutation({
       query: (data) => {

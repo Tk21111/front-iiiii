@@ -74,7 +74,9 @@ const RecommendationSingle = () => {
               <>
                 <h1>{dataFliter[0]?.name}</h1>
                 <p>{dataFliter[0]?.des}</p>
-                {dataFliter[0]?.tag?.map(val => <p className='tag-container' style={id?.split("=")[1]?.split('!!')[1].split(",")?.includes(val) || id?.split("=")[1]?.split('!!')[1].includes(val) || id?.split('!!')[1].includes(val) || id?.split('!!')[1].split(",").includes(val) ? {backgroundColor : '#8fce88'} : {backgroundColor : 'red'}}>{val}</p>)}
+                <div className='tag-container'>
+                {dataFliter[0]?.tag?.map(val => <p className='tag-child' style={id?.split("=")[1]?.split('!!')[1].split(",")?.includes(val) || id?.split("=")[1]?.split('!!')[1].includes(val) || id?.split('!!')[1].includes(val) || id?.split('!!')[1].split(",").includes(val) ? {backgroundColor : '#8fce88'} : {backgroundColor : '#B1AFAF'}}>{val}</p>)}
+                </div>
                 <p>{dataFliter[0]?.ingredent}</p>
               </>
             ) : (

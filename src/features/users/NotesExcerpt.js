@@ -59,13 +59,17 @@ const PostsExcerpt = ({ i }) => {
                 <div class="food-waste-content">
                         <div class="food-waste-details">
                             <ul>
-                                <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>
-                                {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
-                                <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p></li>
-                                <li><p onClickCapture={()=> setUpdate(true)} style={{ textDecoration: 'underline' }}>Update!! </p></li>
-                                <li><p className="postCredit">
-                                    <Link to={`note/${i.id}`}>View Post</Link>
-                                </p></li>
+                                <div className='tag-container' style={{marginLeft : '0px' , paddingLeft : '0px'}}>
+                                    <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>
+                                    <button onClick={() => setUpdate(true)} className='small-button'>edit</button>
+                                </div>
+                                <div>
+                                    {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
+                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p></li>
+                                    <li><p className="postCredit">
+                                        <Link to={`note/${i.id}`}>View Post</Link>
+                                    </p></li>
+                                </div>
                             </ul>
                             
                         </div>

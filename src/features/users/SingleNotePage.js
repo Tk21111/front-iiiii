@@ -5,6 +5,7 @@ import { useGetAllNoteUserMutation } from './NoteApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
+import BuyExcerptFood from './static/BuyExcerptFood';
 
 const SinglePostPage = () => {
 
@@ -47,24 +48,32 @@ const SinglePostPage = () => {
         
 
 
+            
     const imagePath = `${process.env.REACT_APP_API}/${note.images.toString().replace(/\\/g, '/')}`;
     return (
         <div style={{width : '100%' , height : '100%'}}>
             <Header/>
             <div className='single-parent'>
-                <div>
-                <h2>{note.text}</h2>
+                <div >
+                    <h2>{note.text}</h2>
+                    <p className='tag-child'>{note.tag}</p>
+                    </div>
+                    <img src={imagePath?.length > 1 ? imagePath :  require('../../components/img/meal.png')} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
+                    <p>Exp date : { diff } left</p>
+                    <div className='single-context'>
+                    
+                        <p>In count : {note.count[note.count.length - 1]}</p>
+                        <p>Exp count : {note.countExp[note.count.length - 1]}</p>
+
+                    
+                    
+                
+                    </div>
+                <div style={{width : '90%'}}>
+                    <BuyExcerptFood i={note}/>
                 </div>
-                <img src={imagePath?.length > 1 ? imagePath :  require('../../components/img/meal.png')} alt="note image" style={{flexGrow: 1 , maxWidth: 300 , maxHeight: 300, margin : "5%"  }} />
-                <div>
-                <p>Exp date : { diff } left</p>
-                <p>In count : {note.count[note.count.length - 1]}</p>
-                <p>Exp count : {note.countExp[note.count.length - 1]}</p>
-                <p>Is it Exp : {note.done}</p>
-                <p>Tag : {note.tag}</p>
                 <Link to={`/user/note/edit/${noteId.noteId}`}>Edit Post</Link>
                 
-                </div>
             </div>
         </div>
     )

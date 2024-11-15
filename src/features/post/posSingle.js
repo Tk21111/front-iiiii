@@ -8,7 +8,7 @@ import {
   useDeletePostMutation, 
   useSavePostMutation
 } from './PostApiSlice';
-import PostsExcerpt from './postExcerpt';
+import PostsExcerpt from './posExcerpt';
 import Header from '../../components/Header';
 
 
@@ -146,6 +146,7 @@ const PostSingle = () => {
               setLikeCount(likeCount - 1);
               setLikeWhat(2)
             }}>Unlike</button>
+            <button className= 'post-single-like-comp-child' onClick={handleSave}>Save </button>
           </div>
           <div className='post-single-comment-parent'>
             {comments && comments.length > 0 ? (
@@ -164,8 +165,10 @@ const PostSingle = () => {
             ></input>
             <button onClick={sentNewComment} > save</button>
           </div>
-          <button onClick={handleDelete}>Delete Post</button>;
-          <button onClick={handleSave}>Save Post</button>;
+          <div className='content'>
+            <button onClick={handleDelete}>Delete Post</button>
+            
+          </div>
         </div>
       </div>
     );

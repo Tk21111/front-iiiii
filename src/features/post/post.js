@@ -70,7 +70,7 @@ content = content.length > 0 ? content?.slice(24 * page, 24 * (page + 1)) :  nul
       <Overay link={'/post/false/create/null'} />
       <div className='user-list-parent'>{content}</div>
       <div className="page-control">
-                <button onClick={() => setPage(page - 1)}  disabled={page === 0}>
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0} >
                    {"<"}
                 </button>
                 <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
