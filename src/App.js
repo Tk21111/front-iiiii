@@ -117,10 +117,11 @@ function App() {
                 <Route path=':id' element={<RecommendationSingle/>} />
               </Route>
 
-              <Route path="logout" element={<LogOut />} />
+              
             </Route>
           </Route>
         </Route>
+        <Route path="logout" element={<LogOut />} />
 
       </Route>
     </Routes>

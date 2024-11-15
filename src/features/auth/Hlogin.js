@@ -36,6 +36,7 @@ const Login = () => {
             //diffrent the ...userData is a accessToken
             console.log({...userData , user})
             dispatch(setCredentials({ ...userData, user }))
+            localStorage.setItem("login" , userData.refreshToken )
             setUser('')
             setPwd('')
             navigate('/welcome')

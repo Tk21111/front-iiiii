@@ -30,13 +30,16 @@ const PersistLogin = () => {
             const verifyRefreshToken = async () => {
                 
                 try {
-                    const response = await refresh();
+
+                    const refreshToken = localStorage.getItem('login')
+                    const response = await refresh({refreshToken}).unwrap();
                     
-                    const  accessToken  = response.data.accessToken
+                    const  accessToken  = response.accessToken
+
                     const decoded = jwtDecode(accessToken);
                     
                     //have to dispatch anyway
-                    dispatch(setCredentials({user : decoded.userinfo.username, accessToken , image : response.data.image , aka : response.data.aka}))
+                    dispatch(setCredentials({user : decoded.userinfo.username, accessToken , image : response.image , aka : response.aka}))
                     
                     setTrueSuccess(true)
                     
