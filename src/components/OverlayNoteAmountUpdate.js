@@ -51,7 +51,7 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
                 position: 'fixed',
                 top: '50%',
                 right: '50%',
-                width: '30%',
+                width: '100%',
                 transform: 'translate(50%, -50%)',
                 padding: '50px',
                 zIndex: 902,
