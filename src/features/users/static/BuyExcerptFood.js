@@ -12,8 +12,8 @@ const BuyExcerptFood = ({ i }) => {
     let content = {};
     let list = [];
     let suggestion = 0;
-    let amoutAll = 0;
-    let amoutExpAll = 0;
+    let amount = [];
+   
     let suggestionProcess = []
 
     // Push count
@@ -22,19 +22,31 @@ const BuyExcerptFood = ({ i }) => {
 
     for (let f = 1; f < i.countExp.length ; f++) {
         //2 : 1 
-        if (i?.count[f] - i?.countExp[f] / 2 >= 1) {suggestionProcess++}
+        if ((i?.count[f] || 0) - (i?.countExp[f] || 0) / 2 >= 1) {suggestionProcess++}
         list.push(["update" + f.toString(), i?.count[f] , i?.countExp[f]]);
     }
 
 
-    amoutAll = i?.count[0];
-    amoutExpAll = i?.countExp[i?.countExp?.length - 1];
+    amount[0] = ["ที่ซื้อ " , i?.count[0] || 0];
+    amount[1] =[ "ที่ใช้" , i?.count[0] - i?.count[i?.count?.length - 1] || 0];
+    amount[2] = ["ที่หมดอายุ" , i?.countExp[i?.countExp?.length - 1] || 0 ];
 
     // Logic for suggestions
-    if (suggestionProcess/list.length === 1  ) {
-        suggestion = 'as much as you want';
-    } else if (suggestionProcess/list.length >0.5) {
-        suggestion = "Maybe think again";
+    if (suggestionProcess/(list.length -1 ) === 1  ) {
+        if(amount[1][1] / amount[2][1] > 5){
+            suggestion = 'u use this a lot and left none';
+        }
+        else {
+            suggestion = 'u buy this and left none'
+        }
+        
+    } else if (suggestionProcess/(list.length -1) >0.5) {
+        if(amount[1][1] / amount[2][1] > 2){
+            suggestion = "u not use this often don't just buy in in low quntity";
+        } else {
+            suggestion = "think again u not use this often ";
+        }
+        
     } else{
         suggestion = "I don't think u need this as much";
     }
@@ -58,10 +70,18 @@ const BuyExcerptFood = ({ i }) => {
                     colors: ['blue', ...Array(list.length - 1).fill('red')]
                 }}
             />
-            <article className="centeredContainer">
-                <p style={{ textAlign: 'center' }}>{"ที่ซื้อ" + ":" + "ที่เหลือ"}</p>
-                <p style={{ textAlign: 'center', fontWeight: 'bold' }}>{amoutAll + ":" + amoutExpAll}</p>
-            </article>
+            <div className="centeredContainer" style={{flexDirection: 'row' , display: 'flex' , justifySelf: 'center'}}>
+                {amount.map(val => {
+                    return (
+                        <div style={{border : 'black solid 1px' , width: '25vi'}}>
+                            <p style={{ textAlign: 'center' }}>{val[0]}</p>
+                            <p style={{ textAlign: 'center', fontWeight: 'bold' }}>{val[1]}</p>
+                        </div>
+                    )
+                    
+                })}
+                
+            </div>
             <article className="centeredContainer">
                 <p style={{ textAlign: 'start', marginBottom: "10%" }}>{"คำแนะนำ"}</p>
                 <p>{suggestion}</p>

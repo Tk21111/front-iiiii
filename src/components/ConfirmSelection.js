@@ -44,7 +44,8 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 
                 const amountLeft = dataFood.count[dataFood.count.length - 1] - amount
 
-                await updateNote({id : dataFood.id , count : amountLeft , countExp : dataFood.countExp[dataFood.countExp.length - 1] }).unwrap()
+                //countExp for consit data with count
+                await updateNote({id : dataFood.id , count : amountLeft , countExp : dataFood.countExp[dataFood.countExp.length - 1], update: true }).unwrap()
                 
 
                 navigate(`/post`)

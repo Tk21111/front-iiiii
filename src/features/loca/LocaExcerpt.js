@@ -74,12 +74,13 @@ const LocasExcerpt = ({ i , own}) => {
                     
                     <div className="food-waste-content">
                             <div className="food-waste-details">
-                                <p>{loca?.food?.text + ' ' + i?.num}</p>
+                                <h2>{loca?.food?.text + ' :' + i?.num}</h2>
                                 <ul>
                                     <li><p>{loca.province}</p></li>
-                                    {(loca?.getPId && own)?<li><p>{"username : " +  loca.getP || null}</p></li> : null }
+                                    <p>{loca.own ? 'own' : 'get'}</p>
+                                    {(loca?.getPId && own)?<li><p>{"username : " +  loca.getPId.username || null}</p></li> : null }
                                     {(loca?.user && !own)? <li><p>{"username : " +  loca.user.username + " aka : " + loca.user.aka || null}</p></li> : null}
-                                    {(loca?._id )? <li><Link to={`/location/${loca._id}`}>single page</Link></li> : null}
+                                    {(loca?._id )? <li><Link to={`/location/${loca._id}/${(loca.own !== undefined ? true : false)}`}>single page</Link></li> : null}
                                     {(loca?.user?._id && !own)? <li><Link to={`/getuser/${loca.user._id}`}>that person</Link></li> : null}
                                     {(loca?.getPId?._id && own)? <li><Link to={`/getuser/${loca.getPId._id}`}>that person</Link></li> : null}
                                 </ul>

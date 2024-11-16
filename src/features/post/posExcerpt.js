@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link  } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
-import { useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
+import { useGetSavePostQuery, useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
 
 const PostsExcerpt = ({ i }) => {
 
     const username = useSelector(selectCurrentUser);
 
-    const [setLike] = useSetLikeMutation();
+    const [setLikeApi] = useSetLikeMutation();
     const [savePost , {isSucess : saved}] = useSavePostMutation();
 
-    const updateLike = async (like) => {
-        await setLike({ id: {[i._id] : like} }).unwrap();
+
+    const [likeList , setLikeList] = useState(i.like || []);
+    const [unLikeList , setUnLikeList] = useState(i.unlike || []);
+
+    const {data : savePostData } = useGetSavePostQuery();
+    const [postSave , setPostSave] = useState([]);
+
+    useEffect(()=> {
+        if(savePostData){
+          setPostSave(savePostData)
+        }
+      },[savePostData])
+
+
+    const handleLike = async (like) => {
+        await setLikeApi({ id: {[i._id] : like} }).unwrap();
     };
 
     const handleSave = async () => {
@@ -20,12 +34,18 @@ const PostsExcerpt = ({ i }) => {
           await savePost({id : i._id}).unwrap();
           // Optionally, navigate back to the post list or show a confirmation message
           
-            alert("saved")
+          if(postSave?.find(val => val._id === i._id)){
+            //already have one
+            setPostSave(postSave.filter(val => val._id !== i._id));
+          } else {
+            setPostSave([...postSave , i])
+          }
           
         } catch (error) {
           console.error("Failed to delete post:", error);
         }
       };
+    
     
 
 
@@ -51,11 +71,56 @@ const PostsExcerpt = ({ i }) => {
                     <div className="food-waste-details">
                         <h2>{i?.title}</h2>
                         <p>{i?.content}</p>
-                        <h2>{(i?.like?.length || 0) - (i?.unlike?.length || 0)}</h2>
+                        <h2>{likeList.length - unLikeList.length}</h2>
                         <div className='post-single-like-comp'>
-                            <button onClickCapture={() => updateLike(true)} className='post-single-like-comp-child'>like</button>
-                            <button onClickCapture={() => updateLike(false)} className='post-single-like-comp-child'>unlike</button>
-                            <button onClickCapture={() => handleSave()} className='post-single-like-comp-child'>save</button>
+                            <button 
+                                onClickCapture={() => 
+                                    {
+                                        if(likeList.find(val => val === username) ){ 
+                                            {/*back to ori as already have like*/}
+                                            handleLike(true);
+                                           
+                                            setLikeList(likeList.filter(val => val !== username))
+                                        
+                            
+                                          } else {
+                                            {/*set like*/}
+                                            {/* api*/}
+                                            handleLike(true);
+                                           
+                                            setLikeList([...likeList , username])
+                                            setUnLikeList(unLikeList.filter(val => val !== username))
+                    
+                                          }
+                                    }
+                                    } 
+                                className='post-single-like-comp-child'
+                                style={{backgroundColor : ((likeList.find(val => val === username)) ? '#FFC0CB' : 'white') , border : 'black solid 1px' }}
+                                >like</button>
+                            <button 
+                                onClickCapture={() => {
+                                    if(unLikeList.find(val => val === username)){
+                                        {/*set un unlike*/} 
+                                        {/* api*/}
+                                        handleLike(false);
+                                
+                                        setUnLikeList(unLikeList.filter(val => val !== username))
+                                     
+                        
+                                      } else {
+                                        {/* api*/}
+                                        handleLike(false);
+                
+                                        setUnLikeList([...unLikeList , username])
+                                        setLikeList(likeList.filter(val => val !== username))
+                                      }
+                                }} 
+                                className='post-single-like-comp-child'style={{backgroundColor : ((unLikeList.find(val => val === username)) ? '#FFC0CB' : 'white') , border : 'black solid 1px' }}
+                                >unlike</button>
+                            <button 
+                                className= 'post-single-like-comp-child'
+                                style={{backgroundColor : (postSave?.find(val => val._id === i._id)) ? '#FFC0CB' : 'white' , border : 'black solid 1px' }} 
+                                onClick={handleSave}>Save </button>
                         </div>
                         <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>to single</Link>
                     </div>

@@ -1,12 +1,26 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
-import { useDeletelocaMutation, useGetAlllocaQuery } from './LocaApiSlice';
+import { useDeletelocaMutation, useGetAlllocaQuery, useGetAllUserlocaQuery } from './LocaApiSlice';
 import Header from '../../components/Header';
 
 const SingleLocaPage = () => {
-    const locaId = useParams();
+    const {noteId , ofuser} = useParams();
     const navigate = useNavigate();
-    const { data, isLoading, isError } = useGetAlllocaQuery();
+
+    const { data : UserAllow, isLoading: isUserLocaLoading, isError: isUserLocaError } = useGetAllUserlocaQuery();
+    const { data : allAllow, isLoading: isLocaLoading, isError: isLocaError } = useGetAlllocaQuery();
+
+    const isLoading = ofuser ? isUserLocaLoading : isLocaLoading;
+    const isError = ofuser ? isUserLocaError : isLocaError;
+
+    let data;
+
+    if(ofuser === 'true'){
+        data = UserAllow
+    } else {
+        data = allAllow
+    }
+    
 
     const [ deleteLoca , {isLoading : isDeleting , isError : deleteErr}] = useDeletelocaMutation();
     
@@ -16,6 +30,8 @@ const SingleLocaPage = () => {
     const [succesMap , setSuccessMap] = useState(false);
     const mapRef = useRef(null);
     const scriptLoaded = useRef(false); // Ref to check if the script has been loaded
+
+
 
     useEffect(() => {
         const loadScripts = () => {
@@ -66,17 +82,17 @@ const SingleLocaPage = () => {
 
     useEffect(() => {
         if (data && data.entities) {
-            const locaData = data.entities[locaId.noteId];
+            const locaData = data.entities[noteId];
             setLoca(locaData || {}); // Safely set loca to an empty object if undefined
             setText(locaData ? locaData.text : 'Have been deleted');
         }
-    }, [data, locaId]);
+    }, [data]);
 
     const ondeletePostClicked = async(e) => {
         e.preventDefault();
-        if(locaId.noteId){
+        if(noteId){
             try {
-                await deleteLoca({ id : locaId.noteId}).unwrap();
+                await deleteLoca({ id : noteId}).unwrap();
                 navigate('/location')
             } catch (err) {
                 console.log(err)

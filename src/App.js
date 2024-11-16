@@ -96,7 +96,7 @@ function App() {
                   <Route index element={<GetOrg/>}/>
                   <Route path=":id" element={<GetOrgSingle/>}/>
                 </Route>
-                <Route path=":noteId" element={<SingleLocaPage />}/>
+                <Route path=":noteId/:ofuser" element={<SingleLocaPage />}/>
                 <Route path='test' element={<AddressFormWithMap/>} />
                 <Route path="create/:noteId/:amount" element={<LocaCreate />} />
               </Route>

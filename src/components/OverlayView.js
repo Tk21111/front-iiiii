@@ -59,7 +59,7 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
                             <div 
                                 onClickCapture={() => {
                                     if (post?.split("=")[1] === 'true') {
-                                        navigate(`/post/create/${(post.split("=")[0] === 'food' ? "food=" +  dataFood?.id : "how=" + dataFood?._id)}`);
+                                        navigate(`/post/false/create/${(post.split("=")[0] === 'food' ? "food=" +  dataFood?.id : "how=" + dataFood?._id)}`);
                                     } else if ( select === 'false'){
                                         onClose();                                       
                                     } else {

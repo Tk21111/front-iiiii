@@ -82,7 +82,7 @@ const PostCreate = () => {
     return (
         <div className='page'>
             <Header />
-            <h2>Create Recommendation</h2>
+            <h2>Create Post</h2>
             <form onSubmit={submit}>
                 <div>
                     <label>Title:</label>

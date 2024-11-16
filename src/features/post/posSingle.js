@@ -6,24 +6,37 @@ import {
   useCreateCommentMutation, 
   useGetCommentMutation,
   useDeletePostMutation, 
-  useSavePostMutation
+  useSavePostMutation,
+  useGetSavePostQuery
 } from './PostApiSlice';
 import PostsExcerpt from './posExcerpt';
 import Header from '../../components/Header';
+import PostSingleLink from './posSingleLink';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../auth/authSlice';
+import { useGetUserMutation } from '../users/NoteApiSlice';
 
 
 const PostSingle = () => {
   const { id } = useParams();
+  const username = useSelector(selectCurrentUser);
   const { data: postsData, isLoading, isError } = useGetPostQuery();
-  const [setFetchLike] = useSetLikeMutation();
+  const [getUser] = useGetUserMutation()
+  const [setLikeApi] = useSetLikeMutation();
   const [setFetchComment, {data : setComment}] = useCreateCommentMutation();
   const [getComment, { data: commentsData }] = useGetCommentMutation();
   const [deletePost] = useDeletePostMutation();
   const [savePost , {isSucess : saved}] = useSavePostMutation();
 
+  const {data : savePostData } = useGetSavePostQuery();
+  const [postSave , setPostSave] = useState([]);
+
+
   const [postSingle, setPostSingle] = useState(null);
-  const [likeCount, setLikeCount] = useState(0);
-  const [likeWhat , setLikeWhat] = useState(0)
+
+  const [likeList , setLikeList] = useState([]);
+  const [unLikeList , setUnLikeList] = useState([]);
+
   const [comments, setComments] = useState([]);
   const [newComment , setNewComment] = useState('');
   const [sendNewComment , SetSendNewcommnet] = useState(true)
@@ -31,16 +44,25 @@ const PostSingle = () => {
 
   useEffect(() => {
     if (postsData && id) {
-      const post = postsData.entities[id] // Adjust for object or array
+      let post = postsData.entities[id] // Adjust for object or array
+     
 
       if (post) {
         setPostSingle(post);
-        setLikeCount((post?.like?.length || 0 )- (post?.unlike?.length || 0));
+        setLikeList(post.like)
+        setUnLikeList(post.unlike)
+
       } else {
         console.error("Post not found in data");
       }
     }
-  }, [postsData, id , isLoading]);
+  }, [postsData, id , isLoading ]);
+
+  useEffect(()=> {
+    if(savePostData){
+      setPostSave(savePostData)
+    }
+  },[savePostData])
 
   //get comment
   useEffect(() => {
@@ -77,7 +99,12 @@ const PostSingle = () => {
       await savePost({id : postSingle._id}).unwrap();
       // Optionally, navigate back to the post list or show a confirmation message
       
-        alert("saved")
+      if(postSave?.find(val => val._id === postSingle._id)){
+        //already have one
+        setPostSave(postSave.filter(val => val._id !== postSingle._id));
+      } else {
+        setPostSave([...postSave , postSingle])
+      }
       
     } catch (error) {
       console.error("Failed to delete post:", error);
@@ -87,7 +114,7 @@ const PostSingle = () => {
 
   const handleLike = async (like) => {
     try {
-      await setFetchLike({ id: {[postSingle._id] : like} }).unwrap();
+      await setLikeApi({ id: {[postSingle._id] : like} }).unwrap();
     } catch (error) {
       console.error("Failed to update like:", error);
     }
@@ -115,6 +142,7 @@ const PostSingle = () => {
     }
   };
 
+
   let content;
   const imagePath = postSingle?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
 
@@ -124,7 +152,6 @@ const PostSingle = () => {
     content = <p>Error loading post. Please try again.</p>;
   } else {
 
-    //prep postSingleLink
     content = (
       <div className='page'>
         <Header/>
@@ -132,23 +159,62 @@ const PostSingle = () => {
           <h1>{postSingle.title}</h1>
           <h1>{postSingle.content}</h1>
           {imagePath.map(val => <img className='post-single-img'src={val} alt='pic'/>)}
+
+          {/*link*/}
+          {postSingle.food || postSingle.how || postSingle.loca ? <PostSingleLink i={postSingle}/> : null}
+
+          <h1>{likeList.length - unLikeList.length}</h1>
           <div className='post-single-like-comp'>
-            <button className= 'post-single-like-comp-child' onClick={() => {
-              if(likeWhat === 1) return null;
-              handleLike(true);
-              setLikeCount(likeCount + 1)
-              setLikeWhat(1)
-            }}>Like</button>
-            <p className= 'post-single-like-comp-child'>{likeCount}</p>
-            <button className= 'post-single-like-comp-child'  onClick={() => {
-              if(likeWhat === 2) return null;
-              handleLike(false);
-              setLikeCount(likeCount - 1);
-              setLikeWhat(2)
-            }}>Unlike</button>
-            <button className= 'post-single-like-comp-child' onClick={handleSave}>Save </button>
+          <button 
+                                onClickCapture={() => 
+                                    {
+                                        if(likeList.find(val => val === username) ){ 
+                                            {/*back to ori as already have like*/}
+                                            handleLike(true);
+                                           
+                                            setLikeList(likeList.filter(val => val !== username))
+                                        
+                            
+                                          } else {
+                                            {/*set like*/}
+                                            {/* api*/}
+                                            handleLike(true);
+                                           
+                                            setLikeList([...likeList , username])
+                                            setUnLikeList(unLikeList.filter(val => val !== username))
+                    
+                                          }
+                                    }
+                                    } 
+                                className='post-single-like-comp-child'
+                                style={{backgroundColor : ((likeList.find(val => val === username)) ? '#FFC0CB' : 'white') , border : 'black solid 1px' }}
+                                >like</button>
+                            <button 
+                                onClickCapture={() => {
+                                    if(unLikeList.find(val => val === username)){
+                                        {/*set un unlike*/} 
+                                        {/* api*/}
+                                        handleLike(false);
+                                
+                                        setUnLikeList(unLikeList.filter(val => val !== username))
+                                     
+                        
+                                      } else {
+                                        {/* api*/}
+                                        handleLike(false);
+                
+                                        setUnLikeList([...unLikeList , username])
+                                        setLikeList(likeList.filter(val => val !== username))
+                                      }
+                                }} 
+                                className='post-single-like-comp-child'style={{backgroundColor : ((unLikeList.find(val => val === username)) ? '#FFC0CB' : 'white') , border : 'black solid 1px' }}
+                                >unlike</button>
+            <button 
+            className= 'post-single-like-comp-child'
+            style={{backgroundColor : (postSave?.find(val => val._id === postSingle._id)) ? '#FFC0CB' : 'white' , border : 'black solid 1px' }} 
+            onClick={handleSave}>Save </button>
           </div>
-          <div className='post-single-comment-parent'>
+          <div className='post-single-link'>
             {comments && comments.length > 0 ? (
               comments.map(comment => { 
                 

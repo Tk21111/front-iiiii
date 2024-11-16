@@ -29,7 +29,7 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
                 
                 await updateNote({id : note.id , count : (count || 0) , countExp : (countExp || 0) , update : true }).unwrap()
                 
-
+                onCloseConfirm()
                 navigate(`/user`)
 
               } catch (err) {
