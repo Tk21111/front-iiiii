@@ -17,17 +17,10 @@ export default function OverlayCenter({ loca, open, onClose, own }) {
 
     const overlayContent = (
         <div style={{
-            position: 'fixed',
-            top: '50%',
-            right: '50%',
-            transform: 'translate(50%, -50%)',
-            padding: '50px',
             zIndex: 900,
             backgroundColor: 'rgba(255, 255, 255, 1)',
-            border: '1px',
-            borderColor : 'black',
-            borderRadius: '8px',
-        }}>
+            border: '1px solid black' , borderRadius: '2vi'
+        }} className="over-ray">
             <Confirm loca={loca} open={confirm} onCloseConfirm={() => setConfirm(false)} />
             <div>
                 <img

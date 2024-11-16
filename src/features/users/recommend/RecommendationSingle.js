@@ -57,7 +57,7 @@ const RecommendationSingle = () => {
     <div className='page'>
       <Header />
       <div className='single-parent'>
-          <div>
+          <div >
             {imagePath && imagePath.length > 0 ? (
               imagePath.map((path, i) => (
                 <img
@@ -75,7 +75,7 @@ const RecommendationSingle = () => {
                 <h1>{dataFliter[0]?.name}</h1>
                 <p>{dataFliter[0]?.des}</p>
                 <div className='tag-container'>
-                {dataFliter[0]?.tag?.map(val => <p className='tag-child' style={id?.split("=")[1]?.split('!!')[1].split(",")?.includes(val) || id?.split("=")[1]?.split('!!')[1].includes(val) || id?.split('!!')[1].includes(val) || id?.split('!!')[1].split(",").includes(val) ? {backgroundColor : '#8fce88'} : {backgroundColor : '#B1AFAF'}}>{val}</p>)}
+                {dataFliter[0]?.tag?.map(val => <p className='tag-child' style={id?.split("=")[1]?.split('!!')[1].split(",")?.includes(val) || id?.split("=")[1]?.split('!!')[1].includes(val) || id?.split('!!')[1].includes(val) || id?.split('!!')[1].split(",").includes(val) ? {backgroundColor : '#B0E7FF'} : {opacity: '.5' }}>{val}</p>)}
                 </div>
                 <p>{dataFliter[0]?.ingredent}</p>
               </>

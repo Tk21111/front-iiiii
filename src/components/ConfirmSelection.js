@@ -94,14 +94,8 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
     return ReactDom.createPortal(
         <>
             <div style={{
-                position: 'fixed',
-                top: '50%',
-                right: '50%',
-                width: '100%',
-                transform: 'translate(50%, -50%)',
-                padding: '50px',
                 zIndex: 901,
-            }}>
+            }} className="over-ray">
                 <article style={{ backgroundColor: 'rgba(255, 255, 255, 1)', width: '90%' }}>
                     <img onClick={onCloseConfirm} src={require('../components/img/back.png')} alt="back" className="smalllogo" style={{ transform: 'translate(-50%)' }} />
                     

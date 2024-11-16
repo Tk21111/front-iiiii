@@ -104,11 +104,14 @@ const BuyExcerpt = ({ i }) => {
                 data={data}
                 width="100%"
                 height="400px"
-                options={{isStacked: true}}
+                options={{
+                    isStacked: true ,
+                    legend: { position: 'none' },
+                }}
                 
             />
             <article className='centeredContainer'>
-                <p style={{textAlign: 'start'}}>{"ที่ซื้อ" + ":" + "ที่เหลือ" }</p>
+                <p style={{textAlign: 'center'}}>{"ที่ซื้อ" + ":" + "ที่เหลือ" }</p>
                 <p style={{textAlign: 'center' , fontWeight : 'bold'}}>{amoutAll + ":" + amoutExpAll}</p>
             </article>
             <article className='centeredContainer'>

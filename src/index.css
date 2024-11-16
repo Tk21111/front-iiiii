@@ -494,7 +494,10 @@ article {
   flex-direction: column;
   justify-content: space-between;
   width: 300px;
-  height: 180px;
+  height: 100px;
+  align-self: center;
+  align-items: center;
+  justify-self: center;
 }
 
 
@@ -750,7 +753,6 @@ who ever fix this im sorry tk21111 18/10/2024
 .tag-child {
   border: #000 solid 1.5px;
   text-align: center;
-  background-color: #B0E7FF;
   border-radius: 10px;
   padding: 2%;
 }
@@ -843,8 +845,13 @@ who ever fix this im sorry tk21111 18/10/2024
 }
 
 .button-update-amount {
-  width: 20%;
+  width: 40%;
+  height: 70%;
+  margin: 5%;
   align-content: center;
+  background-color: #B0E7FF; 
+  border: #000 solid 0px;
+  border-radius: 5vi;
 }
 
 .single-context {
@@ -863,4 +870,27 @@ who ever fix this im sorry tk21111 18/10/2024
   width: 50px;
   height: 30px;
   margin-left: 10%;
+}
+
+/*overray all*/
+@media (max-width : 700px){
+  .over-ray {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    width: 100%;
+    transform: translate(50%, -50%);
+    padding: 50px;
+  }
+}
+
+@media (min-width : 700px){
+  .over-ray {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    width: 90vh;
+    transform: translate(50%, -50%);
+    padding: 50px;
+  }
 }

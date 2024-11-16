@@ -27,10 +27,10 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
 
             try {
                 
-                await updateNote({id : note.id , count : (count || 0) , countExp : (countExp || 0) }).unwrap()
+                await updateNote({id : note.id , count : (count || 0) , countExp : (countExp || 0) , update : true }).unwrap()
                 
 
-                navigate(`/user/note`)
+                navigate(`/user`)
 
               } catch (err) {
                 console.error("Failed to save the post", err);
@@ -48,27 +48,20 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
     return ReactDom.createPortal(
         <>
             <div style={{
-                position: 'fixed',
-                top: '50%',
-                right: '50%',
-                width: '100%',
-                transform: 'translate(50%, -50%)',
-                padding: '50px',
                 zIndex: 902,
-            }}>
+            }}
+                className="over-ray"
+                >
                 <article style={{ backgroundColor: 'rgba(255, 255, 255, 1)', width: '90%' }}>
                     <img onClick={onCloseConfirm} src={require('../components/img/back.png')} alt="back" className="smalllogo" style={{ transform: 'translate(-50%)' }} />
                     
                     <div className="food-waste-item-sub" style={{ border: '0px' }}>
-                        <div className="food-waste-details-confirm-selection">
-                            
-                        </div>
                         <div className="food-waste-details-confirm-selection" style={{marginLeft : '10px'}}>
                             <h2>Amount</h2>
-                            <div className="content">
+                            <div className="content" style={{height : '50px'}}>
                                 <button onClick={() => (0 <= count - 1) ? setCount(count - 1)  : null} className="button-update-amount">-</button>
                                 <input
-                                    style={{ width: '30%' }}
+                                    style={{ width: '30%' , fontSize: '130%'}}
                                     value={count}
                                     onChange={(e) => setCount(e.target.value)}  // Ensure you update the state
                                     placeholder="Amount..."
@@ -78,11 +71,11 @@ export default function UpdateAmount({ note , onCloseConfirm ,  open }) {
                                 <button onClick={() => setCount(count + 1)} className="button-update-amount">+</button>
                             </div>
                             <h2>Amount Expired</h2>
-                            <div className="content">
+                            <div className="content" style={{height : '50px'}}>
                                 
                                 <button onClick={() => 0 <= countExp - 1 ? setCountExp(countExp - 1) : null} className="button-update-amount">-</button>
                                 <input
-                                    style={{ width: '30%' }}
+                                    style={{ width: '30%' , fontSize: '130%'}}
                                     value={countExp}
                                     onChange={(e) => setCountExp(e.target.value)}  // Ensure you update the state
                                     placeholder="Amount..."

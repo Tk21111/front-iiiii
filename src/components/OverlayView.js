@@ -19,15 +19,8 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
         return ReactDom.createPortal(
             <>
                 <div style={{
-                    position: 'fixed',
-                    top: '50%',
-                    right: '50%',
-                    width: '100%',
-                   
-                    transform: 'translate(50%, -50%)',
-                    padding: '50px',
                     zIndex: 800
-                }}> 
+                }} className="over-ray"> 
                     <ConfirmSelection name={name} donate={donate} imgPath={imgPath} dataFood={dataFood} open={confirm} onCloseConfirm={() => setConfirm(false)} />
                     <article style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}>
                         <img onClick={onClose} src={require('../components/img/back.png')} alt="back" className="smalllogo" style={{ transform: 'translate(-50%)' }} />
@@ -35,7 +28,7 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
                             <div>
                                 <img src={imgPath || require('../components/img/meal.png')} className="smalllogo-vertical-fix"alt="home" />
                             </div>
-                            {post?.split("=")[0] === 'food' ? (<div className="food-waste-details" style={{ width: '200px' }}>
+                            {post?.split("=")[0] === 'food' ? (<div className="food-waste-details" style={{ width: '90%', textAlign : 'center'}}>
                                 <p>{(dataFood.text.length > 10 ? dataFood.text.substr(0,10) + '..' : dataFood.text) + '\n' + ': ' + dataFood.count[dataFood.count.length - 1]}</p>
                                 <p>Created at</p>
                                 <p>{dataFood.createdAt.split('T')[0].replace(/-/g, "/")}</p>

@@ -72,7 +72,7 @@ const EditPostForm = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag: (tag.includes(',') ? tag.split(',') : tag) }).unwrap();
+                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag: (tag.includes(',') ? tag.split(',') : tag) , update : false}).unwrap();
                 navigate(`/user/note/${note.id}`)
             } catch (err) {
                 console.error('Failed to save the post', err);

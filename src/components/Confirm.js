@@ -69,23 +69,20 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
         <>
             <div
                 style={{
-                    position: 'fixed',
-                    top: '50%',
-                    right: '50%',
-                    transform: 'translate(50%, -50%)',
-                    padding: '50px',
                     zIndex: 901,
                     backgroundColor: 'rgba(255, 255, 255, 1)',
-                }}
-            >
-                <article className="confirm">
+                    border: '1px solid black' , borderRadius: '2vi',
+                    height: '30vh'
+                } }
+                className="over-ray" >
+                <div className="confirm">
                     <button onClick={onCloseConfirm} style={{ backgroundColor: 'red' }}>
                         NO
                     </button>
                     <button onClick={onDonateClicked} style={{ backgroundColor: 'green' }}>
                         Yes
                     </button>
-                </article>
+                </div>
             </div>
         </>,
         document.getElementById('portal')

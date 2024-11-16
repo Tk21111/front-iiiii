@@ -59,7 +59,7 @@ const BuyExcerptFood = ({ i }) => {
                 }}
             />
             <article className="centeredContainer">
-                <p style={{ textAlign: 'start' }}>{"ที่ซื้อ" + ":" + "ที่เหลือ"}</p>
+                <p style={{ textAlign: 'center' }}>{"ที่ซื้อ" + ":" + "ที่เหลือ"}</p>
                 <p style={{ textAlign: 'center', fontWeight: 'bold' }}>{amoutAll + ":" + amoutExpAll}</p>
             </article>
             <article className="centeredContainer">
