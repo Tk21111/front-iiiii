@@ -61,8 +61,8 @@ const GetOrg = () => {
       
     } else if (isError) {
         let msg;
-        if (error.status === 403) {
-            msg = "Access denied. Go get a random number first.";
+        if (error.status === 400) {
+            msg = "No org to donate yet";
         } else {
             msg = JSON.stringify(error);
         }

@@ -56,7 +56,7 @@ function filterEntitiesByTag(entities, wordTosearch, searchType , strict) {
         console.log(err)
     }
     
-    //obj = {[id], obj}
+    //obj = { _id, {obj}}
     return filteredEntities;
 }
 

@@ -5,6 +5,8 @@ const baseQuery = fetchBaseQuery({
     baseUrl : process.env.REACT_APP_API //'https://iiiii-is-backend.onrender.com' // 'http://localhost:3500/'
     ,credentials : 'include', //set back http-only secure cookie every time
     prepareHeaders : (headers , {getState}) =>{
+
+        //in authSlice
         const token = getState().auth.token
         if (token){
             headers.set("authorization" , `Bearer ${token}`)
@@ -14,30 +16,52 @@ const baseQuery = fetchBaseQuery({
 })
 
 //access token expire
-const baseQueryWithReauth = async (args , api , extraOptions) => {
-    let result = await baseQuery(args , api , extraOptions)
 
-    if (result?.error?.originalStatus === 403){
-        console.log('sending refresh token')
-        //send refresh token to get new access token
+//arg is builder base on what we write
+//api is an api
+const baseQueryWithReauth = async (args, api, extraOptions) => {
 
-        const refreshResult = await baseQuery('/refresh' ,api ,extraOptions)
-        console.log(refreshResult)
+    //it actully send refresh before every time api call
+    let result = await baseQuery(args, api, extraOptions);
+
+    //console.log(result)
+    if (result?.error?.originalStatus === 403) {
+        console.log('sending refresh token');
+
+        // Retrieve the refresh token from localStorage
+        const refreshToken = localStorage.getItem('login');
+        if (!refreshToken) {
+            console.error('No refresh token found, logging out');
+            api.dispatch(logOut());
+            return result;
+        }
+
+        // Send refresh token to get a new access token
+        const refreshResult = await baseQuery(
+            { url: '/refresh', method: 'POST', body: { refreshToken } },
+            api,
+            extraOptions
+        );
+
+        console.log(refreshResult);
+
         if (refreshResult?.data) {
-            const user = api.getstate().auth.user
-            //store the new token 
-            api.dispatch(setCredentials({...refreshResult.data , user}))
-            // rety the original query with new access token
+            const user = api.getState().auth.user;
 
-            result =await baseQuery(args , api , extraOptions)
+            // Store the new token
+            api.dispatch(setCredentials({ ...refreshResult.data, user }));
+
+            // Retry the original query with new access token
+            result = await baseQuery(args, api, extraOptions);
         } else {
-            api.dispatch(logOut())
-            //log out literly
+            api.dispatch(logOut());
+            console.log('Logout triggered due to failed refresh');
         }
     }
 
-    return result
-}
+    return result;
+};
+
 
 export const apiSlice = createApi({
     baseQuery : baseQueryWithReauth,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetAllNoteUserMutation } from "./../NoteApiSlice";
+import { useGetAllnoteQuery } from "./../NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../auth/authSlice";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import filterEntitiesByTag from "../comp/Search";
 
 const Static = () => {
     const currentUser = useSelector(selectCurrentUser);
-    const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation();
+    const { data: users, isLoading, isSuccess, isError, error }= useGetAllnoteQuery();
     const [hasFetched, setHasFetched] = useState(false);
     const [search, setSearch] = useState("");
     const [searchType, setSearchType] = useState("text");
@@ -18,19 +18,6 @@ const Static = () => {
     const [renderType, setRenderType] = useState("tag");
     const [page ,setPage] = useState(0);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!hasFetched) {
-                try {
-                    await getAllNoteUser({ username: currentUser });
-                    setHasFetched(true);
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
-            }
-        };
-        fetchData();
-    }, [getAllNoteUser, currentUser, hasFetched]);
 
     useEffect(() => {
         setSearchTypeEnable(renderType !== 'food');
@@ -53,7 +40,8 @@ const Static = () => {
 
         if (isSuccess) {
             if (renderType === 'food') {
-                return users?.ids.map((id) => (
+                let filteredEntities = search && users?.entities ? Object.keys(filterEntitiesByTag(users?.entities , search , searchType , false)) : users.ids;
+                return  filteredEntities?.map((id) => (
                     <BuyExcerptFood key={id} i={users.entities[id]} />
                 )).slice(page*24,(page+1)*24);
             }

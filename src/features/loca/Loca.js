@@ -63,15 +63,14 @@ const GetAllLoca = () => {
     content = content.length > 0 ? content?.slice(24 * page, 24 * (page + 1)) :  null
     } else if (isError) {
         let msg;
-        if (error.status === 403) {
-            msg = "Access denied. Go get a random number first.";
+        if (error.status === 400) {
+            msg = "no Food-Sharing yet u can create one!!";
         } else {
             msg = JSON.stringify(error);
         }
         content = (
             <section>
                 <h1>{msg}</h1>
-                <Link to="/welcome">Back to Welcome</Link>
             </section>
         );
     }

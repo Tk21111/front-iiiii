@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetAllNoteUserMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
+import { useGetAllnoteQuery, useDeleteNoteMutation, useUpdateNoteMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
@@ -16,7 +16,7 @@ const EditPostForm = () => {
     const [deletePost] = useDeleteNoteMutation();
 
     const username = useSelector(selectCurrentUser);
-    const [getAllNoteUser, { isLoading: isLoadingNotes }] = useGetAllNoteUserMutation();
+    const [getAllNoteUser, { isLoading: isLoadingNotes }] = useGetAllnoteQuery();
     const [note, setNote] = useState(null);
 
     useEffect(() => {

@@ -70,7 +70,7 @@ const PostsExcerpt = ({ i }) => {
                 <div className="food-waste-content">
                     <div className="food-waste-details">
                         <h2>{i?.title}</h2>
-                        <p>{i?.content}</p>
+                        <p>{i?.content.substr(0,20)}</p>
                         <h2>{likeList.length - unLikeList.length}</h2>
                         <div className='post-single-like-comp'>
                             <button 

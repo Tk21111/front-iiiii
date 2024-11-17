@@ -79,7 +79,7 @@ export const noteApislice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: (result, error, arg) => [
                 { type: 'Note', id: arg.id }
-            ]
+              ]
         }),
 
         updateUser: builder.mutation({
@@ -142,7 +142,20 @@ export const noteApislice = apiSlice.injectEndpoints({
             query : () => ({
                 url : '/how',
                 method : 'GET',
-            })
+            }),
+            //no tranfrom effect render so no
+            providesTags: (result, error, arg) => {
+
+                if (result?.length > 0) {
+                    return [
+                        { type: 'How', id: 'LIST' },
+                        ...result.map(id => {
+                            const resultId = id._id;
+                            return ({ type: 'How', resultId })
+                        })
+                    ]
+                } else return [{ type: 'How', id: 'LIST' }]
+            }
          }),
          setHow : builder.mutation({
             query : (data) => ({
@@ -151,8 +164,10 @@ export const noteApislice = apiSlice.injectEndpoints({
                 credential : 'includes',
                 body : data.formData,
 
-            })
+            }), 
+            invalidatesTags : [{ type : 'How' , id :  'List'}]
          }),
+         //this one is not be use
          updateHow : builder.mutation({
             query : (data) => ({
                 url : '/how/update',
@@ -173,13 +188,16 @@ export const noteApislice = apiSlice.injectEndpoints({
                     ...data
                 }
             }),
+            invalidatesTags : (result , error ,arg) => [
+                {type : 'How' , id : arg._id}
+            ]
          }),
             
     })
 });
 
 
-export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllNoteUserMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
+export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetAllNoteUserMutation } from "./NoteApiSlice";
+import { useGetAllnoteQuery } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
 
@@ -18,7 +18,7 @@ const GetAllNoteUserExp = () => {
 
 
     const user = { username: useSelector(selectCurrentUser) };
-    const [getAllNoteUser , { data, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
+    const  { data, isLoading, isSuccess, isError, error } = useGetAllnoteQuery(('noteUser', {
         pollingInterval: 15000,
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
@@ -27,22 +27,6 @@ const GetAllNoteUserExp = () => {
 
     const [search, setSearch] = useState("");
     const [searchType, setSearchType] = useState("text");
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (!hasFetched) {
-                    await getAllNoteUser(user);
-                    setHasFetched(true);
-                    console.log('f')
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, [ hasFetched]);
 
     let content;
 
@@ -60,7 +44,6 @@ const GetAllNoteUserExp = () => {
         // Loop through each item in `data.ids`
         for (let i of data.ids) {
             const dataSingle = data.entities[i];
-            console.log(dataSingle);
         
             // Convert `timeOut` to Date object
             const dt1 = new Date(dataSingle.timeOut.split('T')[0]);
@@ -80,7 +63,6 @@ const GetAllNoteUserExp = () => {
             dateDiff[diff].push(dataSingle);
         }
         
-        console.log(dateDiff);
         
         const KEYDATEDIFF = Object.keys(dateDiff);
         
@@ -113,7 +95,6 @@ const GetAllNoteUserExp = () => {
         }
         
         // If needed, you can join `contentChild` array into a string and use it in your HTML
-        console.log(content)
         
         
         if (!data){

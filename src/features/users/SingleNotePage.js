@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useGetAllNoteUserMutation } from './NoteApiSlice';
+import { useGetAllnoteQuery } from './NoteApiSlice';
 import {useSelector} from 'react-redux'
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
@@ -14,7 +14,7 @@ const SinglePostPage = () => {
 
     const URL = '${process.env.REACT_APP_API}/'
     const username = useSelector(selectCurrentUser);
-    const [getAllNoteUser , { isLoading }] = useGetAllNoteUserMutation();
+    const [getAllNoteUser , { isLoading }] = useGetAllnoteQuery();
     const [note, setNote] = useState(null);
 
     useEffect(() => {

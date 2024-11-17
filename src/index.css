@@ -431,6 +431,14 @@ article {
     right: 50%;
     transform: translate(48.5%, -30%);
   }
+  .user-list-parent {
+    display: grid;                  /* Enable CSS Grid */
+    grid-template-columns: repeat(6, 1fr);  /* 3 equal-width columns */
+    grid-gap: 1px;                 /* Space between grid items */
+    justify-items: center;          /* Center items horizontally */
+    align-items: center;            /* Center items vertically */
+    margin: 1%;  
+  }
 }
 @media (max-width : 600px) {
   .welcome-main {
@@ -895,10 +903,21 @@ who ever fix this im sorry tk21111 18/10/2024
   }
 }
 
-.post-single-link {
-   border: 1px solid black;
-    border-radius: 10px;
-    width: 50%;
-    margin: 5%;
-    padding: 2%;
+@media (min-width : 700px){
+  .post-single-link {
+    border: 1px solid black;
+      border-radius: 10px;
+      width: 80vh;
+      margin: 5%;
+      padding: 2%;
+  }
+}
+@media (max-width : 700px){
+  .post-single-link {
+    border: 1px solid black;
+      border-radius: 10px;
+      width: 100%;
+      margin: 5%;
+      padding: 2%;
+  }
 }

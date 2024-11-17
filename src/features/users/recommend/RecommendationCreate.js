@@ -19,19 +19,31 @@ const RecommendationCreate = () => {
         e.preventDefault(); // Prevent default form submission
     
         if (!des || !tag || !food) return; // Ensure description and tag are provided
+
+        let TmpList = {};
+        for (let k of ingredent){
+            TmpList[k['0']] = k['1']
+        }
+
+        console.log(TmpList)
+
+        const TmpIngredent =  Object.entries(ingredent).map(([key, value]) => ({ [key]: value }))
+
+        console.log(typeof(TmpIngredent))
     
         const formData = new FormData();
         formData.append('name', food);
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
-        formData.append('ingredent', (ingredent)); 
+        formData.append('ingredent', TmpIngredent ); 
     
         // Append all selected images to FormData
         imagePaths.forEach((file) => {
             formData.append('images', file); // Change 'image' to 'images'
         });
     
+        
         try {
             await setHow({formData}).unwrap();
             // Reset form fields after submission
@@ -43,9 +55,11 @@ const RecommendationCreate = () => {
             setImagePaths([]);
             setImagePreviews([]);
             navigate('/recommend');
+        
         } catch (err) {
             console.error(err);
         }
+            
     };
     
 
@@ -76,6 +90,9 @@ const RecommendationCreate = () => {
     const removeIngredient = (index) => {
         setIngredent(prev => prev.filter((_, i) => i !== index));
     };
+
+    console.log(ingredent.map(val => ({ [val['0']]: val['1'] })));
+
 
     return (
         <div className='page'>

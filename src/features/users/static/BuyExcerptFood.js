@@ -67,7 +67,7 @@ const BuyExcerptFood = ({ i }) => {
                 height="400px"
                 options={{
                     legend: { position: 'none' },
-                    colors: ['blue', ...Array(list.length - 1).fill('red')]
+                    colors: ['blue' , 'red']
                 }}
             />
             <div className="centeredContainer" style={{flexDirection: 'row' , display: 'flex' , justifySelf: 'center'}}>

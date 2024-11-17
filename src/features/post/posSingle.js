@@ -7,7 +7,8 @@ import {
   useGetCommentMutation,
   useDeletePostMutation, 
   useSavePostMutation,
-  useGetSavePostQuery
+  useGetSavePostQuery,
+  selectAllposts
 } from './PostApiSlice';
 import PostsExcerpt from './posExcerpt';
 import Header from '../../components/Header';
@@ -41,6 +42,8 @@ const PostSingle = () => {
   const [newComment , setNewComment] = useState('');
   const [sendNewComment , SetSendNewcommnet] = useState(true)
   const [newImage , setnewImage] = useState([]);
+
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (postsData && id) {
@@ -143,7 +146,8 @@ const PostSingle = () => {
   };
 
 
-  let content;
+  let lContent =  comments?.length / 24;
+  let content
   const imagePath = postSingle?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
 
   if (isLoading) {
@@ -157,7 +161,7 @@ const PostSingle = () => {
         <Header/>
         <div className='post-single-content'>
           <h1>{postSingle.title}</h1>
-          <h1>{postSingle.content}</h1>
+          <p style={{margin : '2%'}}>{postSingle.content}</p>
           {imagePath.map(val => <img className='post-single-img'src={val} alt='pic'/>)}
 
           {/*link*/}
@@ -216,7 +220,7 @@ const PostSingle = () => {
           </div>
           <div className='post-single-link'>
             {comments && comments.length > 0 ? (
-              comments.map(comment => { 
+              comments.slice(24 * page, 24 * (page + 1)).map(comment => { 
                 
                 return (
                 <PostsExcerpt key={comment._id} i={comment} />
@@ -224,6 +228,14 @@ const PostSingle = () => {
             ) : (
               <p>No comment</p>
             )}
+            <div className="page-control" style={{opacity : (!comments ? 1 : 0)}}>
+                <button onClick={() => setPage(page - 1)}  disabled={page === 0} >
+                   {"<"}
+                </button>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                    {">"}
+                </button>
+            </div>
             <input
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}

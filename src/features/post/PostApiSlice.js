@@ -2,7 +2,7 @@ import { apiSlice } from "../../app/api/apiSlice";
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 
 const postAdapter = createEntityAdapter({
-  sortComparer: (a, b) => (a.user === b.user ? 0 : a.user ? 1 : -1),
+  sortComparer: (a, b) => (a.title === b.title ? 0 : a.title ? 1 : -1),
 });
 
 const initialState = postAdapter.getInitialState();
@@ -12,11 +12,11 @@ export const postApislice = apiSlice.injectEndpoints({
     getPost: builder.query({
       query: () => "/post",
       transformResponse: (responseData) => {
-        const loadedLoca = responseData.map((loca) => {
-          loca.id = loca._id;
-          return loca;
+        const loadedPost = responseData.map((post) => {
+          post.id = post._id;
+          return post;
         });
-        return postAdapter.setAll(initialState, loadedLoca);
+        return postAdapter.setAll(initialState, loadedPost);
       },
       providesTags: (result, error, arg) => {
         if (result?.ids) {
@@ -67,7 +67,7 @@ export const postApislice = apiSlice.injectEndpoints({
            body : data          
         }),
         invalidatesTags: (result, error, arg) => [
-            { type: 'Post', id: arg.id }
+          { type: 'Post', id: arg.id }
         ]
     }),
     

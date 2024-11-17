@@ -60,8 +60,8 @@ const GetAlluserLoca = () => {
         lContent = content.length / 24
     content = content.length > 0 ? content?.slice(24 * page, 24 * (page + 1)) :  null    } else if (isError) {
         let msg;
-        if (error.status === 403) {
-            msg = "Access denied. Go get a random number first.";
+        if (error.status === 400) {
+            msg = "No Food to recive or give";
         } else {
             msg = JSON.stringify(error);
         }

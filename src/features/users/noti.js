@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { Link } from 'react-router-dom';
-import { useGetAllNoteUserMutation, useGetNotiQuery, useSetNotiMutation } from './NoteApiSlice';
+import { useGetAllnoteQuery, useGetNotiQuery, useSetNotiMutation } from './NoteApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 
 const Noti = () => {
   const user = { username: useSelector(selectCurrentUser) };
 
-  const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllNoteUserMutation(('noteUser', {
+  const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllnoteQuery(('noteUser', {
     pollingInterval: 15000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

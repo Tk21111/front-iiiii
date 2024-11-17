@@ -1,53 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllNoteUserMutation } from "./NoteApiSlice";
+import { useGetAllnoteQuery } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverayCenterView from '../../components/OverlayView';
 
 const NotesExcerptSmall = ({ i , donate , select ,name , post}) => {
-    const username = useSelector(selectCurrentUser);
 
-    const [getAllNoteUser] = useGetAllNoteUserMutation();
-    const [note, setNote] = useState(null);
-    const [set , setSet] =useState(false)
-
-    
     const [overray , setOverray] = useState(false);
-    useEffect (()=> {
-        if(!note){
-            setNote(i);
-            setSet(true)
-        }
-    }, [i,note])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!note && set){
-                try {
-                    const result = await getAllNoteUser({ username }).unwrap();
-                    setNote(result.entities[Object.keys(i)]);
-                    setSet(true)
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            }    
-        };
-
-        fetchData();
-    }, [getAllNoteUser , note]);
-
-    let imagePath = null;
+  
+    let imagePath ;
 
     if(i?.images?.length){
         imagePath = `${process.env.REACT_APP_API}/${i?.images?.toString().replace(/\\/g, '/')}`;
     }
 
-    if (!note) {
+    if (!i) {
         return <p>Loading...</p>;
     }
     return (
-        <div onClickCapture= {() => setOverray(true)}class="food-waste-item-vertical">
+        <div onClickCapture= {() => setOverray(true)}class="exp-child" style={{border: 'black solid 1px' , padding: '2%' , borderRadius: '20px'}}>
             <OverayCenterView imgPath={imagePath} dataFood={i} open={overray} onClose={() => setOverray(false)} donate={donate} select={select} name={name} post={post}/>
             <div className='food-waste-front'>
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist-vertical' />

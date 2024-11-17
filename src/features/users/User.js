@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  useGetAllNoteUserMutation,
+  useGetAllnoteQuery,
 } from "./NoteApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../auth/authSlice";
@@ -16,10 +16,7 @@ const GetAllNoteUser = () => {
   const [page, setPage] = useState(0);
 
   const user = { username: useSelector(selectCurrentUser) };
-  const [
-    getAllNoteUser,
-    { data: users, isLoading, isSuccess, isError, error },
-  ] = useGetAllNoteUserMutation(
+  const { data: users, isLoading, isSuccess, isError, error } = useGetAllnoteQuery(
     ("noteUser",
     {
       pollingInterval: 15000,
@@ -32,21 +29,6 @@ const GetAllNoteUser = () => {
   const [search, setSearch] = useState("");
   const [searchType, setSearchType] = useState("text");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!hasFetched) {
-          await getAllNoteUser(user);
-          setHasFetched(true);
-          console.log("f");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [hasFetched]);
 
   let content;
   let lContent;
@@ -127,8 +109,8 @@ else if (isError) {
           <option value="text">Text</option>
           <option value="tag">Tag</option>
         </select>
+        {/*end search comp*/}
       </div>
-      {/*end search comp*/}
       <div className="user-list-parent">{content}</div>
       <div className="page-control">
         <button onClick={() => setPage(page - 1)} disabled={page === 0}>

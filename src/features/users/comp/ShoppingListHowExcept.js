@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllNoteUserMutation } from "../NoteApiSlice";
+import { useGetAllnoteQuery } from "../NoteApiSlice";
 import { selectCurrentUser } from '../../auth/authSlice';
 import { useSelector } from 'react-redux';
 import OverayCenterView from '../../../components/OverlayView';

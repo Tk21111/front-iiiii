@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllNoteUserMutation } from "../NoteApiSlice";
+import { useGetAllnoteQuery } from "../NoteApiSlice";
 import { selectCurrentUser } from '../../auth/authSlice';
 import { useSelector } from 'react-redux';
 
@@ -9,25 +9,14 @@ import Chart from 'react-google-charts';
 const BuyExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
 
-    const [getAllNoteUser] = useGetAllNoteUserMutation();
 
-    //obj key = _id 
-    const [note, setNote] = useState(null);
-    const [set , setSet] =useState(false);
-
-    useEffect (()=> {
-        if(!note){
-            setNote(i);
-            setSet(true)
-        }
-    }, [i,note])
 
     //key with tag
-    let key = note ? Object.keys(note) : 0;
+    let key = i ? Object.keys(i) : 0;
 
     let tag;
     if (Array.isArray(key)){
-        tag = note.tag
+        tag = i.tag
         key.pop();
     
     if (key.length === 0){
@@ -47,10 +36,10 @@ const BuyExcerpt = ({ i }) => {
         //get all of count and countExp        
         for (let f of key){
             try {
-                let entities = note[f]
+                let entities = i[f]
                 const TmpExp = entities?.countExp
-                for (i = 0 ; i <= entities?.countExp?.length -1 ; i++){
-                    list.push([entities?.text + "(" + i + ")" , entities?.count[i] , entities?.countExp[i]]);
+                for (f = 0 ; f <= entities?.countExp?.length -1 ; f++){
+                    list.push([entities?.text + "(" + f + ")" , entities?.count[f] , entities?.countExp[f]]);
                 }
                 amoutAll += entities?.count[0];
                 amoutExpAll += entities?.countExp[entities?.countExp?.length - 1];
@@ -73,7 +62,7 @@ const BuyExcerpt = ({ i }) => {
         
     } 
 
-    if (!note) {
+    if (!i) {
         return <p>Loading...</p>;
     }
 
