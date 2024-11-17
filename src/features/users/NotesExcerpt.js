@@ -34,7 +34,7 @@ const PostsExcerpt = ({ i }) => {
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist' />
             </div>
                 <div class="food-waste-content">
-                        <div class="food-waste-details">
+                        <div class="food-waste-details" style={{fontSize : '55%'}}>
                             <ul>
                                 <div className='tag-container' style={{marginLeft : '0px' , paddingLeft : '0px'}}>
                                     <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>

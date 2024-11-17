@@ -35,11 +35,14 @@ const PostCreate = () => {
 
         try {
             await createPost({ formDataPost }).unwrap();
+
+            
             setContent('');
             setTitle('');
             setImagePaths([]);
             setImagePreviews([]);
             navigate('/post/false');
+            
         } catch (err) {
             console.error(err);
             alert('Error: Unable to create post. Please try again.');

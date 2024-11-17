@@ -13,24 +13,11 @@ const EditPostForm = () => {
     const navigate = useNavigate();
 
     const [updateNote, { isLoading }] = useUpdateNoteMutation();
-    const [deletePost] = useDeleteNoteMutation();
+    const [deletePost , {isLoading : isDeleting}] = useDeleteNoteMutation();
 
     const username = useSelector(selectCurrentUser);
-    const [getAllNoteUser, { isLoading: isLoadingNotes }] = useGetAllnoteQuery();
-    const [note, setNote] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await getAllNoteUser({ username }).unwrap();
-                setNote(result.entities[noteId]);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, [getAllNoteUser, username, noteId]);
+    const  { data : note , isLoading: isLoadingNotes }= useGetAllnoteQuery();
+   
 
     const [title, setTitle] = useState('');
     const [expTime, setExpTime] = useState('');
@@ -41,12 +28,13 @@ const EditPostForm = () => {
 
     useEffect(() => {
         if (note) {
-            setTitle(note.text ?? '');
-            setExpTime(note.timeOut ? note.timeOut.split('T')[0] : '');
-            setCount(note.count[note.count.length - 1] ?? 0);
-            setCountExp(note.countExp[note.countExp.length - 1] ?? 0);
-            setTag(note.tag ?? '');
-            setDone(note.done ?? false);
+            const Tmp = note.entities[noteId]
+            setTitle(Tmp.text ||'');
+            setExpTime(Tmp.timeOut ? Tmp.timeOut.split('T')[0] : '');
+            setCount(Tmp?.count[Tmp?.count?.length - 1] || 0);
+            setCountExp(Tmp?.countExp[Tmp?.countExp?.length - 1] || 0);
+            setTag(Tmp.tag || '');
+            setDone(Tmp.done || false);
         }
     }, [note]);
 
@@ -72,8 +60,8 @@ const EditPostForm = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNote({ id: note.id, text: title, date: expTime, count, countExp, done, tag: (tag.includes(',') ? tag.split(',') : tag) , update : false}).unwrap();
-                navigate(`/user/note/${note.id}`)
+                await updateNote({ id: noteId, text: title, date: expTime, count, countExp, done, tag: (tag.includes(',') ? tag.split(',') : tag) , update : false}).unwrap();
+                navigate(`/user/note/${noteId}`)
             } catch (err) {
                 console.error('Failed to save the post', err);
             }
@@ -150,13 +138,14 @@ const EditPostForm = () => {
                     <button
                         type="button"
                         onClick={onSavePostClicked}
-                        disabled={!canSave}
+                        disabled={!canSave || isLoading || isDeleting }
                     >
                         Save Post
                     </button>
                     <button className="deleteButton"
                         type="button"
                         onClick={onDeletePostClicked}
+                        disabled={isLoading || isDeleting }
                     >
                         Delete Post
                     </button>

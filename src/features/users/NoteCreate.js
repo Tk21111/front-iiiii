@@ -368,10 +368,10 @@ const CreateNote = () => {
               </button>
             </div>
           ))}
-          <button type="button" onClick={handleAddNote}>
+          <button type="button" onClick={handleAddNote} disable={isLoading}>
             Add Another Note
           </button>
-          <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
+          <button type="button" onClick={onSavePostClicked} disabled={!canSave || isLoading}>
             Save Post
           </button>
         </form>

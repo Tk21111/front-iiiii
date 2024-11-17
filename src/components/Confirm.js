@@ -12,9 +12,12 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
     const name = useSelector(selectCurrentUser);
     const [donate, { isLoading: isDonating, isError: donateErr }] = useDonatelocaMutation();
     const [createNote, { isLoading, isSuccess }] = useCreateNoteMutation();
-    const [createPost , {data : post}] = useCreatePostMutation()
+    const [createPost , {data : post , isLoading : isPosting}] = useCreatePostMutation()
 
     const onDonateClicked = async (e) => {
+        e.preventDefault()
+
+        if(isLoading || isDonating || isPosting) return null
 
         const onSent = async (loca , name) => {
             try {
@@ -30,7 +33,6 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                
                 //create note for the recive user
                 const cN = await createNote({ formData }).unwrap();
-                console.log(cN)
             } catch (err) {
                 console.log(err);
             }

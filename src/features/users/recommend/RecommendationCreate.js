@@ -27,6 +27,7 @@ const RecommendationCreate = () => {
 
         console.log(TmpList)
 
+        //.entries like forEach but for obj
         const TmpIngredent =  Object.entries(ingredent).map(([key, value]) => ({ [key]: value }))
 
         console.log(typeof(TmpIngredent))
@@ -36,12 +37,16 @@ const RecommendationCreate = () => {
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
-        formData.append('ingredent', TmpIngredent ); 
+        formData.append('ingredent', JSON.stringify(TmpIngredent) ); 
     
         // Append all selected images to FormData
         imagePaths.forEach((file) => {
             formData.append('images', file); // Change 'image' to 'images'
         });
+
+        console.log(formData.get('ingredent'))
+
+        
     
         
         try {
@@ -59,6 +64,8 @@ const RecommendationCreate = () => {
         } catch (err) {
             console.error(err);
         }
+
+        
             
     };
     

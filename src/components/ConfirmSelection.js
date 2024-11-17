@@ -11,7 +11,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
     const navigate = useNavigate();
 
     const [createNote , {data , isLoading , isSuccess}] = useCreateNoteMutation();
-    const [updateNote , {data: update , isSuccess : userEndSuccess}] = useUpdateNoteMutation();
+    const [updateNote , {data: update , isLoading : loading}] = useUpdateNoteMutation();
     
 
     if (!open) {
@@ -48,7 +48,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 await updateNote({id : dataFood.id , count : amountLeft , countExp : dataFood.countExp[dataFood.countExp.length - 1], update: true }).unwrap()
                 
 
-                navigate(`/post`)
+                navigate(`/welcome`)
 
               } catch (err) {
                 console.error("Failed to save the post", err);
@@ -120,7 +120,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                             <p>{dataFood.text.substr(0, 10) + '\n' + ': ' + dataFood.count[dataFood.count.length -1 ]}</p>
                         </div>
                         <div className="food-waste-details">
-                            <div onClick={() => sent(dataFood, amount)} style={{
+                            {isLoading || loading ? <div onClick={() => sent(dataFood, amount)} style={{
                                 border: '1px solid black',
                                 backgroundColor: '#92F356',
                                 borderRadius: '5px',
@@ -135,7 +135,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                                     maxHeight: '100%',
                                     objectFit: 'contain'
                                 }} />
-                            </div>
+                            </div> : null}
                         </div>
                     </div>
                 </article>

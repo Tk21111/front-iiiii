@@ -133,9 +133,6 @@ const CreatePost = () => {
 
                     <label htmlFor="locaImages">Upload Images:</label>
                     <input type="file" id="locaImages" name="locaImages" onChange={onImageChange} multiple />
-                    <button onClick={handleSubmit} style={{ marginTop: '1rem' }}>
-        Submit
-      </button>
                     <div>
                         {imagePreviews.map((preview, index) => (
                             <div key={index} style={{ display: 'inline-block', margin: '10px', position: 'relative' }}>
@@ -161,7 +158,7 @@ const CreatePost = () => {
                         ))}
                     </div>
 
-                    <button type="button" onClick={onSavePostClicked}>
+                    <button type="button" onClick={onSavePostClicked} disabled={isLoading}>
                         Save Post
                     </button>
                 </form>
