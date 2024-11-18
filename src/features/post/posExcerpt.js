@@ -57,7 +57,7 @@ const PostsExcerpt = ({ i }) => {
     const imageUserPath = i?.user?.image?.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
 
     return (
-        <div className="food-waste-item">
+        <div className="food-waste-item" style={{height : '150px'}}>
             <div className="food-waste-front">
                 <img
                     src={imageUserPath ? imageUserPath[0] : require('../../components/img/home.png')}
