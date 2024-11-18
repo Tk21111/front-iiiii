@@ -850,6 +850,8 @@ who ever fix this im sorry tk21111 18/10/2024
 .page-control button {
   margin: 2%;
   padding: 10%;
+  height : 5vh;
+  width : 10 vh;
 }
 
 .button-update-amount {
