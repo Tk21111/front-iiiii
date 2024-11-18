@@ -273,7 +273,7 @@ const CreateNote = () => {
         </div>
         <form>
           {notes.map((note, index) => (
-            <div key={index}>
+            <form key={index}>
               <label htmlFor={`postTitle-${index}`}>Food name:</label>
               <input
                 type="text"
@@ -366,13 +366,13 @@ const CreateNote = () => {
               <button type="button" onClick={() => handleRemoveImage(index)}>
                 Remove Image
               </button>
-            </div>
+            </form>
           ))}
           <button type="button" onClick={handleAddNote} disable={isLoading}>
             Add Another Note
           </button>
           <button type="button" onClick={onSavePostClicked} disabled={!canSave || isLoading}>
-            Save Post
+            Save Note
           </button>
         </form>
       </section>

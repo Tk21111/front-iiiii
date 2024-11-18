@@ -2,7 +2,16 @@ import { apiSlice } from "../../app/api/apiSlice";
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 
 const postAdapter = createEntityAdapter({
-  sortComparer: (a, b) => (a.title === b.title ? 0 : a.title ? 1 : -1),
+  sortComparer: (a, b) => {
+    // Compare dates first
+    const dateComparison = new Date(b.date) - new Date(a.date);
+    if (dateComparison !== 0) {
+        return dateComparison; // Use date comparison if dates are different
+    }
+    // If dates are the same, compare by __v
+    return b.__v - a.__v;
+},
+
 });
 
 const initialState = postAdapter.getInitialState();
@@ -38,7 +47,6 @@ export const postApislice = apiSlice.injectEndpoints({
     }),
     createPost: builder.mutation({
       query: (data) => {
-        console.log(data); // Logging data outside the return object
         return {
           url: "/post",
           method: "POST",

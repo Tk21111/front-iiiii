@@ -120,7 +120,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                             <p>{dataFood.text.substr(0, 10) + '\n' + ': ' + dataFood.count[dataFood.count.length -1 ]}</p>
                         </div>
                         <div className="food-waste-details">
-                            {isLoading || loading ? <div onClick={() => sent(dataFood, amount)} style={{
+                            {<div onClick={() => sent(dataFood, amount)} style={{
                                 border: '1px solid black',
                                 backgroundColor: '#92F356',
                                 borderRadius: '5px',
@@ -135,7 +135,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                                     maxHeight: '100%',
                                     objectFit: 'contain'
                                 }} />
-                            </div> : null}
+                            </div>}
                         </div>
                     </div>
                 </article>

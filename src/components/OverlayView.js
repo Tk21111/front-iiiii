@@ -9,13 +9,10 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
 
     const navigate = useNavigate()
 
-    console.log(dataFood)
-
     if (!open) {
         return null;
     }
 
-    console.log(dataFood)
         return ReactDom.createPortal(
             <>
                 <div style={{
@@ -41,11 +38,10 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
                                 <p>{dataFood.des}</p>
                                 <h2>tag</h2>
                                 <p>{dataFood.tag.toString()}</p>
-                                <h2>ingredent //fix later check format in recommentCreate</h2>
-                                {dataFood.ingredent.map(val => 
+
+                                {Object.keys(dataFood.ingredent).map(val => 
                                 <>
-                                    <p>{val["0"]}</p>
-                                    <p>{val["1"]}</p>
+                                    <p>{val + " ; " + dataFood.ingredent[val]}</p>
                                 </>
                             )}
                             </div>

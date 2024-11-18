@@ -27,8 +27,10 @@ const BuyExcerptFood = ({ i }) => {
     }
 
 
-    amount[0] = ["ที่ซื้อ " , i?.count[0] || 0];
-    amount[1] =[ "ที่ใช้" , i?.count[0] - i?.count[i?.count?.length - 1] || 0];
+    amount[0] = ["ที่ซื้อ " , i?.count.reduce((prev , curr)=>{
+        return curr > prev ? curr : prev
+    }) || 0];
+    amount[1] =[  i?.count[0] - i?.count[i?.count?.length - 1] >= 0? "ที่ใช้" : "ที่เพิ่ม" , Math.abs(i?.count[0] - i?.count[i?.count?.length - 1]) || 0];
     amount[2] = ["ที่หมดอายุ" , i?.countExp[i?.countExp?.length - 1] || 0 ];
 
     // Logic for suggestions

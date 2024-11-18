@@ -11,6 +11,7 @@ const LocasExcerpt = ({ i , own}) => {
 
     const navigate = useNavigate();
 
+    const username = useSelector(selectCurrentUser)
     const [loca, setLoca] = useState(null);
     const [text, setText] = useState('');
     const [set , setSet] =useState(false)
@@ -56,11 +57,6 @@ const LocasExcerpt = ({ i , own}) => {
         return <p>Location not found</p>;
     }
 
-
-
-    const imagePath = loca?.imageUser?.map(p => { return `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`}) || [];
-
-
     return (
         
         
@@ -77,7 +73,7 @@ const LocasExcerpt = ({ i , own}) => {
                                 <h2>{loca?.food?.text + ' :' + i?.num}</h2>
                                 <ul>
                                     <li><p>{loca.province}</p></li>
-                                    <p>{loca.own ? 'own' : 'get'}</p>
+                                    <p>{loca.user.username === username ? 'own' : 'get'}</p>
                                     {(loca?.getPId && own)?<li><p>{"username : " +  loca.getPId.username || null}</p></li> : null }
                                     {(loca?.user && !own)? <li><p>{"username : " +  loca.user.username + " aka : " + loca.user.aka || null}</p></li> : null}
                                     {(loca?._id )? <li><Link to={`/location/${loca._id}/${(loca.own !== undefined ? true : false)}`}>single page</Link></li> : null}

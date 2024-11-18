@@ -81,9 +81,9 @@ const EditPostForm = () => {
         <div className='page'>
             <Header/>
             <section>
-                <h2>Edit Post</h2>
+                <h2>Edit Note</h2>
                 <form>
-                    <label htmlFor="postTitle">Post Title:</label>
+                    <label htmlFor="postTitle">Note Title:</label>
                     <input
                         type="text"
                         id="postTitle"
@@ -99,7 +99,7 @@ const EditPostForm = () => {
                         value={expTime}
                         onChange={onExpTimeChanged}
                     />
-                    <label htmlFor="postCount">Count:</label>
+                    <label htmlFor="postCount">Amount:</label>
                     <input
                         type="number"
                         id="postCount"
@@ -109,7 +109,7 @@ const EditPostForm = () => {
                         max="999"
                         min="0"
                     />
-                    <label htmlFor="postCountExp">CountExp:</label>
+                    <label htmlFor="postCountExp">Amount Exp:</label>
                     <input
                         type="number"
                         id="postCountExp"

@@ -8,7 +8,7 @@ import { selectCurrentUser } from '../auth/authSlice';
 const Noti = () => {
   const user = { username: useSelector(selectCurrentUser) };
 
-  const [getAllNoteUser, { data: users, isLoading, isSuccess, isError, error }] = useGetAllnoteQuery(('noteUser', {
+  const { data: users, isLoading, isSuccess, isError, error } = useGetAllnoteQuery(('noteUser', {
     pollingInterval: 15000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -21,21 +21,6 @@ const Noti = () => {
   const [newNoti, setNewNoti] = useState(null);
   const [content, setContent] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!hasFetched) {
-          await getAllNoteUser(user);
-          setHasFetched(true);
-          console.log('fetched');
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [hasFetched]);
 
   useEffect(() => {
     // Function to generate a random note and create notification object

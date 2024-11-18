@@ -288,7 +288,7 @@ const Recommend = () => {
                 onChange={(e) => setSearchType(e.target.value)}
             >   
                 <option value="text">Text</option>
-                <option value="tag">Tag</option>
+                <option value="tag">Ingredent</option>
             </select>
             {/* end search comp */}
 

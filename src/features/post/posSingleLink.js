@@ -36,7 +36,7 @@ const PostSingleLink = ({i}) => {
           <h2>{data?.name}</h2>
           {data?.tag?.map(val => <p className='tag-child'>{val}</p>)}
           <p>{data?.des}</p>
-          <p>{data?.ingredent}</p>
+          <p>{Object.keys(data?.ingredent).map(val => <p>{data?.ingredent[val]}</p>)}</p>
       </div>
     )
   } else if (i?.loca){
@@ -47,7 +47,7 @@ const PostSingleLink = ({i}) => {
     content =  (
       <div className='single-parent'>
           {imagePath?.map(val => <img className='post-single-img'src={val} alt='pic'/>)}
-          <h2>{data?.name}</h2>
+          <h2>{data?.food.text}</h2>
           <p>{data?.num}</p>
           <p>{data?.more}</p>
           {/* own : true //make the locaSingle work when loca is not public anymore*/}

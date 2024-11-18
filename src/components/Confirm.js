@@ -53,10 +53,10 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                 formDataPost.append('locaOwner' , loca.user.username );
 
                 //set Conversation
-                await createPost({formDataPost}).unwrap()
+                const Succes = await createPost({formDataPost}).unwrap()
                 
                 onCloseConfirm();
-                navigate(`/post/true`);
+                navigate(`/post/true/${Succes._id}`);
             } catch (err) {
                 console.error(err);
             }
