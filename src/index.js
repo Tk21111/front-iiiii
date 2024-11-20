@@ -6,6 +6,8 @@ import App from './App';
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 
+import './i18n'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 

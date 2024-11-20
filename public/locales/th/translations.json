@@ -1,0 +1,18 @@
+{
+  "welcome": "ยินดีต้อนรับ",
+  "description": "นี่คือคำอธิบายภาษาไทย",
+  "switch_language": "เปลี่ยนเป็นภาษาอังกฤษ",
+  "for_recommendation" : "เลือกอาหาร",
+  "Add_yours_food_in_list" : "เพิ่มอาหารในโน๊ต",
+  "Static" : "สถิต",
+  "Food_storage_Tips" : "วิธีในการเก็บวัตถุดิบ",
+  "Menu_recommendation" : "เมนูแนะนำ",
+  "Food_Sharing" : "ให้ผู้อื่น",
+  "count" : "จำนวนที่มีอยู่",
+  "countExp" : "จำนวนที่หมดอายุ",
+  "expDate" : "วันหมดอายุ",
+  "expDateLeft" : "หมดอายุอีก",
+  "day" : "วัน"
+
+
+}

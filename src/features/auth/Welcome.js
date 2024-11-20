@@ -6,11 +6,21 @@ import React, { useState } from 'react'
 
 import Header from '../../components/Header'
 
+import { translate } from '../../hooks/translator'
+
+
+
+
 
 const Welcome = () => {
     const user = useSelector(selectCurrentUser)
     const aka = useSelector(selectCurrentAka);
     const image = useSelector(selectCurrentImage);
+
+   
+
+    
+
    
     
 
@@ -25,7 +35,7 @@ const Welcome = () => {
                 {/*page cover*/}
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null/food" > for recommendation </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user/shopping/false/false/null/food" > {translate("for_recommendation") }</Link></p>
                 </div>
                 {/*--- end ---*/}
                 <a href={'/user/shopping/false/false/null/food'} className='linkcontainersingleimg'>
@@ -38,7 +48,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user"  > Add yours food in list </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/user"  > {translate("Add_yours_food_in_list") }</Link></p>
                 </div >
                 <div className='content'>
                     <a href={'/user/exp'} className='mainimgcontainer'>
@@ -52,7 +62,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content'>
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/static" > Static </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/static" > {translate("Static") }</Link></p>
                 </div>
                 <a href={'/static'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
@@ -64,7 +74,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content'>
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > Food storage Tips </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/buyrecommend" > {translate("Food_storage_Tips") }</Link></p>
                 </div>
                 <div className='content'>
                     <a href={'/store/veg'} className='mainimgcontainer'>
@@ -78,7 +88,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content'>
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" > Menu recommendation </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/recommend" >{translate("Menu_recommendation")}</Link></p>
                 </div>
                 <a href={'/recommend'} className='linkcontainersingleimg'>
                     <div className='content' style={{ borderRadius: '5dvi',   border: '1px solid black' }}>
@@ -89,7 +99,7 @@ const Welcome = () => {
             <div className='overcontent'>
                 <div className='content' >
                     <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location"  > Food sharing </Link></p>
+                    <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location"  > {translate("Food_Sharing")} </Link></p>
                 </div >
                 <div className='content'>
                     <a href={'/location'} className='mainimgcontainer'>

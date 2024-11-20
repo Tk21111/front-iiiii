@@ -44,7 +44,7 @@ const RecommendationSingle = () => {
   if (isError) return <p>Error loading data</p>;
 
 
-  const ingredentList = Object.keys(dataFliter.ingredent)
+  const ingredentList = (dataFliter?.ingredent ? Object.keys(dataFliter?.ingredent) : [])
 
   return (
     <div className="page">

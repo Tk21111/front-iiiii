@@ -42,9 +42,9 @@ const PostsExcerpt = ({ i }) => {
                                 </div>
                                 <div>
                                     {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
-                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>donate OTHER!! </p></li>
+                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>Give to another </p></li>
                                     <li><p className="postCredit">
-                                        <Link to={`note/${i.id}`}>View Post</Link>
+                                        <Link to={`note/${i.id}`}>View Note</Link>
                                     </p></li>
                                 </div>
                             </ul>

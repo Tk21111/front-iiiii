@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectCurrentAka, selectCurrentImage } from '../features/auth/authSlice';
 
+import { switchLanguage , translate } from '../hooks/translator';
 
 function Header() {
   const navigate = useNavigate();
@@ -24,6 +25,10 @@ function Header() {
   
   const imagePath = `${process.env.REACT_APP_API}/${image?.toString().replace(/\\/g, '/')}`;
 
+  const handleSwitch = () => {
+    switchLanguage();
+    };
+
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -37,6 +42,7 @@ function Header() {
         <img onClick={() => { navigate(-1); }} src={require('../components/img/back.png')} alt="back" className="logo" />
       </div>
       <div className='headerComp'>
+      <button onClick={handleSwitch}>Switch Language</button>
         <a href="/welcome">
           <img src={require('../components/img/logoapp.png')} alt="home" className="logo" style={{marginLeft: '50%' ,width : '80%' }} />
         </a>

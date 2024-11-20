@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { 
   useGetPostQuery, 
   useSetLikeMutation, 
@@ -20,6 +20,7 @@ import { useGetUserMutation } from '../users/NoteApiSlice';
 
 const PostSingle = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
   const username = useSelector(selectCurrentUser);
   const { data: postsData, isLoading, isError } = useGetPostQuery();
   const [getUser] = useGetUserMutation()
@@ -92,6 +93,7 @@ const PostSingle = () => {
   const handleDelete = async () => {
     try {
       await deletePost({id : postSingle._id}).unwrap();
+      navigate('/post/false')
       // Optionally, navigate back to the post list or show a confirmation message
     } catch (error) {
       console.error("Failed to delete post:", error);

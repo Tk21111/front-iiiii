@@ -25,6 +25,7 @@ const EditPostForm = () => {
     const [countExp, setCountExp] = useState(0);
     const [tag, setTag] = useState('');
     const [done, setDone] = useState(false);
+    const [id, setId] = useState(false);
 
     useEffect(() => {
         if (note) {
@@ -35,6 +36,7 @@ const EditPostForm = () => {
             setCountExp(Tmp?.countExp[Tmp?.countExp?.length - 1] || 0);
             setTag(Tmp.tag || '');
             setDone(Tmp.done || false);
+            setId(Tmp.id || null);
         }
     }, [note]);
 
@@ -70,7 +72,7 @@ const EditPostForm = () => {
 
     const onDeletePostClicked = async () => {
         try {
-            await deletePost({ id: note.id, username }).unwrap();
+            await deletePost({ id: id, username }).unwrap();
             navigate('/user');
         } catch (err) {
             console.error('Failed to delete the post', err);

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
 import BuyExcerptFood from './static/BuyExcerptFood';
+import { translate } from '../../hooks/translator';
 
 const SinglePostPage = () => {
     const { noteId } = useParams(); // Fetching noteId from the URL
@@ -43,17 +44,17 @@ const SinglePostPage = () => {
             <div className="single-parent">
                 <div>
                     <h2>{note?.text}</h2>
-                    <p className="tag-child">{note?.tag}</p>
+                    <p className="tag-child" style={{margin : '5%'}}>{note?.tag}</p>
                 </div>
                 <img
                     src={imagePath}
                     alt="Note image"
                     style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: '5%' }}
                 />
-                <p>Exp date: {diff > 0 ? `${diff} days left` : 'Expired'}</p>
+                <p>{ translate("expDateLeft") + " : " + (diff > 0 ? `${diff} ${translate("day")}` : 'Expired')}</p>
                 <div className="single-context">
-                    <p>In count: {note?.count?.[note?.count?.length - 1]}</p>
-                    <p>Exp count: {note?.countExp?.[note?.count?.length - 1]}</p>
+                    <p>{translate("count") +" : " +  note?.count?.[note?.count?.length - 1]}</p>
+                    <p>{translate("countExp") +" : " + note?.countExp?.[note?.count?.length - 1]}</p>
                 </div>
                 <div style={{ width: '90%' }}>
                     <BuyExcerptFood i={note} />

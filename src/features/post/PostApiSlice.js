@@ -99,7 +99,6 @@ export const postApislice = apiSlice.injectEndpoints({
       query: (data) => ({ //same
           url: '/post',
           method: 'DELETE',
-          credential : 'include',
           body : {
               ...data
           }

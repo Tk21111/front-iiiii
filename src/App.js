@@ -49,6 +49,7 @@ import CreateNote from './features/users/NoteCreate'
 import PostSingle from './features/post/posSingle'
 import Notification from './components/Noti'
 import SavePost from './features/post/postSave'
+import Testtran from './hooks/useTranslation'
 function App() {
   return (
     
@@ -68,6 +69,7 @@ function App() {
 
               {/*<Route path="notifications" element={<Notification />} /> */}
 
+              <Route path='tran' element={<Testtran/>}/>
               <Route path='record' element={<SpeechToText/>}/>
               <Route path='getuser/:userId' element={<GetUser/>}/>
 

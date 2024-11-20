@@ -1,0 +1,17 @@
+{
+  "welcome": "Welcome",
+  "description": "This is an English description.",
+  "switch_language": "Switch to Thai",
+  "for_recommendation" : "for recommendation",
+  "Add_yours_food_in_list" : "Add yours food in list",
+  "Static" : "Static",
+  "Food_storage_Tips" : "Food storage Tips",
+  "Menu_recommendation" : "Menu recommendation",
+  "Food_Sharing" : "Food Sharing",
+  "count" : "Amount",
+  "countExp" : "Expired Amount",
+  "expDate" : "Expired Date",
+  "expDateLeft" : "Day left to expired date",
+  "day" : "day"
+
+}
