@@ -26,18 +26,24 @@ const Signin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (/\s/.test(user)) {
+            setErrMsg('Username must not contain spaces');
+            return;
+        }
+
         if (pwd !== cpwd) {
             setErrMsg('Passwords do not match');
             return;
         }
 
-        if (age < 18 || age > 120) {
-            setErrMsg('Age must be between 18 and 120');
+        if (age < 8 || age > 120) {
+            setErrMsg('Age must be between 8 and 120');
             return;
         }
 
+
         try {
-            const userData = await signin({ user, pwd }).unwrap();
+            const userData = await signin({ user, pwd , name , age , sex}).unwrap();
             dispatch(setCredentials({ ...userData, user }));
             setUser('');
             setPwd('');

@@ -67,7 +67,7 @@ function Header() {
             Saved Post
           </ListItem>
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
-            Change Language
+            {translate("changeLang")}
           </ListItem>
           <img src={imagePath} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
         </List>

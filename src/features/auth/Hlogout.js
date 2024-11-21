@@ -39,7 +39,7 @@ const LogOut = () => {
             <section className="users">
                 <h1>Users List</h1>
                 <h1>Log out successfully</h1>
-                <Link to="/welcome">Back to Welcome</Link>
+                <Link to="/">Back to Home</Link>
             </section>
         </div>
         );
