@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectAllNotes, useDeleteHowMutation, useGetHowQuery } from '../NoteApiSlice';
 import Header from '../../../components/Header';
 import { listNew } from '../comp/menu';
+import { translate } from '../../../hooks/translator';
 
 const RecommendationSingle = () => {
   const { id } = useParams();
@@ -85,7 +86,7 @@ const RecommendationSingle = () => {
           )}
         </div>
         <button onClick={handleDelete} disabled={isDeleteDisabled}>
-          Delete
+          {translate("delete")}
         </button>
       </div>
     </div>

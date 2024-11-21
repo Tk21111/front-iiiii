@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../features/auth/authSlice";
 import { useCreateNoteMutation, useUpdateNoteMutation } from "../features/users/NoteApiSlice";
 import { useCreatePostMutation } from "../features/post/PostApiSlice";
+import { translate } from "../hooks/translator";
 
 export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood, imgPath , donate , name}) {
     const [amount, setAmount] = useState('');
@@ -105,7 +106,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                             <img src={imgPath || require('../components/img/meal.png')} className="smalllogo-vertical-fix" alt="home" />
                         </div>
                         <div className="food-waste-details-confirm-selection" style={{marginLeft : '10px'}}>
-                            <h2>Amount</h2>
+                            <h2>{translate("amount")}</h2>
                             <input
                                 style={{ width: '95%' }}
                                 value={amount}

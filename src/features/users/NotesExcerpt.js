@@ -5,6 +5,7 @@ import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import ConfirmSelection from '../../components/ConfirmSelection';
 import UpdateAmount from '../../components/OverlayNoteAmountUpdate';
+import { translate } from '../../hooks/translator';
 
 const PostsExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -38,13 +39,13 @@ const PostsExcerpt = ({ i }) => {
                             <ul>
                                 <div className='tag-container' style={{marginLeft : '0px' , paddingLeft : '0px'}}>
                                     <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>
-                                    <button onClick={() => setUpdate(true)} className='small-button'>edit</button>
+                                    <button onClick={() => setUpdate(true)} className='small-button'>{translate("edit")}</button>
                                 </div>
                                 <div>
                                     {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
-                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>Give to another </p></li>
+                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>{translate('giveToanother')}</p></li>
                                     <li><p className="postCredit">
-                                        <Link to={`note/${i.id}`}>View Note</Link>
+                                        <Link to={`note/${i.id}`}>{translate('singlePage')}</Link>
                                     </p></li>
                                 </div>
                             </ul>

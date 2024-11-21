@@ -1,106 +1,128 @@
-import { useRef, useState, useEffect } from 'react'
-import { useNavigate , Link } from 'react-router-dom'
-
-import { useDispatch } from 'react-redux'
-import { setCredentials } from './authSlice'
-import { useSigninMutation } from './authApiSlice'
+import { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from './authSlice';
+import { useSigninMutation } from './authApiSlice';
 
 const Signin = () => {
-    const userRef = useRef() //set focus on userinput
-    const errRef = useRef()
-    const [user, setUser] = useState('')
-    const [pwd, setPwd] = useState('')
-    const [cpwd, setCPwd] = useState('')
-    const [no, setNo] = useState('')
-    const [errMsg, setErrMsg] = useState('')
-    
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const userRef = useRef();
+    const errRef = useRef();
+    const [user, setUser] = useState('');
+    const [name, setName] = useState('');
+    const [age, setAge] = useState('');
+    const [sex, setSex] = useState(false);
+    const [pwd, setPwd] = useState('');
+    const [cpwd, setCPwd] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
-    const [signin, { isLoading }] = useSigninMutation()
-    
-
-    useEffect(() => {
-        userRef.current.focus()
-    }, [])
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [signin, { isLoading }] = useSigninMutation();
 
     useEffect(() => {
-        setErrMsg('')
-    }, [user, pwd ,cpwd, ])
+        userRef.current.focus();
+    }, []);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (pwd === cpwd) {
-            try {
-                const userData = await signin({ user, pwd }).unwrap()
-                //diffrent the ...userData is a accessToken
-                dispatch(setCredentials({ ...userData, user }))
-                setUser('')
-                setPwd('')
-                navigate('/login')
-            } catch (err) {
-                if (!err?.originalStatus) {
-                    // isLoading: true until timeout occurs
-                    setErrMsg('No Server Response');
-                } else if (err.originalStatus === 400) {
-                    setErrMsg('Missing Username or Password');
-                } else if (err.originalStatus === 401) {
-                    setErrMsg('Unauthorized');
-                } else if (err.originalStatus === 409) {
-                    setErrMsg('Username or Number is already taken');
-                } else {
-                    setErrMsg('Login Failed');
-                }
+        e.preventDefault();
 
-                if (errRef.current) return errRef.current.focus();
-                
-            }
-        } else {setErrMsg('Password not match or Number is exceed an option');}
-    }
+        if (pwd !== cpwd) {
+            setErrMsg('Passwords do not match');
+            return;
+        }
 
-    const handleUserInput = (e) => setUser(e.target.value)
-    const handlePwdInput = (e) => setPwd(e.target.value)
-    const handleCPwdInput = (e) => setCPwd(e.target.value)
-    
+        if (age < 18 || age > 120) {
+            setErrMsg('Age must be between 18 and 120');
+            return;
+        }
 
-    const content = isLoading ? <h1>Loading...</h1> : (
-        <section className="login">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
+        try {
+            const userData = await signin({ user, pwd }).unwrap();
+            dispatch(setCredentials({ ...userData, user }));
+            setUser('');
+            setPwd('');
+            setCPwd('');
+            navigate('/login');
+        } catch (err) {
+            const status = err.originalStatus;
+            if (!status) setErrMsg('No Server Response');
+            else if (status === 400) setErrMsg('Missing Username or Password');
+            else if (status === 401) setErrMsg('Unauthorized');
+            else if (status === 409) setErrMsg('Username already taken');
+            else setErrMsg('Login Failed');
+            errRef.current?.focus();
+        }
+    };
 
-            <h1>Signin</h1>
+    return isLoading ? (
+        <h1>Loading...</h1>
+    ) : (
+        <div className="page">
+            <section className="login">
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+                    {errMsg}
+                </p>
+                <h1>Signin</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
+                        autoComplete="off"
+                        required
+                    />
+                    <label htmlFor="realname">This is for data collecting purpose</label>
+                    <label htmlFor="realname">Real Name:</label>
+                    <input
+                        type="text"
+                        id="realname"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        autoComplete="off"
+                        required
+                    />
+                    <label htmlFor="age">Age:</label>
+                    <input
+                        type="number"
+                        id="age"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="sex">Sex:</label>
+                    <select
+                        style={{height : '6vh' , fontSize : '80%'}}
+                        id="sex"
+                        value={sex}
+                        onChange={(e) => setSex(e.target.value === "true")}
+                    >
+                        <option value="true">Male</option>
+                        <option value="false">Female</option>
+                    </select>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={pwd}
+                        onChange={(e) => setPwd(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="cpassword">Confirm Password:</label>
+                    <input
+                        type="password"
+                        id="cpassword"
+                        value={cpwd}
+                        onChange={(e) => setCPwd(e.target.value)}
+                        required
+                    />
+                    <button>Sign In</button>
+                </form>
+            </section>
+        </div>
+    );
+};
 
-            <form onSubmit={handleSubmit}> 
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    value={user}
-                    onChange={handleUserInput}
-                    autoComplete="off"
-                    required
-                />
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password" //doesn't show it 
-                    id="password"
-                    onChange={handlePwdInput}
-                    value={pwd}
-                    required
-                />
-                <label htmlFor="cpassword">Confirm Password:</label>
-                <input
-                    type="password" //doesn't show it 
-                    id="cpassword"
-                    onChange={handleCPwdInput}
-                    value={cpwd}
-                    required
-                />
-                <button>Sign In</button>
-            </form>
-        </section>
-    )
-
-    return content
-}
-export default Signin
+export default Signin;

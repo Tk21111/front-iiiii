@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreatePostMutation } from './PostApiSlice';
+import { translate } from '../../hooks/translator';
 
 
 const PostCreate = () => {
@@ -88,7 +89,7 @@ const PostCreate = () => {
             <h2>Create Post</h2>
             <form onSubmit={submit}>
                 <div>
-                    <label>Title:</label>
+                    <label>{translate("title")}</label>
                     <input
                         type="text"
                         value={title}
@@ -96,7 +97,7 @@ const PostCreate = () => {
                         required
                     />
                 </div>
-                    <label htmlFor="more">Content:</label>
+                    <label htmlFor="more">{translate("content")}</label>
                     <textarea
                         id="more"
                         value={content}
@@ -112,10 +113,10 @@ const PostCreate = () => {
                     />
                 </div>
                 <button type="button" onClick={handleLinkWithFood} disabled={isLoading}>
-                    <h2>LINK WITH FOOD</h2>
+                    <h2>{translate("linkFood")}</h2>
                 </button>
                 <button type="button" onClick={handleLinkWithHow} disabled={isLoading}>
-                    <h2>LINK WITH RECOMMEND</h2>
+                    <h2>{translate("linkRec")}</h2>
                 </button>
                 {id?.startsWith("food=") && <h2>Food Linked</h2>}
                 {id?.startsWith("how=") && <h2>RECOMMEND Linked</h2>}
@@ -146,7 +147,7 @@ const PostCreate = () => {
                 </div>
 
                 <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Creating...' : 'Create Post'}
+                    {isLoading ? 'Creating...' : translate("save")}
                 </button>
 
                 {isError && <p>Error: {error.message}</p>}

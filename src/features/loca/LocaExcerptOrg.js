@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAlllocaQuery , useDeletelocaMutation} from './LocaApiSlice';
+import { translate } from '../../hooks/translator';
 
 
 
@@ -72,9 +73,9 @@ const LocasExcerptOrg = ({ i , own}) => {
                     <div className="food-waste-content">
                             <div className="food-waste-details">
                                 <ul>
-                                    <li><p>{"username : " +  i?.username || null}</p></li>
-                                    <li><p>{"aka : " +  i?.aka || null}</p></li>
-                                    <li><p>{"more : " + i?.more || null }</p></li>
+                                    <li><p>{translate("username") + " : " +  i?.username || null}</p></li>
+                                    <li><p>{translate("aka") + " : " +  i?.aka || null}</p></li>
+                                    <li><p>{translate("more") + " : " + i?.more || null }</p></li>
                                 </ul>
                             </div>
                             

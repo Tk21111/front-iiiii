@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 
 import Header from "../../components/Header";
+import { translate } from "../../hooks/translator";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -274,7 +275,7 @@ const CreateNote = () => {
         <form>
           {notes.map((note, index) => (
             <form key={index}>
-              <label htmlFor={`postTitle-${index}`}>Food name:</label>
+              <label htmlFor={`postTitle-${index}`}>{translate('foodName') + " : "}</label>
               <input
                 type="text"
                 id={`postTitle-${index}`}
@@ -289,7 +290,7 @@ const CreateNote = () => {
                 {note.isListening ? "Stop Listening": "Start Listening"}
                 {(console.log(note.isListening))}
               </button>
-              <label htmlFor={`postExpTime-${index}`}>ExpTime:</label>
+              <label htmlFor={`postExpTime-${index}`}>{translate('expDate') + " : "}</label>
               <input
                 type="date"
                 id={`postExpTime-${index}`}
@@ -297,7 +298,7 @@ const CreateNote = () => {
                 value={note.expTime}
                 onChange={(e) => handleInputChange(index, "expTime", e.target.value)}
               />
-              <label htmlFor={`postCount-${index}`}>Count:</label>
+              <label htmlFor={`postCount-${index}`}>{translate('count') + " : "}</label>
               <input
                 type="number"
                 id={`postCount-${index}`}
@@ -307,7 +308,7 @@ const CreateNote = () => {
                 max="999"
                 min="0"
               />
-              <label htmlFor={`postCountExp-${index}`}>CountExp:</label>
+              <label htmlFor={`postCountExp-${index}`}>{translate('countExp') + " : " }</label>
               <input
                 type="number"
                 id={`postCountExp-${index}`}
@@ -317,7 +318,7 @@ const CreateNote = () => {
                 max="999"
                 min="0"
               />
-              <label htmlFor={`postTag-${index}`}>Tag:</label>
+              <label htmlFor={`postTag-${index}`}>{translate('tag') + " : "}</label>
               <input
                 type="text"
                 id={`postTag-${index}`}
@@ -325,15 +326,7 @@ const CreateNote = () => {
                 value={note.tag}
                 onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
               />
-              <label htmlFor={`postDone-${index}`}>Exp?:</label>
-              <input
-                type="checkbox"
-                id={`postDone-${index}`}
-                name={`postDone-${index}`}
-                checked={note.done}
-                onChange={(e) => handleInputChange(index, "done", e.target.checked)}
-              />
-              <label htmlFor={`postFiles-${index}`}>Upload Images:</label>
+              <label htmlFor={`postFiles-${index}`}>{translate('upLoadImage') + " : "}</label>
               <input
                 type="file"
                 id={`postFiles-${index}`}
@@ -360,19 +353,19 @@ const CreateNote = () => {
               
               {index > 0 && (
                 <button type="button" onClick={() => handleRemoveNote(index)}>
-                  Remove
+                  {translate('delete')}
                 </button>
               )}
               <button type="button" onClick={() => handleRemoveImage(index)}>
-                Remove Image
+                {translate('deleteImg')}
               </button>
             </form>
           ))}
           <button type="button" onClick={handleAddNote} disable={isLoading}>
-            Add Another Note
+            {translate('addMore')}
           </button>
           <button type="button" onClick={onSavePostClicked} disabled={!canSave || isLoading}>
-            Save Note
+            {translate('save')}
           </button>
         </form>
       </section>

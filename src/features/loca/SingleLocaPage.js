@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useDeletelocaMutation, useGetAlllocaQuery, useGetAllUserlocaQuery } from './LocaApiSlice';
 import Header from '../../components/Header';
+import { translate } from '../../hooks/translator';
 
 const SingleLocaPage = () => {
     const {noteId , ofuser} = useParams();
@@ -119,11 +120,11 @@ const SingleLocaPage = () => {
                     </div>
                     <h2>{text}</h2>
                     <h1>{loca?.organisation ? "Organisation!" : "User"}</h1>
-                    <p>District: {loca?.district}</p>
-                    <p>Subdistrict: {loca?.subdistrict}</p>
-                    <p>Country: {loca?.country}</p>
-                    <p>More: {loca?.more ? loca.more : "Don't have more"}</p>
-                    {(loca?.user)? <Link to={`/getuser/${loca.user}`}>that person</Link> : null}
+                    <p>{translate("district") + " : " + loca?.district}</p>
+                    <p>{translate("subdistrict") + " : " + loca?.subdistrict}</p>
+                    <p>{translate("province") + " : " + loca?.country}</p>
+                    <p>{translate("more") + " : " + loca?.more ? loca.more : "Don't have more"}</p>
+                    {(loca?.user)? <Link to={`/getuser/${loca.user}`}>{translate("thatPerson")}</Link> : null}
                     
                     
                     </div>
@@ -131,7 +132,7 @@ const SingleLocaPage = () => {
                                 type="button"
                                 onClick={ondeletePostClicked}
                             >
-                                Delete Post
+                                {translate("delete")}
                             </button>
                     </div>
             </div>

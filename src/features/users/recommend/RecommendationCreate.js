@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSetHowMutation } from '../NoteApiSlice';
 import Header from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { translate } from '../../../hooks/translator';
 
 const RecommendationCreate = () => {
     const navigate = useNavigate();
@@ -107,7 +108,7 @@ const RecommendationCreate = () => {
             <h2>Create Recommendation</h2>
             <form onSubmit={submit}>
                 <div>
-                    <label>Food:</label>
+                    <label>{translate("foodName") + " :"}</label>
                     <input
                         type="text"
                         value={food}
@@ -116,16 +117,16 @@ const RecommendationCreate = () => {
                     />
                 </div>
                 <div>
-                    <label>Description:</label>
+                    <label>{translate("des") + " :"}</label>
                     <input
-                        type="text"
+                        type="more"
                         value={des}
                         onChange={(e) => setDes(e.target.value)}
                         required
                     />
                 </div>
                 <div>
-                    <label>Tag:</label>
+                    <label>{translate("tag") + " :"}</label>
                     <input
                         type="text"
                         value={tag}
@@ -135,7 +136,7 @@ const RecommendationCreate = () => {
                 </div>
                 {ingredent.map((_, index) => (
                     <div key={index}>
-                        <label>Ingredient:</label>
+                        <label>{translate("ingredient") + " :"}</label>
                         <input
                             type="text"
                             value={ingredent[index]['0']}
@@ -148,10 +149,10 @@ const RecommendationCreate = () => {
                             onChange={(e) => handleInputChange(index, '1', e.target.value)}
                             required
                         />
-                        <button type="button" onClick={() => removeIngredient(index)}>Remove</button>
+                        <button type="button" onClick={() => removeIngredient(index)}>{translate("delete")}</button>
                     </div>
                 ))}
-                <button type="button" onClick={addIngredient}>Add Ingredient</button>
+                <button type="button" onClick={addIngredient}>{translate("more")}</button>
                 
                 <div>
                     <label>Public:</label>
@@ -195,7 +196,7 @@ const RecommendationCreate = () => {
                     ))}
                 </div>
                 <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Creating...' : 'Create Recommendation'}
+                    {isLoading ? 'Creating...' : translate("save")}
                 </button>
                 {isError && <p>Error: {error.message}</p>}
                 {data && <p>Recommendation created successfully!</p>}

@@ -10,6 +10,7 @@ import Header from '../../components/Header';
 import Overay from '../../components/Overlay';
 import { useGetUserMutation } from '../users/NoteApiSlice';
 import LocasExcerptOrg from './LocaExcerptOrg';
+import { translate } from '../../hooks/translator';
 
 const GetOrgSingle = () => {
     const [getUser , { data: user, isLoading, isSuccess, isError, error }] = useGetUserMutation();
@@ -116,13 +117,13 @@ const GetOrgSingle = () => {
             </div>
             <div className='content' style={{flexDirection : 'column' }}>
                 <img src={imagePath} alt="donate" ></img>
-                <h2>{"Name : " + user?.aka}</h2>
-                <h2>{"Address : " + user?.more}</h2>
-                <h2>{"Details : " + user?.more}</h2>
+                <h2>{translate("username") + " : "  + user?.username}</h2>
+                <h2>{translate("aka") + " : "  +  user?.aka}</h2>
+                <h2>{translate("more") + " : "  + user?.more}</h2>
             </div>
             <div className="oforg-button-container">
                 <button onClickCapture={() => {navigate(`/user/shopping/true/true/${user?.username}/food`)}} className="oforg-button">
-                    <h2>Donate</h2>
+                    <h2>{translate("donate")}</h2>
                 </button>
             </div>
 

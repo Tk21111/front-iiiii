@@ -16,6 +16,7 @@ import PostSingleLink from './posSingleLink';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useGetUserMutation } from '../users/NoteApiSlice';
+import { translate } from '../../hooks/translator';
 
 
 const PostSingle = () => {
@@ -243,10 +244,10 @@ const PostSingle = () => {
               onChange={(e) => setNewComment(e.target.value)}
               placeholder='.... new comment here'
             ></input>
-            <button onClick={sentNewComment} > save</button>
+            <button onClick={sentNewComment} >{translate("save")}</button>
           </div>
           <div className='content'>
-            <button onClick={handleDelete}>Delete Post</button>
+            <button onClick={handleDelete}>{translate("delete")}</button>
             
           </div>
         </div>

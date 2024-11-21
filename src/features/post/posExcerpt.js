@@ -3,6 +3,7 @@ import { Link  } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import { useGetSavePostQuery, useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
+import { translate } from '../../hooks/translator';
 
 const PostsExcerpt = ({ i }) => {
 
@@ -122,7 +123,7 @@ const PostsExcerpt = ({ i }) => {
                                 style={{backgroundColor : (postSave?.find(val => val._id === i._id)) ? '#FFC0CB' : 'white' , border : 'black solid 1px' }} 
                                 onClick={handleSave}>Save </button>
                         </div>
-                        <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>to single</Link>
+                        <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>{translate("singlePage")}</Link>
                     </div>
                 </div>
             </div>

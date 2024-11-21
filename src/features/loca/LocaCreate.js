@@ -4,6 +4,7 @@ import { useCreatelocaMutation } from './LocaApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
+import { translate } from '../../hooks/translator';
 
 const CreatePost = () => {
     const navigate = useNavigate();
@@ -126,9 +127,9 @@ const CreatePost = () => {
             <Header/>
             <section>
                 <h2>Create Post</h2>
-                <h1>{`Amount : ${amount}`}</h1>
+                <h1>{`${translate("amount")} : ${amount}`}</h1>
                 <form>
-                    <label htmlFor="locaMore">More info:</label>
+                    <label htmlFor="locaMore">{translate("ingredient") + " :"}</label>
                     <input type="text" id="locamore" name="locamore" value={more} onChange={onMoreChange} />
 
                     <label htmlFor="locaImages">Upload Images:</label>
@@ -159,7 +160,7 @@ const CreatePost = () => {
                     </div>
 
                     <button type="button" onClick={onSavePostClicked} disabled={isLoading}>
-                        Save Post
+                        {translate("save")}
                     </button>
                 </form>
 

@@ -42,7 +42,6 @@ function Header() {
         <img onClick={() => { navigate(-1); }} src={require('../components/img/back.png')} alt="back" className="logo" />
       </div>
       <div className='headerComp'>
-      <button onClick={handleSwitch}>Switch Language</button>
         <a href="/welcome">
           <img src={require('../components/img/logoapp.png')} alt="home" className="logo" style={{marginLeft: '50%' ,width : '80%' }} />
         </a>
@@ -66,6 +65,9 @@ function Header() {
           </ListItem>
           <ListItem button component={Link} to="/save" onClick={toggleDrawer(false)}>
             Saved Post
+          </ListItem>
+          <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
+            Change Language
           </ListItem>
           <img src={imagePath} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
         </List>
