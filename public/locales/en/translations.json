@@ -47,6 +47,7 @@
   "title" : "title",
   "content" : "content",
   "linkFood" : "Link with food",
-  "linkRec" : "Link with recommend"
+  "linkRec" : "Link with recommend",
+  "toThatPost" : "To conversation"
 
 }

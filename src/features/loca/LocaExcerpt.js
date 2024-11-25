@@ -58,11 +58,13 @@ const LocasExcerpt = ({ i , own}) => {
         return <p>Location not found</p>;
     }
 
+    console.log(loca)
+
     return (
         
         
             
-            <div onClickCapture={() => { setPortal(true); }} className="food-waste-item" style={{width: '100%'}}>
+            <div onClickCapture={() => { setPortal(true); }} className="food-waste-item" style={{width: '100%' }}>
                 <OverayCenter open={portal} loca={loca} onClose={() => { setPortal(false);}} own={own}/>
                 <div className='food-waste-front'>
                     <img src={require('../../components/img/home.png')} alt="meat icon" className='smalllogolist' />
@@ -78,9 +80,14 @@ const LocasExcerpt = ({ i , own}) => {
                                     {(loca?.getPId && own)?<li><p>{translate("username") +" : " +  loca.getPId.username || null}</p></li> : null }
                                     {(loca?.user && !own)? <li><p>{translate("username") +" : " +  loca.user.username + " aka : " + loca.user.aka || null}</p></li> : null}
                                     {(loca?._id )? <li><Link to={`/location/${loca._id}/${(loca.own !== undefined ? true : false)}`}>{translate("singlePage")}</Link></li> : null}
+                                </ul>
+                                <div className='food-waste-content'>
+                                    <ul className='food-waste-details'>
                                     {(loca?.user?._id && !own)? <li><Link to={`/getuser/${loca.user._id}`}>{translate("thatPerson")}</Link></li> : null}
                                     {(loca?.getPId?._id && own)? <li><Link to={`/getuser/${loca.getPId._id}`}>{translate("thatPerson")}</Link></li> : null}
-                                </ul>
+                                    {(loca?.post && loca?.getPId?._id)? <li><Link to={`/post/true/${loca.post}`}>{translate("toThatPost")}</Link></li> : null}
+                                    </ul>
+                                </div>
                                 
                             </div>
                             

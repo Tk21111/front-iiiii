@@ -37,6 +37,8 @@ const GetAllLoca = () => {
     let content;
     let lContent;
 
+
+
        
     if (loading) {
         content = <p>Loading...</p>;
@@ -74,6 +76,7 @@ const GetAllLoca = () => {
             </section>
         );
     }
+
 
     return (
         <div className='page'>
