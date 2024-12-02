@@ -331,6 +331,7 @@ const CreateNote = () => {
                 type="file"
                 id={`postFiles-${index}`}
                 name={`postFiles-${index}`}
+                disabled={true}
                 multiple
                 onChange={(e) => handleFileChange(index, e.target.files)}
               />

@@ -118,7 +118,7 @@ const RecommendationCreate = () => {
                         value={des}
                         onChange={(e) => setDes(e.target.value)}
                         required
-                        style={{ height: '50vi', width: '70vi' }}
+                        style={{ height: '50vh', width: '100%' }}
                     />
                 </div>
                 <div>
@@ -140,14 +140,14 @@ const RecommendationCreate = () => {
                             onChange={(e) => handleInputChange(index, '0', e.target.value)}
                             placeholder='ชื่อวัตถุดิบ'
                             required
-                            style={{width : '25vi'}}
+                            style={{width : '25vh'}}
                         />
                         <input
                             type="number"
                             value={ingredent[index]['1']}
                             onChange={(e) => handleInputChange(index, '1', e.target.value)}
                             placeholder='จำนวน'
-                            style={{width : '25vi'}}
+                            style={{width : '25vh'}}
 
                             required
                         />
@@ -157,8 +157,7 @@ const RecommendationCreate = () => {
                             required
                             style={{height : "5vh"}}
                         >
-                            <option value="">Select unit</option>
-                            <option value="kg">kg</option>
+                            <option value="kg">กิโลกรัม</option>
                             <option value="piece">ชิ้น</option>
                         </select>
                         <button type="button" onClick={() => removeIngredient(index)}>
@@ -185,6 +184,7 @@ const RecommendationCreate = () => {
                         accept="image/*"
                         multiple
                         onChange={onImageChange}
+                        disabled={true}
                     />
                 </div>
                 <div>

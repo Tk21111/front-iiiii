@@ -109,6 +109,7 @@ const PostCreate = () => {
                         type="file"
                         accept="image/*"
                         multiple
+                        disabled={true}
                         onChange={onImageChange}
                     />
                 </div>
