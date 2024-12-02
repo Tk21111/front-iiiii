@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSetHowMutation } from '../NoteApiSlice';
 import Header from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -7,81 +7,79 @@ import { translate } from '../../../hooks/translator';
 const RecommendationCreate = () => {
     const navigate = useNavigate();
     const [setHow, { data, isLoading, isError, error }] = useSetHowMutation();
-    
+
     const [des, setDes] = useState('');
     const [food, setFood] = useState('');
     const [tag, setTag] = useState('');
     const [pubilc, setPublic] = useState(false);
-    const [ingredent, setIngredent] = useState([{ "0": '', "1": null }]); // Array of ingredient objects
-    const [imagePaths, setImagePaths] = useState([]); // For multiple images
+    const [ingredent, setIngredent] = useState([{ "0": '', "1": null, unit: '' }]);
+    const [imagePaths, setImagePaths] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
-    const submit = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-    
-        if (!des || !tag || !food) return; // Ensure description and tag are provided
+    useEffect(() => {
+        return () => {
+            // Cleanup previews on unmount
+            imagePreviews.forEach((preview) => URL.revokeObjectURL(preview));
+        };
+    }, [imagePreviews]);
 
-        let TmpList = {};
-        for (let k of ingredent){
-            TmpList[k['0']] = k['1']
+    const submit = async (e) => {
+        e.preventDefault();
+        if (!des || !tag || !food) return alert('All fields are required!');
+
+        // Validate ingredients
+        if (ingredent.some((item) => !item['0'] || item['1'] === null || !item.unit)) {
+            alert('Please fill out all ingredient details.');
+            return;
         }
 
-        console.log(TmpList)
+        const formattedIngredients = ingredent.map(({ "0": name, "1": quantity, unit }) => ({
+            name,
+            quantity,
+            unit,
+        }));
 
-        //.entries like forEach but for obj
-        const TmpIngredent =  Object.entries(ingredent).map(([key, value]) => ({ [key]: value }))
+        console.log(formattedIngredients)
 
-        console.log(typeof(TmpIngredent))
-    
         const formData = new FormData();
         formData.append('name', food);
         formData.append('des', des);
         formData.append('tag', tag);
         formData.append('public', pubilc);
-        formData.append('ingredent', JSON.stringify(TmpIngredent) ); 
-    
-        // Append all selected images to FormData
-        imagePaths.forEach((file) => {
-            formData.append('images', file); // Change 'image' to 'images'
-        });
+        formData.append('ingredent', JSON.stringify(formattedIngredients));
 
-        console.log(formData.get('ingredent'))
+        imagePaths.forEach((file) => formData.append('images', file));
 
-        
-    
-        
         try {
-            await setHow({formData}).unwrap();
-            // Reset form fields after submission
+            await setHow({ formData }).unwrap();
+            
             setDes('');
             setTag('');
             setFood('');
             setPublic(false);
-            setIngredent([{ "0": '', "1": null }]); // Reset ingredients to initial state
+            setIngredent([{ "0": '', "1": null, unit: 'kg' }]);
             setImagePaths([]);
             setImagePreviews([]);
             navigate('/recommend');
-        
+            
         } catch (err) {
             console.error(err);
         }
-
-        
-            
     };
-    
 
-    const onImageChange = e => {
+    const onImageChange = (e) => {
         const files = Array.from(e.target.files);
-        setImagePaths(prevImages => [...prevImages, ...files]);
-
-        const filePreviews = files.map(file => URL.createObjectURL(file));
-        setImagePreviews(prevPreviews => [...prevPreviews, ...filePreviews]);
+        setImagePaths((prevImages) => [...prevImages, ...files]);
+        const filePreviews = files.map((file) => URL.createObjectURL(file));
+        setImagePreviews((prevPreviews) => [...prevPreviews, ...filePreviews]);
     };
 
-    const removeImage = index => {
-        setImagePaths(prevImages => prevImages.filter((_, i) => i !== index));
-        setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
+    const removeImage = (index) => {
+        setImagePaths((prevImages) => prevImages.filter((_, i) => i !== index));
+        setImagePreviews((prevPreviews) => {
+            URL.revokeObjectURL(prevPreviews[index]);
+            return prevPreviews.filter((_, i) => i !== index);
+        });
     };
 
     const handleInputChange = (index, key, value) => {
@@ -92,15 +90,12 @@ const RecommendationCreate = () => {
     };
 
     const addIngredient = () => {
-        setIngredent([...ingredent, { "0": '', "1": null }]);
+        setIngredent([...ingredent, { "0": '', "1": null, unit: '' }]);
     };
 
     const removeIngredient = (index) => {
-        setIngredent(prev => prev.filter((_, i) => i !== index));
+        setIngredent((prev) => prev.filter((_, i) => i !== index));
     };
-
-    console.log(ingredent.map(val => ({ [val['0']]: val['1'] })));
-
 
     return (
         <div className='page'>
@@ -116,13 +111,14 @@ const RecommendationCreate = () => {
                         required
                     />
                 </div>
+                <label>{translate("des") + " :"}</label>
                 <div>
-                    <label>{translate("des") + " :"}</label>
-                    <input
-                        type="more"
+                    
+                    <textarea
                         value={des}
                         onChange={(e) => setDes(e.target.value)}
                         required
+                        style={{ height: '50vi', width: '70vi' }}
                     />
                 </div>
                 <div>
@@ -134,32 +130,52 @@ const RecommendationCreate = () => {
                         required
                     />
                 </div>
+                <label>{translate("ingredient") + " :"}</label>
                 {ingredent.map((_, index) => (
                     <div key={index}>
-                        <label>{translate("ingredient") + " :"}</label>
+                        
                         <input
                             type="text"
                             value={ingredent[index]['0']}
                             onChange={(e) => handleInputChange(index, '0', e.target.value)}
+                            placeholder='ชื่อวัตถุดิบ'
                             required
+                            style={{width : '25vi'}}
                         />
                         <input
                             type="number"
                             value={ingredent[index]['1']}
                             onChange={(e) => handleInputChange(index, '1', e.target.value)}
+                            placeholder='จำนวน'
+                            style={{width : '25vi'}}
+
                             required
                         />
-                        <button type="button" onClick={() => removeIngredient(index)}>{translate("delete")}</button>
+                        <select
+                            value={ingredent[index].unit}
+                            onChange={(e) => handleInputChange(index, 'unit', e.target.value)}
+                            required
+                            style={{height : "5vh"}}
+                        >
+                            <option value="">Select unit</option>
+                            <option value="kg">kg</option>
+                            <option value="piece">ชิ้น</option>
+                        </select>
+                        <button type="button" onClick={() => removeIngredient(index)}>
+                            {translate("delete")}
+                        </button>
                     </div>
                 ))}
-                <button type="button" onClick={addIngredient}>{translate("more")}</button>
-                
+                <button type="button" onClick={addIngredient}>
+                    {translate("more")}
+                </button>
                 <div>
                     <label>Public:</label>
                     <input
                         type="checkbox"
                         checked={pubilc}
                         onChange={(e) => setPublic(e.target.checked)}
+                        
                     />
                 </div>
                 <div>
@@ -167,14 +183,25 @@ const RecommendationCreate = () => {
                     <input
                         type="file"
                         accept="image/*"
-                        multiple // Allow multiple files
+                        multiple
                         onChange={onImageChange}
                     />
                 </div>
                 <div>
                     {imagePreviews.map((preview, index) => (
-                        <div key={index} style={{ display: 'inline-block', margin: '10px', position: 'relative' }}>
-                            <img src={preview} alt={`Preview ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                        <div
+                            key={index}
+                            style={{
+                                display: 'inline-block',
+                                margin: '10px',
+                                position: 'relative',
+                            }}
+                        >
+                            <img
+                                src={preview}
+                                alt={`Preview ${index}`}
+                                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                            />
                             <button
                                 type="button"
                                 onClick={() => removeImage(index)}
@@ -187,7 +214,7 @@ const RecommendationCreate = () => {
                                     border: 'none',
                                     borderRadius: '50%',
                                     cursor: 'pointer',
-                                    padding: '2px 6px'
+                                    padding: '2px 6px',
                                 }}
                             >
                                 X
@@ -198,7 +225,11 @@ const RecommendationCreate = () => {
                 <button type="submit" disabled={isLoading}>
                     {isLoading ? 'Creating...' : translate("save")}
                 </button>
-                {isError && <p>Error: {error.message}</p>}
+                {isError && error && (
+                    <p style={{ color: 'red' }}>
+                        {error.message || 'An unexpected error occurred.'}
+                    </p>
+                )}
                 {data && <p>Recommendation created successfully!</p>}
             </form>
         </div>

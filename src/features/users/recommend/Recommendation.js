@@ -28,7 +28,8 @@ const Recommend = () => {
 
         
         if(data){
-            const Tmp = data?.map(obj => [Object.keys(obj.ingredent) , [{name : obj.name, id : obj._id}]])  
+            console.log(data)
+            const Tmp = data?.map(obj => [obj?.ingredent?.map(val => val.name) , [{name : obj.name, id : obj._id}]])  
             setDataFliter(Tmp)
         }
 
@@ -75,6 +76,7 @@ const Recommend = () => {
                    
 
                     //tag for foodlist not note list
+                    console.log(menuAll)
                     let Tmp = [];
                         for (let mena of menuAll){
                             const m = mena[0].map((tagMenu) => tagList.includes(tagMenu))

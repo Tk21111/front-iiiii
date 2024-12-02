@@ -45,7 +45,9 @@ const RecommendationSingle = () => {
   if (isError) return <p>Error loading data</p>;
 
 
-  const ingredentList = (dataFliter?.ingredent ? Object.keys(dataFliter?.ingredent) : [])
+  let ingredentList = (dataFliter?.ingredent ? dataFliter?.ingredent.map(val => [val.name , val.quantity , val.unit]) : [])
+  console.log(ingredentList)
+  console.log(dataFliter)
 
   return (
     <div className="page">
@@ -67,7 +69,7 @@ const RecommendationSingle = () => {
           {dataFliter ? (
             <div>
               <h1>{dataFliter?.name}</h1>
-              {ingredentList.map(val => <p>{val + "  : " +  dataFliter.ingredent[val]}</p>)}
+              {ingredentList.map(val => <p>{val[0] + "  : " + val[1] + " " + val[2]}</p>)}
               <div className="tag-container">
                 {dataFliter?.tag?.map((val, i) => (
                   <p

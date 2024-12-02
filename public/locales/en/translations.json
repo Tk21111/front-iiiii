@@ -48,6 +48,11 @@
   "content" : "content",
   "linkFood" : "Link with food",
   "linkRec" : "Link with recommend",
-  "toThatPost" : "To conversation"
+  "toThatPost" : "To conversation",
+  "t1": "You can do whatever you want.",
+  "t2": "Try using this more.",
+  "t3": "You don't use this often , consider buying a smaller quantity.",
+  "t4": "Think again , you don't use this often.",
+  "t5": "I don't think you need this that much."
 
 }

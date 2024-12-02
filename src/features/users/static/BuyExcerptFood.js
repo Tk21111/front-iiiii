@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Chart } from 'react-google-charts';
 import { selectCurrentUser } from '../../auth/authSlice';
+import { translate } from '../../../hooks/translator';
 
 const BuyExcerptFood = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -36,21 +37,21 @@ const BuyExcerptFood = ({ i }) => {
     // Logic for suggestions
     if (suggestionProcess/(list.length -1 ) === 1  ) {
         if(amount[1][1] / amount[2][1] > 5){
-            suggestion = 'u use this a lot and left none';
+            suggestion = translate("t1");
         }
         else {
-            suggestion = 'u buy this and left none'
+            suggestion = translate("t2")
         }
         
     } else if (suggestionProcess/(list.length -1) >0.5) {
         if(amount[1][1] / amount[2][1] > 2){
-            suggestion = "u not use this often don't just buy in in low quntity";
+            suggestion = translate("t3");
         } else {
-            suggestion = "think again u not use this often ";
+            suggestion = translate("t4");
         }
         
     } else{
-        suggestion = "I don't think u need this as much";
+        suggestion = translate("t5");
     }
 
     // Prepare data for the chart

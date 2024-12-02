@@ -5,6 +5,7 @@ import { selectCurrentUser } from '../../auth/authSlice';
 import { useSelector } from 'react-redux';
 
 import Chart from 'react-google-charts';
+import { translate } from '../../../hooks/translator';
 
 const BuyExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
@@ -67,11 +68,11 @@ const BuyExcerpt = ({ i }) => {
     }
 
     if (amoutAll > amoutExpAll*999){
-        suggestion = 'as much as you want'
+        suggestion = translate("t1")
     } else if (amoutAll > amoutExpAll){
-        suggestion = "Maybe think again"
+        suggestion = translate("t4")
     } else if (amoutAll === amoutExpAll){
-        suggestion = "I don't think u need this as much"
+        suggestion = translate("t5")
     } 
 
     

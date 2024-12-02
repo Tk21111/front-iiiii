@@ -36,8 +36,8 @@ const CreateNote = () => {
     {
       title: "",
       expTime: formattedDate,
-      count: 0,
-      countExp: 0,
+      count: null,
+      countExp: null,
       tag: [],
       done: false,
       files: [],
@@ -165,8 +165,8 @@ const CreateNote = () => {
       {
         title: "",
         expTime: formattedDate,
-        count: 0,
-        countExp: 0,
+        count: null,
+        countExp: null,
         tag: "",
         done: false,
         files: [],
@@ -236,8 +236,8 @@ const CreateNote = () => {
             {
               title: "",
               expTime: formattedDate,
-              count: 0,
-              countExp: 0,
+              count: null,
+              countExp: null,
               tag: [],
               done: false,
               files: [],
