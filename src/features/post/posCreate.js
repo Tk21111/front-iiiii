@@ -102,6 +102,7 @@ const PostCreate = () => {
                         id="more"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
+                        style={{fontSize : '100%'}}
                     ></textarea>
                 <div>
                     <label>Images:</label>

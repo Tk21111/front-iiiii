@@ -118,7 +118,7 @@ const RecommendationCreate = () => {
                         value={des}
                         onChange={(e) => setDes(e.target.value)}
                         required
-                        style={{ height: '50vh', width: '100%' }}
+                        style={{ height: '50vh', width: '100%', fontSize : '100%'}}
                     />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ const RecommendationCreate = () => {
                 </div>
                 <label>{translate("ingredient") + " :"}</label>
                 {ingredent.map((_, index) => (
-                    <div key={index}>
+                    <div key={index} style={{justifyContent : 'center' , alignItems : 'center'}}>
                         
                         <input
                             type="text"
