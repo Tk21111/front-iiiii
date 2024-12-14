@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCreatelocaMutation } from './LocaApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
@@ -126,13 +126,22 @@ const CreatePost = () => {
         <div className='page'>
             <Header/>
             <section>
-                <h2>Create Post</h2>
-                <h1>{`${translate("amount")} : ${amount}`}</h1>
+            <div className="content">
+                <img
+                src={require("../../components/img/star.png")}
+                alt="star"
+                className="smalllogo"
+                />
+                <p style={{ marginRight: "auto" }} className="welcomefont">
+                <Link to="/user" style={{textDecoration : 'none'}}>Create Post</Link>
+                </p>
+            </div>
+                <h1 className='welcomefont'> {`${translate("amount")} : ${amount}`}</h1>
                 <form>
-                    <label htmlFor="locaMore">{translate("ingredient") + " :"}</label>
+                    <label htmlFor="locaMore" className='welcomefont'>{translate("more") + " :"}</label>
                     <input type="text" id="locamore" name="locamore" value={more} onChange={onMoreChange} />
 
-                    <label htmlFor="locaImages">Upload Images:</label>
+                    <label htmlFor="locaImages" className='welcomefont'>Upload Images:</label>
                     <input type="file" id="locaImages" name="locaImages" onChange={onImageChange} multiple  disabled={true} />
                     <div>
                         {imagePreviews.map((preview, index) => (
@@ -159,22 +168,20 @@ const CreatePost = () => {
                         ))}
                     </div>
 
-                    <button type="button" onClick={onSavePostClicked} disabled={isLoading}>
-                        {translate("save")}
-                    </button>
+                    
                 </form>
 
                 {/* Address Form and Map Integration */}
                 <div style={{ display: 'inline-block', verticalAlign: 'top', marginTop: '1rem' }}>
                     <div id="form_div" style={{ width: '320px', border: 'solid 2px' }}>Loading...</div>
-                    <div id="debugoutput" style={{ maxWidth: '18rem', backgroundColor: '#fff39c', padding: '0.5rem', borderRadius: '6px', verticalAlign: 'top', marginTop: '1rem' }}>
-                        ลองกรอกข้อมูลในฟอร์ม หรือลากหมุดบนแผนที่
-                    </div>
                 </div>
 
                 {/* Map div */}
                 <div id="map_div" style={{ width: '350px', height: '350px', display: 'inline-block' }}></div>
             </section>
+            <button className='buttonCF'  type="button" onClick={onSavePostClicked} disabled={isLoading}>
+                {translate("save")}
+            </button>
         </div>
     );
 };

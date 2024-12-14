@@ -100,10 +100,13 @@ const RecommendationCreate = () => {
     return (
         <div className='page'>
             <Header />
-            <h2>Create Recommendation</h2>
+            <div className='content' >
+            <img src={require('../../../components/img/star.png')} alt="star" className="smalllogo"/>
+            <p style={{ marginRight : 'auto'}} className='welcomefont'>Create Recommendation</p>
+            </div>
             <form onSubmit={submit}>
+            <label className='welcomefont' style={{color : '#B0E7FF'}}>{translate("foodName") + " :"}</label>
                 <div>
-                    <label>{translate("foodName") + " :"}</label>
                     <input
                         type="text"
                         value={food}
@@ -111,7 +114,7 @@ const RecommendationCreate = () => {
                         required
                     />
                 </div>
-                <label>{translate("des") + " :"}</label>
+                <label className='welcomefont' style={{color : '#B0E7FF'}}>{translate("des") + " :"}</label>
                 <div>
                     
                     <textarea
@@ -122,7 +125,7 @@ const RecommendationCreate = () => {
                     />
                 </div>
                 <div>
-                    <label>{translate("tag") + " :"}</label>
+                    <label className='welcomefont' style={{color : '#B0E7FF'}}>{translate("tag") + " :"}</label>
                     <input
                         type="text"
                         value={tag}
@@ -130,9 +133,9 @@ const RecommendationCreate = () => {
                         required
                     />
                 </div>
-                <label>{translate("ingredient") + " :"}</label>
+                <label className='welcomefont' style={{color : '#B0E7FF'}}>{translate("ingredient") + " :"}</label>
                 {ingredent.map((_, index) => (
-                    <div key={index} style={{justifyContent : 'center' , alignItems : 'center'}}>
+                    <div key={index} style={{justifyContent : 'center' , alignItems : 'center' , marginTop : '1vi' , marginBottom : '1vi' }}>
                         
                         <input
                             type="text"
@@ -140,14 +143,14 @@ const RecommendationCreate = () => {
                             onChange={(e) => handleInputChange(index, '0', e.target.value)}
                             placeholder='ชื่อวัตถุดิบ'
                             required
-                            style={{width : '25vh'}}
+                            style={{width : '25vi' , marginLeft : '1vh'}}
                         />
                         <input
                             type="number"
                             value={ingredent[index]['1']}
                             onChange={(e) => handleInputChange(index, '1', e.target.value)}
                             placeholder='จำนวน'
-                            style={{width : '25vh'}}
+                            style={{width : '25vi' , marginLeft : '1vh'}}
 
                             required
                         />
@@ -155,21 +158,21 @@ const RecommendationCreate = () => {
                             value={ingredent[index].unit}
                             onChange={(e) => handleInputChange(index, 'unit', e.target.value)}
                             required
-                            style={{height : "5vh"}}
+                            style={{height : "4vh"  , marginLeft : '1vh' ,marginRight : '1vh', paddingTop: '0.45vi'}}
                         >
                             <option value="kg">กิโลกรัม</option>
                             <option value="piece">ชิ้น</option>
                         </select>
-                        <button type="button" onClick={() => removeIngredient(index)}>
-                            {translate("delete")}
+                        <button className='buttonCF'style={{width : '10%' }} type="button" onClick={() => removeIngredient(index)}>
+                            X
                         </button>
                     </div>
                 ))}
-                <button type="button" onClick={addIngredient}>
+                <button className='buttonCF' style={{color : '#F9AEFF' , backgroundColor : '#FFF6A6'}} type="button" onClick={addIngredient}>
                     {translate("more")}
                 </button>
                 <div>
-                    <label>Public:</label>
+                    <label className='welcomefont' style={{color : '#B0E7FF'}}>Public:</label>
                     <input
                         type="checkbox"
                         checked={pubilc}
@@ -177,8 +180,9 @@ const RecommendationCreate = () => {
                         
                     />
                 </div>
+                <label className='welcomefont' style={{color : '#B0E7FF'}}>Images:</label>
+
                 <div>
-                    <label>Images:</label>
                     <input
                         type="file"
                         accept="image/*"
@@ -222,7 +226,7 @@ const RecommendationCreate = () => {
                         </div>
                     ))}
                 </div>
-                <button type="submit" disabled={isLoading}>
+                <button type="submit" disabled={isLoading} className='buttonCF'>
                     {isLoading ? 'Creating...' : translate("save")}
                 </button>
                 {isError && error && (

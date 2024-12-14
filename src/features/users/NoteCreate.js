@@ -274,10 +274,17 @@ const CreateNote = () => {
         </div>
         <form>
           {notes.map((note, index) => (
+            <div style={{borderRadius : '2vi' , border : '1px solid black' , marginTop : '2vi' , padding : '2vi'}}>
             <form key={index}>
-              <label htmlFor={`postTitle-${index}`}>{translate('foodName') + " : "}</label>
+              {index > 0 && (
+                <button className='buttonCF'style={{width : '10%' , alignSelf : 'end'}} type="button" onClick={() => handleRemoveNote(index)}>
+                X
+                </button>
+              )}
+              <label htmlFor={`postTitle-${index}`} className='welcomefont'>{translate('foodName') + " : "}</label>
               <input
                 type="text"
+                style={{marginTop: '2%'}}
                 id={`postTitle-${index}`}
                 name={`postTitle-${index}`}
                 value={note.title}
@@ -285,22 +292,26 @@ const CreateNote = () => {
               />
               <button
                 type="button"
+                style={{marginTop : '5%' , marginBottom: '5%'}}
+                className='buttonCF'
                 onClick={() => toggleListening(index)}
               >
                 {note.isListening ? "Stop Listening": "Start Listening"}
                 {(console.log(note.isListening))}
               </button>
-              <label htmlFor={`postExpTime-${index}`}>{translate('expDate') + " : "}</label>
+              <label htmlFor={`postExpTime-${index}`} className='welcomefont'>{translate('expDate') + " : "}</label>
               <input
                 type="date"
+                style={{marginTop: '2%'}}
                 id={`postExpTime-${index}`}
                 name={`postExpTime-${index}`}
                 value={note.expTime}
                 onChange={(e) => handleInputChange(index, "expTime", e.target.value)}
               />
-              <label htmlFor={`postCount-${index}`}>{translate('count') + " : "}</label>
+              <label htmlFor={`postCount-${index}`} className='welcomefont'>{translate('count') + " : "}</label>
               <input
                 type="number"
+                style={{marginTop: '2%'}}
                 id={`postCount-${index}`}
                 name={`postCount-${index}`}
                 value={note.count}
@@ -308,9 +319,10 @@ const CreateNote = () => {
                 max="999"
                 min="0"
               />
-              <label htmlFor={`postCountExp-${index}`}>{translate('countExp') + " : " }</label>
+              <label htmlFor={`postCountExp-${index}`} className='welcomefont'>{translate('countExp') + " : " }</label>
               <input
                 type="number"
+                style={{marginTop: '2%'}}
                 id={`postCountExp-${index}`}
                 name={`postCountExp-${index}`}
                 value={note.countExp}
@@ -318,15 +330,16 @@ const CreateNote = () => {
                 max="999"
                 min="0"
               />
-              <label htmlFor={`postTag-${index}`}>{translate('tag') + " : "}</label>
+              <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>
               <input
                 type="text"
+                style={{marginTop: '2%'}}
                 id={`postTag-${index}`}
                 name={`postTag-${index}`}
                 value={note.tag}
                 onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
               />
-              <label htmlFor={`postFiles-${index}`}>{translate('upLoadImage') + " : "}</label>
+              <label htmlFor={`postFiles-${index}`} className='welcomefont'>{translate('upLoadImage') + " : "}</label>
               <input
                 type="file"
                 id={`postFiles-${index}`}
@@ -352,23 +365,23 @@ const CreateNote = () => {
                 )) || "no image"}
               </div>
               
-              {index > 0 && (
-                <button type="button" onClick={() => handleRemoveNote(index)}>
-                  {translate('delete')}
-                </button>
-              )}
               <button type="button" onClick={() => handleRemoveImage(index)}>
                 {translate('deleteImg')}
               </button>
             </form>
+            </div>
           ))}
-          <button type="button" onClick={handleAddNote} disable={isLoading}>
+          <button className="buttonCF" style={{marginTop : '5vi' , color : '#F9AEFF' , backgroundColor : '#FFF6A6'}} type="button" onClick={handleAddNote} disable={isLoading}>
             {translate('addMore')}
           </button>
-          <button type="button" onClick={onSavePostClicked} disabled={!canSave || isLoading}>
+          
+          <button className="buttonCF-save"  type="button" onClick={onSavePostClicked} disabled={!canSave || isLoading}>
             {translate('save')}
           </button>
+        
+          
         </form>
+        
       </section>
     </div>
   );

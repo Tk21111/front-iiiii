@@ -84,7 +84,7 @@ else if (isError) {
           className="smalllogo"
         />
         <p style={{ marginRight: "auto" }} className="welcomefont">
-          <Link to="/user">Food Waste List</Link>
+          <Link to="/user" style={{textDecoration : 'none'}}>Food Waste List</Link>
         </p>
       </div>
       <div className="food-waste-list">

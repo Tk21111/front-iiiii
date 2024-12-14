@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCreatePostMutation } from './PostApiSlice';
 import { translate } from '../../hooks/translator';
 
@@ -86,10 +86,19 @@ const PostCreate = () => {
     return (
         <div className='page'>
             <Header />
-            <h2>Create Post</h2>
+            <div className="content">
+        <img
+          src={require("../../components/img/star.png")}
+          alt="star"
+          className="smalllogo"
+        />
+        <p style={{ marginRight: "auto" }} className="welcomefont">
+          <Link to="/post/false/create/null" style={{textDecoration : 'none'}}>Create Post</Link>
+        </p>
+      </div>
             <form onSubmit={submit}>
+            <label className='welcomefont'>{translate("title") + ':'}</label>
                 <div>
-                    <label>{translate("title")}</label>
                     <input
                         type="text"
                         value={title}
@@ -97,7 +106,7 @@ const PostCreate = () => {
                         required
                     />
                 </div>
-                    <label htmlFor="more">{translate("content")}</label>
+                    <label className='welcomefont' htmlFor="more">{translate("content")+ ":"}</label>
                     <textarea
                         id="more"
                         value={content}
@@ -105,7 +114,7 @@ const PostCreate = () => {
                         style={{fontSize : '100%'}}
                     ></textarea>
                 <div>
-                    <label>Images:</label>
+                    <label className='welcomefont'>Images:</label>
                     <input
                         type="file"
                         accept="image/*"
@@ -114,10 +123,10 @@ const PostCreate = () => {
                         onChange={onImageChange}
                     />
                 </div>
-                <button type="button" onClick={handleLinkWithFood} disabled={isLoading}>
+                <button disabled={isLoading} className='buttonCF' style={{border : '1px solid black' , fontSize : '90%', backgroundColor : '#FFF6A6' , color : '#F9AEFF' , margin : '1vi'}}type="button" onClick={handleLinkWithFood} >
                     <h2>{translate("linkFood")}</h2>
                 </button>
-                <button type="button" onClick={handleLinkWithHow} disabled={isLoading}>
+                <button className='buttonCF' style={{border : '1px solid black' , fontSize : '90%' , backgroundColor : '#FFF6A6' , color : '#F9AEFF' , margin : '1vi'}} type="button" onClick={handleLinkWithHow} disabled={isLoading}>
                     <h2>{translate("linkRec")}</h2>
                 </button>
                 {id?.startsWith("food=") && <h2>Food Linked</h2>}
@@ -148,7 +157,7 @@ const PostCreate = () => {
                     ))}
                 </div>
 
-                <button type="submit" disabled={isLoading}>
+                <button type="submit" disabled={isLoading} className='buttonCF-save'>
                     {isLoading ? 'Creating...' : translate("save")}
                 </button>
 

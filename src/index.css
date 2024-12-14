@@ -519,6 +519,25 @@ article {
   color: pink;         /* Text color */
   font-weight: bold;   /* Bold text */
   font-size: 30px;     /* Font size */
+  text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,  
+    -1px  1px 0 black,  
+     1px  1px 0 black;
+  letter-spacing: 0.5vh;
+}
+
+.welcomefont-link {
+  color: pink;         /* Text color */
+  font-weight: bold;   /* Bold text */
+  font-size: 30px;     /* Font size */
+  text-shadow: 
+  -1px -1px 0 black,  
+  1px -1px 0 black,  
+ -1px  1px 0 black,  
+  1px  1px 0 black;
+  letter-spacing: 0.5vh;
+  text-decoration: none;
 }
 
 .imgcontain {
@@ -920,4 +939,38 @@ who ever fix this im sorry tk21111 18/10/2024
       margin: 5%;
       padding: 2%;
   }
+}
+
+.buttonCF {
+  color: #F9AEFF;
+  background-color: #B0E7FF;
+  align-self: center;
+  border-radius: 5vi;
+  width: 40vh;
+  border : 0px;
+  font-weight: bold;   /* Bold text */
+  font-size: 30px;     /* Font size */
+  text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,  
+    -1px  1px 0 black,  
+     1px  1px 0 black;
+  letter-spacing: 0.5vh;
+}
+.buttonCF-save {
+  color: #F9AEFF;
+  background-color: #B0E7FF;
+  align-self: center;
+  border-radius: 5vi;
+  width: 40vh;
+  border : 0px;
+  font-weight: bold;   /* Bold text */
+  font-size: 30px;     /* Font size */
+  text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,  
+    -1px  1px 0 black,  
+     1px  1px 0 black;
+  letter-spacing: 0.5vh;
+  margin-top: 10vi;
 }

@@ -66,10 +66,10 @@ const Login = () => {
             <section className="login">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> 
 
-                <h1>Login</h1>
+                <h1 className='welcomefont' style={{color : '#FFE55F'}}>Log in</h1>
 
                 <form onSubmit={handleSubmit}> 
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}} >Username:</label>
                     <input
                         type="text"
                         id="username"
@@ -80,7 +80,7 @@ const Login = () => {
                         required
                     />
 
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password"  className='welcomefont' style={{color : '#F9AEFF'}}>Password:</label>
                     <input
                         type="password" //doesn't show it 
                         id="password"
@@ -88,12 +88,12 @@ const Login = () => {
                         value={pwd}
                         required
                     />
-                    <button>log In</button>
 
-                    <label htmlFor="persist" className="form__persist">
+                    <label htmlFor="persist" className='welcomefont' style={{color : '#B0E7FF'}}>
                         <input
                             type="checkbox"
                             className="form__checkbox"
+                            style={{width : '5%' , height : '100%'}}
                             id="persist"
                             onChange={handleToggle}
                             checked={persist}
@@ -101,9 +101,13 @@ const Login = () => {
                         />
                         Trust this device
                     </label>
+                    <button className='buttonCF'>log In</button>
                 </form>
-                <p><Link to="/registor"> sign in </Link></p>
+                <div style={{display : 'flex' , justifyContent: 'center' , marginTop : '3%'}}>
+                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>Sign in</button>
+                </div>
             </section>
+            
         </div>
     )
 
