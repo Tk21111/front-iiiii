@@ -101,10 +101,10 @@ const Login = () => {
                         />
                         Trust this device
                     </label>
-                    <button className='buttonCF'>log In</button>
+                    <button className='buttonCF'>เข้าสู่ระบบ</button>
                 </form>
                 <div style={{display : 'flex' , justifyContent: 'center' , marginTop : '3%'}}>
-                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>Sign in</button>
+                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>ลงทะเบียน</button>
                 </div>
             </section>
             
