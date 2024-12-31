@@ -12,7 +12,7 @@ const RecommendationCreate = () => {
     const [food, setFood] = useState('');
     const [tag, setTag] = useState('');
     const [pubilc, setPublic] = useState(false);
-    const [ingredent, setIngredent] = useState([{ "0": '', "1": null, unit: '' }]);
+    const [ingredent, setIngredent] = useState([{ "0": '', "1": null, unit: 'kg' }]);
     const [imagePaths, setImagePaths] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
@@ -90,7 +90,7 @@ const RecommendationCreate = () => {
     };
 
     const addIngredient = () => {
-        setIngredent([...ingredent, { "0": '', "1": null, unit: '' }]);
+        setIngredent([...ingredent, { "0": '', "1": null, unit: 'kg' }]);
     };
 
     const removeIngredient = (index) => {
