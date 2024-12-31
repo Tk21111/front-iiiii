@@ -39,6 +39,7 @@ const CreateNote = () => {
       count: null,
       countExp: null,
       tag: [],
+      typeCount : 'kg',
       done: false,
       files: [],
       isListening: false, // Added state to handle voice recognition
@@ -168,6 +169,7 @@ const CreateNote = () => {
         count: null,
         countExp: null,
         tag: "",
+        typeCount : 'kg',
         done: false,
         files: [],
         isListening: false,
@@ -218,6 +220,7 @@ const CreateNote = () => {
             formData.append(`notes[${index}][date]`, note.expTime);
             formData.append(`notes[${index}][count]`, note.count);
             formData.append(`notes[${index}][countExp]`, note.countExp);
+            formData.append(`notes[${index}][typeCount]`, note.typeCount);
             formData.append(`notes[${index}][done]`, note.done);
             formData.append(`notes[${index}][tag]`, note.tag);
             note.files.forEach((file) => {
@@ -239,6 +242,7 @@ const CreateNote = () => {
               count: null,
               countExp: null,
               tag: [],
+              typeCount : 'kg',
               done: false,
               files: [],
               isListening: false,
@@ -329,7 +333,17 @@ const CreateNote = () => {
                 onChange={(e) => handleInputChange(index, "countExp", Number(e.target.value))}
                 max="999"
                 min="0"
-              />
+              /> 
+              <label htmlFor={`postCountExp-${index}`} className='welcomefont'>{translate('typeCount') + " : " }</label>
+              <select
+                  value={note.countExp?.typeCount}
+                  onChange={(e) => handleInputChange(index, 'typeCount', e.target.value)}
+                  required
+                  style={{height : "4vh"  , marginLeft : '1vh' ,marginRight : '1vh', paddingTop: '0.45vi'}}
+              >
+                <option value="kg">กิโลกรัม</option>
+                <option value="piece">ชิ้น</option>
+              </select>
               <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>
               <input
                 type="text"

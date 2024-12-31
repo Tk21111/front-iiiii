@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetAllnoteQuery } from "./NoteApiSlice";
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import { translate } from '../../hooks/translator';
 
 const PostsExcerpt = ({ i }) => {
     const username = useSelector(selectCurrentUser);
+
+    const navigate = useNavigate()
 
     const [note, setNote] = useState(null);
     const [set , setSet] =useState(false)
@@ -27,7 +29,7 @@ const PostsExcerpt = ({ i }) => {
         return <p>Loading...</p>;
     }
     return (
-        <div class="food-waste-item" style={{height : '150px'}}>
+        <div class="food-waste-item" style={{height : '150px'}} onClickCapture={()=> navigate(`note/${i.id}`)}>
             <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
             <UpdateAmount note={i} onCloseConfirm={()=> setUpdate(false)} open={update}/>
             <div className='food-waste-front'>
@@ -38,15 +40,13 @@ const PostsExcerpt = ({ i }) => {
                         <div class="food-waste-details" style={{fontSize : '55%'}}>
                             <ul>
                                 <div className='tag-container' style={{marginLeft : '0px' , paddingLeft : '0px'}}>
-                                    <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ])}</h2></li>
+                                    <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ]) + " " + (i?.typeCount || '')}</h2></li>
                                     <button onClick={() => setUpdate(true)} className='small-button'>{translate("edit")}</button>
                                 </div>
                                 <div>
                                     {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
-                                    <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>{translate('giveToanother')}</p></li>
-                                    <li><p className="postCredit">
-                                        <Link to={`note/${i.id}`}>{translate('singlePage')}</Link>
-                                    </p></li>
+                                <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>{translate('giveToanother')}</p></li>
+                       
                                 </div>
                             </ul>
                             

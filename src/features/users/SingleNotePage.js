@@ -53,8 +53,8 @@ const SinglePostPage = () => {
                 />
                 <p>{ translate("expDateLeft") + " : " + (diff > 0 ? `${diff} ${translate("day")}` : 'Expired')}</p>
                 <div className="single-context">
-                    <p>{translate("count") +" : " +  note?.count?.[note?.count?.length - 1]}</p>
-                    <p>{translate("countExp") +" : " + note?.countExp?.[note?.count?.length - 1]}</p>
+                    <p>{translate("count") +" : " +  note?.count?.[note?.count?.length - 1] + " " + note?.typeCount}</p>
+                    <p>{translate("countExp") +" : " + note?.countExp?.[note?.count?.length - 1] + " " + note?.typeCount}</p>
                 </div>
                 <div style={{ width: '90%' }}>
                     <BuyExcerptFood i={note} />
