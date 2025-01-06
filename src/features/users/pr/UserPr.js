@@ -59,7 +59,7 @@ const ProfileUpdateForm = () => {
             console.error("Failed to update profile:", err);
         }
     };
-
+   
     return (
         <div className='page'>
             <Header />
@@ -68,7 +68,7 @@ const ProfileUpdateForm = () => {
                     <label htmlFor="aka">Aka:</label>
                     <h2>{aka}</h2>
                     
-                    <img src={image[0]?.url || null } alt="User Avatar" className="user-avatar" />
+                    {image ?<img src={image[0]?.url} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} /> : null}
                     
                     <label className="warning-label">
                         Notice that your username when logging in will not change
