@@ -33,11 +33,9 @@ const SinglePostPage = () => {
     );
 
     // Build image path
-    const imagePath =
-        note?.images?.length > 0
-            ? `${process.env.REACT_APP_API}/${note.images.toString().replace(/\\/g, '/')}`
-            : require('../../components/img/meal.png');
+    const imagePath = note?.images.map(image => image.url);
 
+    console.log(note)
     return (
         <div style={{ width: '100%', height: '100%' }}>
             <Header />
@@ -46,11 +44,7 @@ const SinglePostPage = () => {
                     <h2>{note?.text}</h2>
                     <p className="tag-child" style={{margin : '5%'}}>{note?.tag}</p>
                 </div>
-                <img
-                    src={imagePath}
-                    alt="Note image"
-                    style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: '5%' }}
-                />
+                {imagePath.map(val => <img className='post-single-img'src={val} alt='pic'/>)}
                 <p>{ translate("expDateLeft") + " : " + (diff > 0 ? `${diff} ${translate("day")}` : 'Expired')}</p>
                 <div className="single-context">
                     <p>{translate("count") +" : " +  note?.count?.[note?.count?.length - 1] + " " + note?.typeCount}</p>

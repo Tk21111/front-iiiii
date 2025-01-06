@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Header from "./Header"
+import { useSelector } from "react-redux"
+import { selectCurrentUser } from "../features/auth/authSlice"
+import { useEffect } from "react"
 
 const Public = () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem("login")){
+            navigate('welcome')
+        }
+    },[])
 
     const content = (
         <div className="page">

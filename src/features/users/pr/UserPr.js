@@ -16,7 +16,6 @@ const ProfileUpdateForm = () => {
     const aka = useSelector(selectCurrentAka);
     const image = useSelector(selectCurrentImage);
 
-    const imagePath = image?.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
 
     const [updateUser, { isLoading, error }] = useUpdateUserMutation();
 
@@ -68,9 +67,9 @@ const ProfileUpdateForm = () => {
                 <div className="form-section">
                     <label htmlFor="aka">Aka:</label>
                     <h2>{aka}</h2>
-                    {imagePath?.map((val, index) => (
-                        <img key={index} src={val} alt="User Avatar" className="user-avatar" />
-                    ))}
+                    
+                    <img src={image[0].url} alt="User Avatar" className="user-avatar" />
+                    
                     <label className="warning-label">
                         Notice that your username when logging in will not change
                     </label>
@@ -96,7 +95,7 @@ const ProfileUpdateForm = () => {
                     <input
                         type="file"
                         id="images"
-                        multiple
+                        accept="image/*"
                         onChange={handleImageChange}
                     />
                 </div>

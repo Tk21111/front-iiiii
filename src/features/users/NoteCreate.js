@@ -234,7 +234,7 @@ const CreateNote = () => {
             formData,
           }).unwrap();
 
-          
+          /*
           setNotes([
             {
               title: "",
@@ -248,6 +248,7 @@ const CreateNote = () => {
               isListening: false,
             },
           ]);
+          */
           navigate(`/user`);
           
         } catch (err) {
@@ -356,12 +357,13 @@ const CreateNote = () => {
               <label htmlFor={`postFiles-${index}`} className='welcomefont'>{translate('upLoadImage') + " : "}</label>
               <input
                 type="file"
+                accept="image/*"
                 id={`postFiles-${index}`}
-                name={`postFiles-${index}`}
-                disabled={true}
+                name={`images`}  // Changed this line
                 multiple
                 onChange={(e) => handleFileChange(index, e.target.files)}
               />
+
               <div>
                 {note?.preview?.map((src, fileIndex) => (
                   <img

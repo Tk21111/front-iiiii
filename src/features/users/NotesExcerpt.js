@@ -22,7 +22,7 @@ const PostsExcerpt = ({ i }) => {
     let imagePath ;;
 
     if(i?.images?.length){
-        imagePath = `${process.env.REACT_APP_API}/${i?.images?.toString().replace(/\\/g, '/')}`;
+        imagePath = i.images.map(val => val.url)[0];
     }
 
     if (!i) {

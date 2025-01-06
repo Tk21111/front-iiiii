@@ -22,8 +22,9 @@ const RecommendationSingle = () => {
     dataFliter.tag = listNew[menuId][0];
   }
 
-  const imagePath = dataFliter?.images?.map(image => 
-    `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`) || [];
+  const imagePath = dataFliter?.images?.map(image => image?.url || null);
+
+
 
   const isDeleteDisabled = id.split('=')[0].split('!!')[0] === 'own';
 

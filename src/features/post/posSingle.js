@@ -151,7 +151,7 @@ const PostSingle = () => {
 
   let lContent =  comments?.length / 24;
   let content
-  const imagePath = postSingle?.images.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
+  const imagePath = postSingle?.images.map(image => image.url);
 
   if (isLoading) {
     content = <p>Loading post...</p>;

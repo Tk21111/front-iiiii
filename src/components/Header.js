@@ -23,7 +23,7 @@ function Header() {
   const aka = useSelector(selectCurrentAka);
   const image = useSelector(selectCurrentImage);
   
-  const imagePath = `${process.env.REACT_APP_API}/${image?.toString().replace(/\\/g, '/')}`;
+  console.log(image)
 
   const handleSwitch = () => {
     switchLanguage();
@@ -69,7 +69,7 @@ function Header() {
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
             {translate("changeLang")}
           </ListItem>
-          <img src={imagePath} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
+          <img src={image[0].url} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
         </List>
         <List>
           <ListItem button component={Link} to="/logout" onClick={toggleDrawer(false)}>

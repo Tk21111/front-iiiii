@@ -53,6 +53,7 @@ const RecommendationCreate = () => {
         try {
             await setHow({ formData }).unwrap();
             
+            
             setDes('');
             setTag('');
             setFood('');
@@ -61,6 +62,7 @@ const RecommendationCreate = () => {
             setImagePaths([]);
             setImagePreviews([]);
             navigate('/recommend');
+            
             
         } catch (err) {
             console.error(err);
@@ -188,7 +190,7 @@ const RecommendationCreate = () => {
                         accept="image/*"
                         multiple
                         onChange={onImageChange}
-                        disabled={true}
+                       
                     />
                 </div>
                 <div>

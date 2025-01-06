@@ -105,7 +105,7 @@ const SingleLocaPage = () => {
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Can't find location sharing post</p>;
 
-    const imagePath = loca?.images?.map(p => `${process.env.REACT_APP_API}/${p.replace(/\\/g, '/')}`) || [];
+    const imagePath = loca?.images?.map(p => p.url) || [];
     
     return (
         <div className='page'>
