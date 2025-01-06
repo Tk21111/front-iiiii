@@ -69,7 +69,7 @@ function Header() {
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
             {translate("changeLang")}
           </ListItem>
-          <img src={image[0].url} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
+          <img src={image[0]?.url || null } alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} />
         </List>
         <List>
           <ListItem button component={Link} to="/logout" onClick={toggleDrawer(false)}>

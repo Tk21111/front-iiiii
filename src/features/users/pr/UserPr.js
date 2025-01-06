@@ -68,7 +68,7 @@ const ProfileUpdateForm = () => {
                     <label htmlFor="aka">Aka:</label>
                     <h2>{aka}</h2>
                     
-                    <img src={image[0].url} alt="User Avatar" className="user-avatar" />
+                    <img src={image[0]?.url || null } alt="User Avatar" className="user-avatar" />
                     
                     <label className="warning-label">
                         Notice that your username when logging in will not change
