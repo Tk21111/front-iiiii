@@ -47,15 +47,14 @@ const RecommendationSingle = () => {
 
 
   let ingredentList = (dataFliter?.ingredent ? dataFliter?.ingredent.map(val => [val.name , val.quantity , val.unit]) : [])
-  console.log(ingredentList)
-  console.log(dataFliter)
+
 
   return (
     <div className="page">
       <Header />
       <div className="single-parent">
         <div>
-          {imagePath.length > 0 ? (
+          {imagePath ? (
             imagePath.map((path, i) => (
               <img
                 key={i}

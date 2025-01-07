@@ -35,7 +35,7 @@ export default function OverlayCenter({ loca, open, onClose, own }) {
                         <img src={require('../components/img/home.png')} alt="home" />
                     </div>
                     <div className="food-waste-details" style={{ width: '200px' }}>
-                        <p>{`${loca?.food?.text || 'No food info'} : ${loca?.num || ''}`}</p>
+                        <p>{`${loca?.food?.text || 'No food info'} : ${loca?.num || ''}  ${loca?.food?.type || ""}`}</p>
                         <p>Time left: {daysLeft} days</p>
                         {loca?.user?._id 
                             ? <Link to={`/getuser/${loca.user._id}`}>View profile</Link>

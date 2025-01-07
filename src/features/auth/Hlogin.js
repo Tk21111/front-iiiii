@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
+import { translate } from '../../hooks/translator'
 
 const Login = () => {
     const userRef = useRef() //set focus on userinput
@@ -69,7 +70,7 @@ const Login = () => {
                 <h1 className='welcomefont' style={{color : '#FFE55F'}}>Log in</h1>
 
                 <form onSubmit={handleSubmit}> 
-                    <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}} >Username:</label>
+                    <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}} >{translate("username")}</label>
                     <input
                         type="text"
                         id="username"
@@ -80,7 +81,7 @@ const Login = () => {
                         required
                     />
 
-                    <label htmlFor="password"  className='welcomefont' style={{color : '#F9AEFF'}}>Password:</label>
+                    <label htmlFor="password"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate("password")}</label>
                     <input
                         type="password" //doesn't show it 
                         id="password"
@@ -99,12 +100,12 @@ const Login = () => {
                             checked={persist}
                             required
                         />
-                        Trust this device
+                        {translate("TTD")}
                     </label>
-                    <button className='buttonCF'>เข้าสู่ระบบ</button>
+                    <button className='buttonCF'>{translate("login")}</button>
                 </form>
                 <div style={{display : 'flex' , justifyContent: 'center' , marginTop : '3%'}}>
-                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>ลงทะเบียน</button>
+                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signin")}</button>
                 </div>
             </section>
             

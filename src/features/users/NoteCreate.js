@@ -345,15 +345,19 @@ const CreateNote = () => {
                 <option value="kg">กิโลกรัม</option>
                 <option value="piece">ชิ้น</option>
               </select>
-              <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>
-              <input
-                type="text"
-                style={{marginTop: '2%'}}
-                id={`postTag-${index}`}
-                name={`postTag-${index}`}
-                value={note.tag}
-                onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
-              />
+              <div className="icon-container">
+                <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>
+                <input
+                  type="text"
+                  style={{marginTop: '2%'}}
+                  id={`postTag-${index}`}
+                  name={`postTag-${index}`}
+                  value={note.tag}
+                  onChange={(e) => handleInputChange(index, "tag", (e.target.value.includes(",") ? e.target.value.split(",") : e.target.value))}
+                />
+                <div className="hover-description">{"parent || เซ็ตใหญ่ ex เป็ดเยอรมัน => เป็ด"}</div>
+              </div>
+              
               <label htmlFor={`postFiles-${index}`} className='welcomefont'>{translate('upLoadImage') + " : "}</label>
               <input
                 type="file"

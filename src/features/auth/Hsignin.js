@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
 import { useSigninMutation } from './authApiSlice';
+import { translate } from '../../hooks/translator';
 
 const Signin = () => {
     const userRef = useRef();
@@ -70,7 +71,7 @@ const Signin = () => {
                 </p>
                 <h1 className='welcomefont' style={{color : '#FFE55F'}}>Signin</h1>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}}>Username:</label>
+                    <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate('username')}</label>
                     <input
                         type="text"
                         id="username"
@@ -80,8 +81,8 @@ const Signin = () => {
                         autoComplete="off"
                         required
                     />
-                    <label htmlFor="realname"  className='welcomefont' style={{color : '#BCEBFF' , fontSize : '2vi' }}>This is for data collecting purpose</label>
-                    <label htmlFor="realname"  className='welcomefont' style={{color : '#F9AEFF'}}>Real Name:</label>
+                    <label htmlFor="realname"  className='welcomefont' style={{color : '#BCEBFF' , fontSize : '2vi' }}></label>
+                    <label htmlFor="realname"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate('realname')}</label>
                     <input
                         type="text"
                         id="realname"
@@ -90,7 +91,7 @@ const Signin = () => {
                         autoComplete="off"
                         required
                     />
-                    <label htmlFor="age"  className='welcomefont' style={{color : '#F9AEFF'}}>Age:</label>
+                    <label htmlFor="age"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate("age")}</label>
                     <input
                         type="number"
                         id="age"
@@ -98,7 +99,7 @@ const Signin = () => {
                         onChange={(e) => setAge(e.target.value)}
                         required
                     />
-                    <label htmlFor="sex"  className='welcomefont' style={{color : '#F9AEFF'}}>Sex:</label>
+                    <label htmlFor="sex"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate("sex")}</label>
                     <select
                         style={{height : '6vh' , fontSize : '80%'}}
                         id="sex"
@@ -108,7 +109,7 @@ const Signin = () => {
                         <option value="true">Male</option>
                         <option value="false">Female</option>
                     </select>
-                    <label htmlFor="password"  className='welcomefont' style={{color : '#F9AEFF'}}>Password:</label>
+                    <label htmlFor="password"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate("password")}</label>
                     <input
                         type="password"
                         id="password"
@@ -116,7 +117,7 @@ const Signin = () => {
                         onChange={(e) => setPwd(e.target.value)}
                         required
                     />
-                    <label htmlFor="cpassword"  className='welcomefont' style={{color : '#F9AEFF'}}>Confirm Password:</label>
+                    <label htmlFor="cpassword"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate("cpassword")}</label>
                     <input
                         type="password"
                         id="cpassword"
@@ -124,7 +125,7 @@ const Signin = () => {
                         onChange={(e) => setCPwd(e.target.value)}
                         required
                     />
-                    <button className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>Sign In</button>
+                    <button className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signin")}</button>
                 </form>
             </section>
         </div>

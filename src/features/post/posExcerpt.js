@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link  } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { selectCurrentUser } from '../auth/authSlice';
 import { useSelector } from 'react-redux';
 import { useGetSavePostQuery, useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
@@ -18,6 +18,8 @@ const PostsExcerpt = ({ i }) => {
 
     const {data : savePostData } = useGetSavePostQuery();
     const [postSave , setPostSave] = useState([]);
+
+    const navigate = useNavigate()
 
     useEffect(()=> {
         if(savePostData){
@@ -57,7 +59,7 @@ const PostsExcerpt = ({ i }) => {
     const imageUserPath = i?.user?.image?.map(image => image?.url);
 
     return (
-        <div className="food-waste-item">
+        <div className="food-waste-item" onDoubleClick={() => navigate(i?.id)}>
             <div className="food-waste-front">
                 <img
                     src={imageUserPath ? imageUserPath[0] : require('../../components/img/home.png')}
@@ -122,7 +124,6 @@ const PostsExcerpt = ({ i }) => {
                                 style={{backgroundColor : (postSave?.find(val => val._id === i._id)) ? '#FFC0CB' : 'white' , border : 'black solid 1px' }} 
                                 onClick={handleSave}>Save </button>
                         </div>
-                        <Link className="post-link" to={`/post/false/${i?.id || i?._id}`}>{translate("singlePage")}</Link>
                     </div>
                 </div>
             </div>

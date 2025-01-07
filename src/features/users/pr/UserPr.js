@@ -68,7 +68,17 @@ const ProfileUpdateForm = () => {
                     <label htmlFor="aka">Aka:</label>
                     <h2>{aka}</h2>
                     
-                    {image ?<img src={image[0]?.url} alt="note image" style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }} /> : null}
+                    {image ? (
+                        <div className="icon-container">
+                            <img
+                                src={image[0]?.url}
+                                alt="note image"
+                                className="hover-image"
+                                style={{ flexGrow: 1, maxWidth: 300, maxHeight: 300, margin: "5%" }}
+                            />
+                            <div className="hover-description">This is your profile image.</div>
+                        </div>
+                    ) : null}
                     
                     <label className="warning-label">
                         Notice that your username when logging in will not change
@@ -98,6 +108,7 @@ const ProfileUpdateForm = () => {
                         accept="image/*"
                         onChange={handleImageChange}
                     />
+                    <div className="hover-description">You can upload additional images here.</div>
                 </div>
 
                 <div className="image-previews">
@@ -106,8 +117,9 @@ const ProfileUpdateForm = () => {
                             <img
                                 src={url}
                                 alt={`preview ${index}`}
-                                className="preview-img"
+                                className="hover-image"
                             />
+                            <div className="hover-description">Preview of image {index + 1}</div>
                             <button
                                 type="button"
                                 onClick={() => handleImageRemove(index)}
@@ -129,6 +141,7 @@ const ProfileUpdateForm = () => {
                 </button>
             </form>
         </div>
+
     );
 };
 

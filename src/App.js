@@ -50,6 +50,7 @@ import PostSingle from './features/post/posSingle'
 import Notification from './components/Noti'
 import SavePost from './features/post/postSave'
 import Testtran from './hooks/useTranslation'
+import Contract from './features/users/Contract'
 function App() {
   return (
     
@@ -68,7 +69,8 @@ function App() {
               <Route path="welcome" element={<Welcome />} />
 
               {/*<Route path="notifications" element={<Notification />} /> */}
-
+              
+              <Route path='contract' element={<Contract/>}/>
               <Route path='tran' element={<Testtran/>}/>
               <Route path='record' element={<SpeechToText/>}/>
               <Route path='getuser/:userId' element={<GetUser/>}/>

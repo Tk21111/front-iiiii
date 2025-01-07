@@ -29,7 +29,7 @@ const PostsExcerpt = ({ i }) => {
         return <p>Loading...</p>;
     }
     return (
-        <div class="food-waste-item" style={{height : '150px'}} onClickCapture={()=> navigate(`note/${i.id}`)}>
+        <div class="food-waste-item" style={{height : '150px'}} onDoubleClick={()=> navigate(`note/${i.id}`)}>
             <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
             <UpdateAmount note={i} onCloseConfirm={()=> setUpdate(false)} open={update}/>
             <div className='food-waste-front'>
@@ -41,7 +41,10 @@ const PostsExcerpt = ({ i }) => {
                             <ul>
                                 <div className='tag-container' style={{marginLeft : '0px' , paddingLeft : '0px'}}>
                                     <li><h2>{i.text.length > 15 ? i.text.substr(0,15) + "..." : i.text + " : " + (i.count[i.count.length - 1 ] - i.countExp[i.countExp.length - 1 ]) + " " + (i?.typeCount || '')}</h2></li>
-                                    <button onClick={() => setUpdate(true)} className='small-button'>{translate("edit")}</button>
+                                    <div className='icon-container'>
+                                        <button onClick={() => setUpdate(true)} className='small-button'>{translate("edit")}</button>
+                                        <div className='hover-description'>กดเพื่อแก้ไขจำนวน</div>
+                                    </div>
                                 </div>
                                 <div>
                                     {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}

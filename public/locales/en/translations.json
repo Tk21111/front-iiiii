@@ -54,6 +54,14 @@
   "t3": "You don't use this often , consider buying a smaller quantity.",
   "t4": "Think again , you don't use this often.",
   "t5": "I don't think you need this that much.",
-  "typeCount" : "type"
+  "typeCount" : "type",
+  "realname" : "RealName",
+  "age" : "age",
+  "sex" : "sex",
+  "password" : "password",
+  "cpassword" : "confirm password",
+  "signin" : "sign in",
+  "login" : "log in",
+  "TTD" : "remember me"
 
 }

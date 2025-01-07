@@ -73,7 +73,7 @@ const LocasExcerpt = ({ i , own}) => {
                     
                     <div className="food-waste-content">
                             <div className="food-waste-details">
-                                <h2>{loca?.food?.text + ' :' + i?.num}</h2>
+                                <h2>{loca?.food?.text + ' : ' + i?.num + " " + (loca?.food?.typeCount || "")}</h2>
                                 <ul>
                                     <li><p>{loca.province}</p></li>
                                     <p>{loca.user.username === username ? 'own' : 'get'}</p>

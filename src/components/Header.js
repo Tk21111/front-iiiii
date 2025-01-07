@@ -58,13 +58,13 @@ function Header() {
       <Drawer content='space-between' anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
         <List>
           <ListItem button component={Link} to="/welcome" onClick={toggleDrawer(false)}>
-            Home
+            หน้าหลัก
           </ListItem>
           <ListItem button component={Link} to="/user/update" onClick={toggleDrawer(false)}>
-            Change information
+            แก้ไขโปรไฟล์
           </ListItem>
           <ListItem button component={Link} to="/save" onClick={toggleDrawer(false)}>
-            Saved Post
+            ดูโพสต์ที่เก็บไว้
           </ListItem>
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
             {translate("changeLang")}
@@ -73,10 +73,10 @@ function Header() {
         </List>
         <List>
           <ListItem button component={Link} to="/logout" onClick={toggleDrawer(false)}>
-            Logout
+            ออกจากระบบ
           </ListItem>
-          <ListItem button component={Link} to="/" onClick={toggleDrawer(false)}>
-            Contact
+          <ListItem button component={Link} to="/contract" onClick={toggleDrawer(false)}>
+            ติดต่อ
           </ListItem>
         </List>
       </Drawer>
