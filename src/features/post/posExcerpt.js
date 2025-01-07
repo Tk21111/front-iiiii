@@ -54,7 +54,7 @@ const PostsExcerpt = ({ i }) => {
         return <p>Location not found</p>;
     }
 
-    const imageUserPath = i?.user?.image?.map(image => `${process.env.REACT_APP_API}/${image.replace(/\\/g, '/')}`);
+    const imageUserPath = i?.user?.image?.map(image => image?.url);
 
     return (
         <div className="food-waste-item">
