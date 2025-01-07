@@ -23,6 +23,13 @@ const Contract = () => {
         <div>
             "@ IS work 2024 SW3 gifted 14"
         </div>
+
+        <p>How to </p>
+        <img src={require('../../components/img/ht0.png')} className='pic-how'></img>
+        <img src={require('../../components/img/ht1.png')} className='pic-how'></img>
+        <img src={require('../../components/img/ht2.png')} className='pic-how'></img>
+        <img src={require('../../components/img/ht3.png')} className='pic-how'></img>
+        <img src={require('../../components/img/ht4.png')} className='pic-how'></img>
     </div>
   )
 }

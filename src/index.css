@@ -798,6 +798,12 @@ who ever fix this im sorry tk21111 18/10/2024
   max-height: 300px;
   margin: 5%;
 }
+.pic-how {
+  flex-grow: 1;
+  max-width: 50vh;
+  max-height: 50vh;
+  margin: 5%;
+}
 
 .user-aka {
   text-align: center;
