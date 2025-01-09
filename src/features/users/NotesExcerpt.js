@@ -33,7 +33,7 @@ const PostsExcerpt = ({ i }) => {
             <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
             <UpdateAmount note={i} onCloseConfirm={()=> setUpdate(false)} open={update}/>
             <div className='food-waste-front'>
-                <div class="food-waste-date-badge"  style={{height : '35px' , fontSize: '70%' , justifyContent: 'center'}} >{i.timeOut.split("T")[0].replace(/-/gi,"/")}</div>
+                <div class="food-waste-date-badge"  style={{height : '35px' , fontSize: '70%' , justifyContent: 'center'}} >{(i?.timeOut?.split("T")[0]?.replace(/-/gi,"/") || "no data")}</div>
                 <img src={imagePath || require('../../components/img/meal.png')} alt="meat icon" loading="lazy" className='smalllogolist' />
             </div>
                 <div class="food-waste-content">
