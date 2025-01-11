@@ -46,7 +46,7 @@ const GetAllNoteUserExp = () => {
             const dataSingle = data.entities[i];
         
             // Convert `timeOut` to Date object
-            const dt1 = new Date(dataSingle.timeOut.split('T')[0] || "2024-0-0");
+            const dt1 = new Date(dataSingle?.timeOut?.split('T')[0] || "2024-0-0");
             const dt2 = new Date();
         
             // Calculate the difference in days
