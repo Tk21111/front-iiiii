@@ -30,7 +30,7 @@ export default function OverayCenterView({ imgPath , dataFood, open, onClose ,do
                                 <p>Created at</p>
                                 <p>{dataFood.createdAt.split('T')[0].replace(/-/g, "/")}</p>
                                 <p>Expire at</p>
-                                <p>{dataFood.timeOut.split('T')[0].replace(/-/g, "/")}</p>
+                                <p>{(dataFood?.timeOut?.split('T')[0].replace(/-/g, "/") || "unknow")}</p>
                             </div>) : (
                                 <div className="food-waste-details" style={{ width: '200px' }}>
                                 <p>{(dataFood?.food?.length > 10 ? dataFood.food.substr(0,10) + '..' : dataFood?.food)}</p>
