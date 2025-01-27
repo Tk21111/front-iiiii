@@ -15,15 +15,12 @@ function Header() {
   const navigate = useNavigate();
   const p = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const [logoAppSrc, setLogoAppSrc] = useState(null);
-  const [menuSrc, setMenuSrc] = useState(null);
-  const [notiSrc, setNotiSrc] = useState(null);
+
 
   const user = useSelector(selectCurrentUser);
   const aka = useSelector(selectCurrentAka);
   const image = useSelector(selectCurrentImage);
   
-  console.log(image)
 
   const handleSwitch = () => {
     switchLanguage();

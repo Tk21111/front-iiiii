@@ -29,7 +29,7 @@ const PostsExcerpt = ({ i }) => {
         return <p>Loading...</p>;
     }
     return (
-        <div class="food-waste-item" style={{height : '150px'}} onDoubleClick={()=> navigate(`note/${i.id}`)}>
+        <div class="food-waste-item" style={{height : '150px'}} >
             <ConfirmSelection dataFood={i} donate={'false'} open={confirm} onCloseConfirm={()=> setConfirm(false)}/>
             <UpdateAmount note={i} onCloseConfirm={()=> setUpdate(false)} open={update}/>
             <div className='food-waste-front'>
@@ -49,6 +49,7 @@ const PostsExcerpt = ({ i }) => {
                                 <div>
                                     {i?.donate ? <li><p style={{ color : 'red'}}>donate !!</p></li> : null}
                                 <li><p onClickCapture={()=> setConfirm(true)} style={{ textDecoration: 'underline' }}>{translate('giveToanother')}</p></li>
+                                <li><p onClickCapture={()=> navigate(`note/${i.id}`)} style={{ textDecoration: 'underline' }}>view all</p></li>
                        
                                 </div>
                             </ul>

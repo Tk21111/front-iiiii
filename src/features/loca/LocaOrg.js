@@ -1,72 +1,35 @@
 import { useEffect, useState } from 'react';
-import { useGetAlllocaQuery } from './LocaApiSlice';
-import {useSelector} from 'react-redux'
-import { selectCurrentUser } from '../auth/authSlice'
-import LocasExcerpt from './LocaExcerpt';
-import filterEntitiesByTag from '../users/comp/Search';
-
+import { useGetOrgQuery } from '../users/NoteApiSlice';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
-import Overay from '../../components/Overlay';
-import { useGetOrgQuery } from '../users/NoteApiSlice';
 import LocasExcerptOrg from './LocaExcerptOrg';
+import { Alert } from '@mui/material';
+import filterEntitiesByTag from '../users/comp/Search';
 
 const GetOrg = () => {
     const { data: users, isLoading, isSuccess, isError, error } = useGetOrgQuery();
 
     const [page, setPage] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [refresh, setRefresh] = useState(0);
-
     const [search, setSearch] = useState('');
     const [searchType, setSearchType] = useState('username');
 
-    useEffect(() => {
-        if (!isLoading) {
-            setLoading(false);
-        }
-    }, [isLoading]);
+    const filterContent = () => {
+        const filteredEntities = search
+            ? filterEntitiesByTag(users.entities, search, searchType, false)
+            : users.entities;
 
-    const handleRefresh = () => {
-        setLoading(true);
-        setRefresh(prev => prev + 1); // This will trigger a re-fetch
+        return Object.keys(filteredEntities).map((id) => (
+            <LocasExcerptOrg key={id} i={filteredEntities[id]} own={false} />
+        ));
     };
-    
-    let content;
-    let lContent;
 
-       
-    if (loading) {
-        content = <p>Loading...</p>;
-    } else if (isSuccess) {
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
-        //this is what u have to modifine
-        //user = { ids , entities}
-        content = []
-        
-        if(search){
-            for (let i of Object.keys(filterEntitiesByTag(users.entities, search, searchType , false))) {
-                content.push(<LocasExcerptOrg key={i} i={users.entities[i]} own={false} />);
-            }
-            
-
-        } else {
-            for (let i of users.ids) {
-                content.push(<LocasExcerptOrg key={i} i={users.entities[i]} own={false} />);
-            }
-        }
-        
-        lContent = content.length / 24
-        content = content ? content?.slice(24 * page, 24 * (page + 1)) :  null   
-      
-    } else if (isError) {
-        let msg;
-        if (error.status === 400) {
-            msg = "No org to donate yet";
-        } else {
-            msg = JSON.stringify(error);
-        }
-        content = (
+    if (isError) {
+        const msg = error.status === 400 ? "No org to donate yet" : JSON.stringify(error);
+        return (
             <section>
                 <h1>{msg}</h1>
                 <Link to="/welcome">Back to Welcome</Link>
@@ -74,69 +37,55 @@ const GetOrg = () => {
         );
     }
 
+    const allContent = isSuccess ? filterContent() : [];
+    const paginatedContent = allContent.slice(24 * page, 24 * (page + 1));
+    const totalPages = Math.ceil(allContent.length / 24);
+
+    alert("This is just a demo นี่คือ ตัวทดลอง ไม่สามารถบริจาคให้ได้จริง หากต้องการ => https://cloudfoodbank.org/; Cloudfoodbank")
+
     return (
-        <div className='page'>
+        <div className="page">
             <Header />
-            <div className='content' >
-                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                <p style={{ marginRight : 'auto'}} className='welcomefont'><Link to="/location/oforg" >Food - Sharing</Link></p>
+            <div className="content">
+                <img src={require('../../components/img/star.png')} alt="star" className="smalllogo" />
+                <p className="welcomefont">
+                    <Link to="/location/oforg">Food - Sharing</Link>
+                </p>
             </div>
-            {/* search comp */}
+            {/* Search Component */}
             <div className="search">
-                <img src={require('../../components/img/search.png')} alt="icon" style={{ marginLeft: '8px' }} />
-                <input 
+                <img src={require('../../components/img/search.png')} alt="icon" className="search-icon" />
+                <input
                     type="text"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)} 
-                    placeholder="Search..." 
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search..."
                 />
-            </div>
-            <div>
                 <select
-                        className="selection"
-                        value={searchType}
-                        onChange={(e) => setSearchType(e.target.value)}
-                    >
-                        <option value="username">username</option>
-                        <option value="aka">aka</option>
-                    </select>
+                    className="selection"
+                    value={searchType}
+                    onChange={(e) => setSearchType(e.target.value)}
+                >
+                    <option value="username">username</option>
+                    <option value="aka">aka</option>
+                </select>
             </div>
-            {/* end search comp */}
-            <div className='user-list-parent'>{content}</div>
+            {allContent.length === 0 ? (
+                <Alert severity="info">No results found</Alert>
+            ) : (
+                <div className="user-list-parent">{paginatedContent}</div>
+            )}
+            {/* Pagination */}
             <div className="page-control">
-                <button onClick={() => setPage(page - 1)}  disabled={page === 0} >
-                   {"<"}
+                <button onClick={() => setPage(page - 1)} disabled={page === 0}>
+                    {"<"}
                 </button>
-                <button onClick={() => setPage(page + 1)} disabled={page + 1> lContent }>
+                <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPages}>
                     {">"}
                 </button>
             </div>
         </div>
     );
-}
-
+};
 
 export default GetOrg;
-
-/*<div>
-                <label>
-                    Search Query:
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Search Type:
-                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-                        <option value="text">Text</option>
-                        <option value="town">Town</option>
-                        <option value="subdistrict">Subdistrict </option>
-                        <option value="county">County </option>
-                        <option value="tag">tag </option>
-                        <option value="count">count </option>
-                        <option value="exp">exp </option>
-                    </select>
-                </label>
-            </div>*/

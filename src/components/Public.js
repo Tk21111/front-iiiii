@@ -22,9 +22,9 @@ const Public = () => {
                     <h1>Welcome to food storage web.</h1>
                 </header>
                 <main>
-                    <p>PLS PAY SO IT WORK
-                    </p>
-                    <p2>btw i don't know how CSS work so don't mind me</p2>
+                    
+                    <p>this is still in development please use with caution</p>
+                    <p>เว็บไซด์ที่ยังอยู่ในการพัฒนา โปรดใช้ด้วยความระวัง</p>
                 </main>
                 <footer>
                     <Link to="/login">login or registor </Link>

@@ -59,7 +59,7 @@ const PostsExcerpt = ({ i }) => {
     const imageUserPath = i?.user?.image?.map(image => image?.url);
 
     return (
-        <div className="food-waste-item" onDoubleClick={() => navigate(i?.id)}>
+        <div className="food-waste-item" >
             <div className="food-waste-front">
                 <img
                     src={imageUserPath ? imageUserPath[0] : require('../../components/img/home.png')}
@@ -74,6 +74,7 @@ const PostsExcerpt = ({ i }) => {
                         <h2>{i?.title}</h2>
                         <p>{i?.content.substr(0,20)}</p>
                         <h2>{likeList.length - unLikeList.length}</h2>
+                        <h2 onClickCapture={() => navigate(i?.id || "/post/false/" +i?._id)}>view all</h2>
                         <div className='post-single-like-comp'>
                             <button 
                                 onClickCapture={() => 
