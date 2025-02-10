@@ -56,8 +56,8 @@ const HowStor = () => {
             <div className="content-list">
                 {content.map((obj, index) => (
                     <article key={index} style={{ justifyContent: 'center', textAlign: 'center' }}>
-                        <h2>{obj[0]}</h2>
-                        <h2>{obj[1]['des']}</h2>
+                        <h2>{obj["name"]}</h2>
+                        <h2>{obj["des"]}</h2>
                     </article>
                 ))}
             </div>
