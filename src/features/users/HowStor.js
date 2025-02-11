@@ -22,7 +22,7 @@ const HowStor = () => {
    
     // Filter content based on search input
     if (search) {
-        content = content.filter(item => item[0].toLowerCase().includes(search.toLowerCase()));
+        content = content.filter(item => item["name"].toLowerCase().includes(search.toLowerCase()));
     }
 
     return (
