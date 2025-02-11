@@ -8,6 +8,7 @@ import "./styles.css";
 
 import Header from "../../components/Header";
 import { translate } from "../../hooks/translator";
+import { tagList } from "./comp/menu";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -342,16 +343,7 @@ const CreateNote = () => {
                   required
                   style={{height : "4vh"  , marginLeft : '1vh' ,marginRight : '1vh', paddingTop: '0.45vi'}}
               >
-                <option value="kg">กิโลกรัม</option>
-                <option value="piece">ชิ้น</option>
-                <option value="กล่อง">กล่อง</option>
-<option value="ขวด">ขวด</option>
-<option value="ถุง">ถุง</option>
-<option value="ฟอง">ฟอง</option>
-<option value="กรัม">กรัม</option>
-<option value="ขีด">ขีด</option>
-<option value="ต้น">ต้น</option>
-<option value="หัว">หัว</option>
+                {tagList.map(p => p)}
               </select>
               <div className="icon-container">
                 <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>

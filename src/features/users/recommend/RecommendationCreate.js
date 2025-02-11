@@ -4,6 +4,8 @@ import Header from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import { translate } from '../../../hooks/translator';
 
+import { tagList } from '../comp/menu';
+
 const RecommendationCreate = () => {
     const navigate = useNavigate();
     const [setHow, { data, isLoading, isError, error }] = useSetHowMutation();
@@ -162,8 +164,7 @@ const RecommendationCreate = () => {
                             required
                             style={{height : "4vh"  , marginLeft : '1vh' ,marginRight : '1vh', paddingTop: '0.45vi'}}
                         >
-                            <option value="kg">กิโลกรัม</option>
-                            <option value="piece">ชิ้น</option>
+                            {tagList.map(p => p)}
                         </select>
                         <button className='buttonCF'style={{width : '10%' }} type="button" onClick={() => removeIngredient(index)}>
                             X

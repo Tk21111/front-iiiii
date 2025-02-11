@@ -105,6 +105,21 @@ const listHowVeg = [
   { name: 'เมล็ดทานตะวัน', des: 'เก็บในที่เย็น แห้ง และปิดสนิท' },
   { name: 'เมล็ดฟักทอง', des: 'เก็บในที่เย็นและปิดสนิท' }
 ]
-export {listNew , listHowMeat , listHowVeg};
+
+
+const tagList =[
+      <option value="kg">กิโลกรัม</option>,
+      <option value="piece">ชิ้น</option>,
+      <option value="กล่อง">กล่อง</option>,
+      <option value="ขวด">ขวด</option>,
+      <option value="ถุง">ถุง</option>,
+      <option value="ฟอง">ฟอง</option>,
+      <option value="กรัม">กรัม</option>,
+      <option value="ขีด">ขีด</option>,
+      <option value="ต้น">ต้น</option>,
+      <option value="หัว">หัว</option>,
+]
+
+export {listNew , listHowMeat , listHowVeg , tagList};
 
 
