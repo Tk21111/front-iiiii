@@ -344,6 +344,14 @@ const CreateNote = () => {
               >
                 <option value="kg">กิโลกรัม</option>
                 <option value="piece">ชิ้น</option>
+                <option value="กล่อง">กล่อง</option>
+<option value="ขวด">ขวด</option>
+<option value="ถุง">ถุง</option>
+<option value="ฟอง">ฟอง</option>
+<option value="กรัม">กรัม</option>
+<option value="ขีด">ขีด</option>
+<option value="ต้น">ต้น</option>
+<option value="หัว">หัว</option>
               </select>
               <div className="icon-container">
                 <label htmlFor={`postTag-${index}`} className='welcomefont'>{translate('tag') + " : "}</label>
