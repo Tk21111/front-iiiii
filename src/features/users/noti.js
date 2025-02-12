@@ -61,6 +61,7 @@ const Noti = () => {
             ? "almostExpired"
             : "good",
           date: formattedDate,
+          timeOut : noteObj?.timeOut
         };
   
         setNewNoti(notiObject);
@@ -104,7 +105,7 @@ const Noti = () => {
             <div className="food-waste-details">
               <h2>{notiObject.text}</h2>
               {notiObject.status === "expiring" ? (
-                <p>{`You have ${notiObject.count[notiObject.count.length - 1]} of ${notiObject.text} will expire soon.`}</p>
+                <p>{`You have ${notiObject.count[notiObject.count.length - 1]} of ${notiObject.text} will expire soon. ${notiObject?.timeOut}`}</p>
               ) : notiObject.status === "almostExpired" ? (
                 <p>{`You have ${notiObject.count[notiObject.count.length - 1]} Keep an eye on ${notiObject.text} as it  will expire in a few days.`}</p>
               ) : (
