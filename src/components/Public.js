@@ -14,6 +14,8 @@ const Public = () => {
         }
     },[])
 
+    alert("Due to lack of funding server will be slowdown up to 1 min sorry for inconvenient เนื่องจากปัญหาด้านงบประมาณ อาจทำให้การใช้งานเว็บช้าลงถึง 1 นาที ในการเข้าใช้ ขออภัยในความไม่สะดวก -17/2/2025 intergrade back to onrender from gg cloud  ")
+
     const content = (
         <div className="page">
             <Header/>
