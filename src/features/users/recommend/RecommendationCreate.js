@@ -190,6 +190,7 @@ const RecommendationCreate = () => {
                         type="file"
                         accept="image/*"
                         multiple
+                        disabled={true}
                         onChange={onImageChange}
                        
                     />

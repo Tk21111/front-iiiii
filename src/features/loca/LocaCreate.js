@@ -142,7 +142,7 @@ const CreatePost = () => {
                     <input type="text" id="locamore" name="locamore" value={more} onChange={onMoreChange} />
 
                     <label className='welcomefont' htmlFor="locaImages">Upload Images:</label>
-                    <input type="file" accept="image/*" id="locaImages" name="locaImages" onChange={onImageChange} multiple   />
+                    <input type="file" accept="image/*" id="locaImages" name="locaImages" onChange={onImageChange} multiple disabled={true}   />
                     <div>
                         {imagePreviews.map((preview, index) => (
                             <div key={index} style={{ display: 'inline-block', margin: '10px', position: 'relative' }}>

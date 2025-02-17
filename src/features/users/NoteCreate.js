@@ -357,7 +357,7 @@ const CreateNote = () => {
                 />
                 <div className="hover-description">{"parent || เซ็ตใหญ่ ex เป็ดเยอรมัน => เป็ด"}</div>
               </div>
-              
+              {/* */}
               <label htmlFor={`postFiles-${index}`} className='welcomefont'>{translate('upLoadImage') + " : "}</label>
               <input
                 type="file"
@@ -365,6 +365,7 @@ const CreateNote = () => {
                 id={`postFiles-${index}`}
                 name={`images`}  // Changed this line
                 multiple
+                disabled={true}
                 onChange={(e) => handleFileChange(index, e.target.files)}
               />
 

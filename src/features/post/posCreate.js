@@ -113,12 +113,14 @@ const PostCreate = () => {
                         onChange={(e) => setContent(e.target.value)}
                         style={{fontSize : '100%'}}
                     ></textarea>
+                
                 <div>
                     <label className='welcomefont'>Images:</label>
                     <input
                         type="file"
                         accept="image/*"
                         multiple
+                        disabled={true}
                         onChange={onImageChange}
                     />
                 </div>
