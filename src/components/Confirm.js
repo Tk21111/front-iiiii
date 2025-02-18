@@ -28,6 +28,7 @@ export default function Confirm({ link, open, onCloseConfirm, loca }) {
                 formData.append(`notes[0][count]`, loca.num || 0);
                 formData.append(`notes[0][countExp]`, 0);
                 formData.append(`notes[0][tag]`, loca.food.tag);
+                formData.append(`notes[0][typeCount]`, loca.food.typeCount || "");
                 formData.append(`notes[0][donate]`, true);
 
                

@@ -14,6 +14,7 @@ import Overay from "../../components/Overlay";
 
 const GetAllNoteUser = () => {
   const [page, setPage] = useState(0);
+  const [showExp , setShowExp] = useState(false);
 
   const user = { username: useSelector(selectCurrentUser) };
   const { data: users, isLoading, isSuccess, isError, error } = useGetAllnoteQuery(
@@ -41,12 +42,20 @@ const GetAllNoteUser = () => {
     //content is list because str didn't work
     content = [];
 
-    if (users.ids.length !== 0 && !search) {
-      for (let i of users.ids) {
+    //disable expired 
+    const timeNow = new Date()
+    let filteredIds = users?.ids;
+    if (!showExp) {
+      filteredIds = users?.ids?.filter(id => new Date(users.entities[id].timeOut) > timeNow);
+    }
+
+
+    if (filteredIds.length !== 0 && !search) {
+      for (let i of filteredIds) {
         content.push(<PostsExcerpt key={i} i={users.entities[i]} />);
       }
     } else if (search) {
-      for (let i of Object.keys(
+      for (let i of filteredIds(
         filterEntitiesByTag(users.entities, search, searchType)
       )) {
         content.push(<PostsExcerpt key={i} i={users.entities[i]} />);
@@ -109,6 +118,14 @@ else if (isError) {
           <option value="text">Text</option>
           <option value="tag">Tag</option>
         </select>
+        <label htmlFor="postDone">Show Exp</label>
+          <input
+            type="checkbox"
+            id="showExp"
+            name="showExp"
+            checked={showExp}
+            onChange={(e) => setShowExp(e.target.checked)}
+          />
         {/*end search comp*/}
       </div>
       <div className="user-list-parent">{content}</div>

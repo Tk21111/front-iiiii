@@ -35,6 +35,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
                 formData.append(`notes[0][count]`, amount);
                 formData.append(`notes[0][countExp]`, 0);
                 formData.append(`notes[0][tag]`, dataFood.tag);
+                formData.append(`notes[0][typeCount]`, dataFood.typeCount || "");
                 formData.append(`notes[0][donate]`, true);
                   
                 await createNote({
@@ -118,7 +119,7 @@ export default function ConfirmSelection({ link, open, onCloseConfirm, dataFood,
 
                     <div className="food-waste-item-sub" style={{ border: '0px'}}>
                         <div className="food-waste-details" style={{ textAlign: 'left', width: '20%', marginLeft: '-5%', marginRight: '50%' }}>
-                            <p>{dataFood.text.substr(0, 10) + '\n' + ': ' + dataFood.count[dataFood.count.length -1 ]}</p>
+                            <p>{dataFood.text.substr(0, 10) + '\n' + ': ' + (dataFood.count[dataFood.count.length -1 ] - dataFood.countExp[dataFood.countExp.length - 1])}</p>
                         </div>
                         <div className="food-waste-details">
                             {<div onClick={() => sent(dataFood, amount)} style={{

@@ -31,31 +31,16 @@ export const noteApislice = apiSlice.injectEndpoints({
         }),
         
         
-        getAllNoteUser: builder.mutation({ //username didn't get use the func intent is not working
+        getAllInfoUser: builder.mutation({ //username didn't get use the func intent is not working
             query: (data) => ({
-                url: '/note/',
+                url: '/user/info',
                 method: 'PATCH',
                 validiteStatus : (response , result) => {
                     return response.status === 200 && ! result.isError
                 },
                 body : {...data}
                 
-            }),
-            transformResponse : responseData => {
-                const loadedNotes = responseData.map(note => {
-                    note.id = note._id
-                    return note
-                });
-                return notesAdapter.setAll(initialState , loadedNotes)
-            },
-            providesTags: (result, error, arg) => {
-                if (result?.ids) {
-                    return [
-                        { type: 'Note', id: 'LIST' },
-                        ...result.ids.map(id => ({ type: 'Note', id }))
-                    ]
-                } else return [{ type: 'Note', id: 'LIST' }]
-            }
+            })
            
         }),
         createNote : builder.mutation({
@@ -197,9 +182,9 @@ export const noteApislice = apiSlice.injectEndpoints({
 });
 
 
-export const { useUpdateNoteMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
+export const { useUpdateNoteMutation , useGetAllInfoUserMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
 // returns the query result object
-export const selectNotesResult = noteApislice.endpoints.getAllNoteUser.select()
+export const selectNotesResult = noteApislice.endpoints.getAllnote.select()
 
 // creates memoized selector
 const selectNotesData = createSelector(
