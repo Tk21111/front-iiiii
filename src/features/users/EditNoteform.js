@@ -5,6 +5,7 @@ import { useGetAllnoteQuery, useDeleteNoteMutation, useUpdateNoteMutation } from
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../auth/authSlice';
 import Header from '../../components/Header';
+import { tagList } from './comp/menu';
 
 const EditPostForm = () => {
 
@@ -23,6 +24,7 @@ const EditPostForm = () => {
     const [expTime, setExpTime] = useState('');
     const [count, setCount] = useState(0);
     const [countExp, setCountExp] = useState(0);
+    const [typeCount, setTypeCount] = useState('kg');
     const [tag, setTag] = useState('');
     const [done, setDone] = useState(false);
     const [id, setId] = useState(false);
@@ -62,7 +64,7 @@ const EditPostForm = () => {
     const onSavePostClicked = async () => {
         if (canSave) {
             try {
-                await updateNote({ id: noteId, text: title, date: expTime, count, countExp, done, tag: (tag.includes(',') ? tag.split(',') : tag) , update : false}).unwrap();
+                await updateNote({ id: noteId, text: title, date: expTime, count, countExp, done , typeCount, tag: (tag.includes(',') ? tag.split(',') : tag) , update : false}).unwrap();
                 navigate(`/user/note/${noteId}`)
             } catch (err) {
                 console.error('Failed to save the post', err);
@@ -121,6 +123,15 @@ const EditPostForm = () => {
                         max="999"
                         min="0"
                     />
+                    <label htmlFor="postCountExp">Type Count:</label>
+                    <select
+                        value={typeCount}
+                        onChange={(e) => setTypeCount(e.target.value)}
+                        required
+                        style={{height : "4vh"  , marginLeft : '1vh' ,marginRight : '1vh', paddingTop: '0.45vi'}}
+                    >
+                        {tagList.map(p => p)}
+                    </select>
                     <label htmlFor="postTag">Tag:</label>
                     <input
                         type="text"
