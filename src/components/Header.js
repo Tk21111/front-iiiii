@@ -63,6 +63,9 @@ function Header() {
           <ListItem button component={Link} to="/save" onClick={toggleDrawer(false)}>
             ดูโพสต์ที่เก็บไว้
           </ListItem>
+          <ListItem button component={Link} to="/getuser" onClick={toggleDrawer(false)}>
+            getUserAdmin
+          </ListItem>
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
             {translate("changeLang")}
           </ListItem>

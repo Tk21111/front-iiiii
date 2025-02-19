@@ -95,6 +95,12 @@ export const noteApislice = apiSlice.injectEndpoints({
                 return notesAdapter.setAll(initialState , loadedNotes)
             },
         }),
+        GetAllUser: builder.query({
+            query: () => ({
+                url : '/user/get/user',
+                method : 'GET'
+            })
+        }),
         getNoti: builder.query({
             query: () => ({
                 url: '/user/noti',
@@ -182,7 +188,7 @@ export const noteApislice = apiSlice.injectEndpoints({
 });
 
 
-export const { useUpdateNoteMutation , useGetAllInfoUserMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
+export const { useGetAllUserQuery , useUpdateNoteMutation , useGetAllInfoUserMutation , useCreateNoteMutation, useDeleteNoteMutation , useGetAllnoteQuery , useGetOrgQuery , useUpdateUserMutation , useGetUserMutation , useGetNotiQuery , useSetNotiMutation , useGetHowQuery , useSetHowMutation , useUpdateHowMutation , useDeleteHowMutation} = noteApislice;
 // returns the query result object
 export const selectNotesResult = noteApislice.endpoints.getAllnote.select()
 

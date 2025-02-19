@@ -50,7 +50,10 @@ import PostSingle from './features/post/posSingle'
 import Notification from './components/Noti'
 import SavePost from './features/post/postSave'
 import Testtran from './hooks/useTranslation'
+
 import Contract from './features/users/Contract'
+import GetAllUserAdmin from './features/users/pr/GetAllPr'
+
 function App() {
   return (
     
@@ -73,7 +76,11 @@ function App() {
               <Route path='contract' element={<Contract/>}/>
               <Route path='tran' element={<Testtran/>}/>
               <Route path='record' element={<SpeechToText/>}/>
-              <Route path='getuser/:userId' element={<GetUser/>}/>
+
+              <Route path='getuser'>
+                <Route index element={<GetAllUserAdmin/>}/> 
+                <Route path='getuser/:userId' element={<GetUser/>}/>
+              </Route>
 
               {/* user && note */}
               <Route path="user">
