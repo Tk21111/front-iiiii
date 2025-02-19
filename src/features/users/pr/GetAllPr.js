@@ -15,6 +15,7 @@ const GetAllUserAdmin = () => {
 
     const [search, setSearch] = useState("");
     const [searchType, setSearchType] = useState("null");
+    const [searchTypeUser, setSearchTypeUser] = useState("username");
     const [page, setPage] = useState(0);
 
 
@@ -27,7 +28,10 @@ const GetAllUserAdmin = () => {
     if(searchType !== "null"){
         dataFilter = data.filter((val) => val.roles.includes(searchType));
     }
-    dataFilter = dataFilter.filter((val) => val.username.includes(search)); 
+    if (search !== "null" && searchType === "null") {
+        dataFilter = dataFilter.filter((val) => val?.[searchTypeUser]?.includes(search));
+
+    }
 
     console.log(dataFilter);        
 
@@ -75,6 +79,11 @@ const GetAllUserAdmin = () => {
                 <option value="User">user</option>
                 <option value="org">org</option>
                 <option value="null">all</option>
+            </select>
+            <select className="selection" value={searchTypeUser} onChange={(e) => setSearchTypeUser(e.target.value)}>
+                <option value="username">username</option>
+                <option value="name">realname</option>
+                <option value="aka">aka</option>
             </select>
             {/* End Search Component */}
             <div className="user-list-parent">{content}</div>
