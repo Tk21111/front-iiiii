@@ -105,7 +105,7 @@ const Login = () => {
                     <button className='buttonCF'>{translate("login")}</button>
                 </form>
                 <div style={{display : 'flex' , justifyContent: 'center' , marginTop : '3%'}}>
-                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signin")}</button>
+                    <button onClickCapture={() => navigate('/registor')} className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signup")}</button>
                 </div>
             </section>
             

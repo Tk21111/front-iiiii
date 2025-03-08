@@ -6,7 +6,7 @@ import Public from './components/Public'
 import Login from './features/auth/Hlogin'
 import Welcome from './features/auth/Welcome'
 import RequireAuth from './features/auth/RequireAuth'
-import Signin from './features/auth/Hsignin'
+import Signup from './features/auth/Hsignup'
 import LogOut from './features/auth/Hlogout'
 import PersistLogin from './features/auth/PersistLogin'
 import Prefetch from './features/auth/Prefetch'
@@ -54,6 +54,7 @@ import Testtran from './hooks/useTranslation'
 import Contract from './features/users/Contract'
 import GetAllUserAdmin from './features/users/pr/GetAllPr'
 
+
 function App() {
   return (
     
@@ -62,7 +63,7 @@ function App() {
 
         {/* public routes */}
         <Route index element={<Public />} />
-        <Route path="registor" element={<Signin />} />
+        <Route path="registor" element={<Signup />} />
         <Route path="login" element={<Login />} />
 
         {/* protected routes */}

@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
-import { useSigninMutation } from './authApiSlice';
+import { useSignupMutation } from './authApiSlice';
 import { translate } from '../../hooks/translator';
 
-const Signin = () => {
+const Signup = () => {
     const userRef = useRef();
     const errRef = useRef();
     const [user, setUser] = useState('');
@@ -18,7 +18,7 @@ const Signin = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [signin, { isLoading }] = useSigninMutation();
+    const [signup, { isLoading }] = useSignupMutation();
 
     useEffect(() => {
         userRef.current.focus();
@@ -44,7 +44,7 @@ const Signin = () => {
 
 
         try {
-            const userData = await signin({ user, pwd , name , age , sex}).unwrap();
+            const userData = await signup({ user, pwd , name , age , sex}).unwrap();
             dispatch(setCredentials({ ...userData, user }));
             setUser('');
             setPwd('');
@@ -69,7 +69,7 @@ const Signin = () => {
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
                     {errMsg}
                 </p>
-                <h1 className='welcomefont' style={{color : '#FFE55F'}}>Signin</h1>
+                <h1 className='welcomefont' style={{color : '#FFE55F'}}>signup</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="username"  className='welcomefont' style={{color : '#F9AEFF'}}>{translate('username')}</label>
                     <input
@@ -125,11 +125,11 @@ const Signin = () => {
                         onChange={(e) => setCPwd(e.target.value)}
                         required
                     />
-                    <button className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signin")}</button>
+                    <button className='buttonCF' style={{color : '#B0E7FF' , backgroundColor : '#F9AEFF'}}>{translate("signup")}</button>
                 </form>
             </section>
         </div>
     );
 };
 
-export default Signin;
+export default Signup;

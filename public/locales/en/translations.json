@@ -60,7 +60,7 @@
   "sex" : "sex",
   "password" : "password",
   "cpassword" : "confirm password",
-  "signin" : "sign in",
+  "signup" : "sign up",
   "login" : "log in",
   "TTD" : "remember me"
 

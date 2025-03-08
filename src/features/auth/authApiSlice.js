@@ -50,7 +50,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 }
             }
         }),
-        signin: builder.mutation({
+        signup: builder.mutation({
             query: (credential) => ({
                 url: '/register',
                 method : 'POST',
@@ -64,5 +64,5 @@ export const {
     useLoginMutation,
     useSendLogoutMutation,
     useRefreshMutation,
-    useSigninMutation
+    useSignupMutation
 } = authApiSlice
