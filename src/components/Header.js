@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import { Link, useNavigate, useParams } from 'react-router-dom'; 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser, selectCurrentAka, selectCurrentImage } from '../features/auth/authSlice';
+import { selectCurrentUser, selectCurrentAka, selectCurrentImage, selectCurrentRoles } from '../features/auth/authSlice';
 
 import { switchLanguage , translate } from '../hooks/translator';
 
@@ -16,12 +16,9 @@ function Header() {
   const p = useParams();
   const [isOpen, setIsOpen] = useState(false);
 
-
-  const user = useSelector(selectCurrentUser);
-  const aka = useSelector(selectCurrentAka);
   const image = useSelector(selectCurrentImage);
+  const roles = useSelector(selectCurrentRoles);
   
-
   const handleSwitch = () => {
     switchLanguage();
     };
@@ -63,9 +60,12 @@ function Header() {
           <ListItem button component={Link} to="/save" onClick={toggleDrawer(false)}>
             ดูโพสต์ที่เก็บไว้
           </ListItem>
-          <ListItem button component={Link} to="/getuser" onClick={toggleDrawer(false)}>
+          { roles?.includes(['Admin' , 'Editor'])? 
+            <ListItem button component={Link} to="/getuser" onClick={toggleDrawer(false)}>
             getUserAdmin
-          </ListItem>
+            </ListItem> :
+            null
+          }
           <ListItem button component={Link} onClick={() => {handleSwitch() ; toggleDrawer(false);}}>
             {translate("changeLang")}
           </ListItem>

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../../components/Header";
 import searchIcon from "../../../components/img/search.png"; // Import image
 import Chart from "react-google-charts";
+import { selectCurrentRoles } from "../../auth/authSlice";
+import { useSelector } from "react-redux";
 
 const GetAllUserAdmin = () => {
     const { userId } = useParams(); // Extract userId properly
@@ -17,6 +19,16 @@ const GetAllUserAdmin = () => {
     const [searchType, setSearchType] = useState("null");
     const [searchTypeUser, setSearchTypeUser] = useState("username");
     const [page, setPage] = useState(0);
+
+    const roles = useSelector(selectCurrentRoles);
+
+    useEffect(() => {
+
+        if(!roles?.includes(["Admin" , "Editor"])){
+            navigate("/welcome")
+        }
+
+    }, [])
 
 
     if (isLoading) return <p>Loading...</p>;

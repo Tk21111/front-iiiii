@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState: { user : null , token: null , aka : null , image : null},
+    initialState: { user : null , token: null , aka : null , image : null , roles : null},
     reducers: {
         setCredentials: (state, action) => {
-            const { user , accessToken , image ,aka } = action.payload
+            const { user , accessToken , image ,aka ,roles } = action.payload
             if (user) {
                 state.user = user
             } 
@@ -18,6 +18,9 @@ const authSlice = createSlice({
             if (image){
                 state.image = image
             }
+            if (roles){
+                state.roles = roles
+            }
             
         },
         logOut: (state, action) => {
@@ -25,6 +28,7 @@ const authSlice = createSlice({
             state.token = null
             state.image = null
             state.aka = null
+            state.roles = null
         }
     },
 })
@@ -37,3 +41,4 @@ export const selectCurrentToken = (state) => state.auth.token
 export const selectCurrentUser = (state) => state.auth.user
 export const selectCurrentImage = (state) => state.auth.image
 export const selectCurrentAka= (state) => state.auth.aka
+export const selectCurrentRoles= (state) => state.auth.roles
