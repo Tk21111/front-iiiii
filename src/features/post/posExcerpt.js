@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useGetSavePostQuery, useSavePostMutation, useSetLikeMutation } from './PostApiSlice';
 import { translate } from '../../hooks/translator';
 
-const PostsExcerpt = ({ i }) => {
+const PostsExcerpt = ({ i , comment }) => {
 
     const username = useSelector(selectCurrentUser);
 
@@ -72,7 +72,7 @@ const PostsExcerpt = ({ i }) => {
                 <div className="food-waste-content">
                     <div className="food-waste-details">
                         <h2>{i?.title}</h2>
-                        <p>{i?.content.substr(0,20)}</p>
+                        // <p>{comment? i?.content : i?.content.substr(0,20)}</p>
                         <h2>{likeList.length - unLikeList.length}</h2>
                         <h2 onClickCapture={() => navigate(i?.id || "/post/false/" +i?._id)}>view all</h2>
                         <div className='post-single-like-comp'>
