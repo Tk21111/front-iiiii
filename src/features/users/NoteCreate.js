@@ -220,7 +220,7 @@ const CreateNote = () => {
             formData.append(`notes[${index}][text]`, note.title);
             formData.append(`notes[${index}][date]`, note.expTime);
             formData.append(`notes[${index}][count]`, note.count);
-            formData.append(`notes[${index}][countExp]`, note.countExp);
+            formData.append(`notes[${index}][countExp]`, note.countExp || 0);
             formData.append(`notes[${index}][typeCount]`, note.typeCount);
             formData.append(`notes[${index}][done]`, note.done);
             formData.append(`notes[${index}][tag]`, note.tag);
