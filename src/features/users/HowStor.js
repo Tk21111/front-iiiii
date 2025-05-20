@@ -30,7 +30,7 @@ const HowStor = () => {
             <Header />
             <div className='content' >
                 <img src={require('../../components/img/star.png')} alt="star" className="smalllogo"/>
-                <p style={{ marginRight : 'auto'}} className='welcomefont'>{type === 'veg' ? <Link to="/user/veg" >Vegetables & Friuts</Link>: <Link to="/user/meat" >Meat</Link> }</p>
+                <p style={{ marginRight : 'auto'}} className='welcomefont'>{type === 'veg' ? <Link to="/user/store/veg" >Vegetables & Friuts</Link>: <Link to="/user/store/meat" >Meat</Link> }</p>
             </div>
             <div className="food-waste-list">
                 {/* Search component */}
