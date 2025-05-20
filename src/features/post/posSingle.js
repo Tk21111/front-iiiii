@@ -226,7 +226,7 @@ const PostSingle = () => {
               comments.slice(24 * page, 24 * (page + 1)).map(comment => { 
                 
                 return (
-                <PostsExcerpt key={comment._id} i={comment} />
+                <PostsExcerpt key={comment._id} i={comment} comment={true}/>
               )})
             ) : (
               <p>No comment</p>
